@@ -19,7 +19,7 @@ namespace STRACT.Entities.Declaration
         public string Title { get; set; }
 
         [Required]
-        [Display(Name = "FullName")]
+        [Display(Name = "Motive")]
         public string Motive { get; set; }
 
         [DisplayFormat(DataFormatString ="{dd MM yyyy}")]

@@ -47,8 +47,7 @@ namespace STRACT.web
                 .AddDataAnnotationsLocalization();
 
 
-            #region
-            //Localization e Globalization
+            #region Localization e Globalization Services
             services.AddLocalization(options => options.ResourcesPath = "Resources");
             services.AddSingleton<LocalizationService>();
             services.AddMvc()
@@ -67,10 +66,8 @@ namespace STRACT.web
                 var supportedCultures = new[]
                 {
                     new CultureInfo("en"),
-                    new CultureInfo("ar"),
                     new CultureInfo("de"),
-                    new CultureInfo("hi"),
-                    new CultureInfo("zh"),
+                    new CultureInfo("pt"),
                 };
 
                 // State what the default culture for your application is. This will be used if no specific culture
@@ -108,11 +105,9 @@ namespace STRACT.web
 
             app.UseRouting();
 
-            #region
-
+            #region Localization e Globalization Configurations
             var requestlocalizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(requestlocalizationOptions.Value);
-
             #endregion
 
             app.UseAuthentication();

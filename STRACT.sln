@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STRACT.Common", "STRACT.Com
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "STRACT.Common.Test", "STRACT.Common.Test\STRACT.Common.Test.csproj", "{EA135D49-2D59-45DD-8918-1504D18BA500}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STRACT.Identity", "STRACT.Identity\STRACT.Identity.csproj", "{8CF9F5AE-D376-47CA-9DE4-722FDA579613}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STRACT.Identity.Test", "STRACT.Identity.Test\STRACT.Identity.Test.csproj", "{7A852860-8A1A-4772-950F-9C85EE914D5E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{EA135D49-2D59-45DD-8918-1504D18BA500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA135D49-2D59-45DD-8918-1504D18BA500}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA135D49-2D59-45DD-8918-1504D18BA500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CF9F5AE-D376-47CA-9DE4-722FDA579613}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CF9F5AE-D376-47CA-9DE4-722FDA579613}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CF9F5AE-D376-47CA-9DE4-722FDA579613}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CF9F5AE-D376-47CA-9DE4-722FDA579613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A852860-8A1A-4772-950F-9C85EE914D5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A852860-8A1A-4772-950F-9C85EE914D5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A852860-8A1A-4772-950F-9C85EE914D5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A852860-8A1A-4772-950F-9C85EE914D5E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

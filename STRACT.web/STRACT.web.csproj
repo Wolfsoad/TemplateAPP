@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\STRACT.Entities\STRACT.Entities.csproj" />
+    <ProjectReference Include="..\STRACT.Identity\STRACT.Identity.csproj" />
   </ItemGroup>
 
 </Project>

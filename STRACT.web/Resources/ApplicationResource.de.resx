@@ -132,14 +132,23 @@
   <data name="Confirm password" xml:space="preserve">
     <value>Passwort bestätigen</value>
   </data>
+  <data name="Create a new account." xml:space="preserve">
+    <value>Erstellen Sie ein neues Konto.</value>
+  </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Erstelldatum</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="Email / Username" xml:space="preserve">
+    <value>Email / Nutzername</value>
+  </data>
   <data name="First Name" xml:space="preserve">
     <value>Vorname</value>
+  </data>
+  <data name="Forgot your password?" xml:space="preserve">
+    <value>Passwort vergessen?</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Hallo</value>
@@ -180,6 +189,15 @@
   <data name="Register" xml:space="preserve">
     <value>Registrieren</value>
   </data>
+  <data name="Register as a new user" xml:space="preserve">
+    <value>Registrieren Sie sich als neuer Benutzer</value>
+  </data>
+  <data name="Remember me?" xml:space="preserve">
+    <value>Erinnere dich an mich?</value>
+  </data>
+  <data name="Resend email confirmation" xml:space="preserve">
+    <value>Erneut senden E-Mail-Bestätigung</value>
+  </data>
   <data name="Role" xml:space="preserve">
     <value>Rolle</value>
   </data>
@@ -200,6 +218,15 @@
   </data>
   <data name="Update" xml:space="preserve">
     <value>Aktualisieren</value>
+  </data>
+  <data name="Use a local account to log in." xml:space="preserve">
+    <value>Verwenden Sie ein lokales Konto, um sich anzumelden.</value>
+  </data>
+  <data name="Use another service to log in." xml:space="preserve">
+    <value>Verwenden Sie einen anderen Dienst, um sich anzumelden.</value>
+  </data>
+  <data name="Use another service to register." xml:space="preserve">
+    <value>Verwenden Sie einen anderen Dienst, um sich zu registrieren.</value>
   </data>
   <data name="User Roles" xml:space="preserve">
     <value>Benutzerrollen</value>

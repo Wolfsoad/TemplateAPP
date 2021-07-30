@@ -11,5 +11,6 @@ namespace STRACT.Common
         public const string PasswordLengthOutsideRequiredValues = "The {0} must be at least {2} and at max {1} characters long.";
 
         public const string PasswordConfirmationDontMatchPassword = "The password and confirmation password do not match.";
+
     }
 }

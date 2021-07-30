@@ -25,13 +25,26 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UserRoles" asp-action="Index">@_loc.GetLocalizedHtmlString("User Roles")</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="RoleManager" asp-action="Index">@_loc.GetLocalizedHtmlString("Roles Manager")</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">@_loc.GetLocalizedHtmlString("Privacy")</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+                    
                 </div>
             </div>
-            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li>
+                        <partial name="_LoginPartial" />
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>
                         @await Html.PartialAsync("_SetLanguagePartial")

@@ -19,8 +19,9 @@
           asp-action="SetLanguage"
           asp-route-returnUrl="@Context.Request.Path"
           method="post">
-        @_loc.GetLocalizedHtmlString("Language") :-
+        @_loc.GetLocalizedHtmlString("Language") : 
         <select name="culture"
+                class="form-select"
                 onchange="this.form.submit();"
                 asp-for="@requestCulture.RequestCulture.UICulture.Name"
                 asp-items="cultureItems">

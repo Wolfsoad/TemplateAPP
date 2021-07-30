@@ -1,18 +1,21 @@
 ﻿@using STRACT.web.Models
+@using STRACT.web.Resources
+
+@inject LocalizationService _loc
 @model List<UserRolesViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>User Roles</h1>
+<h1>@_loc.GetLocalizedHtmlString("User Roles")</h1>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th>Action</th>
+            <th>@_loc.GetLocalizedHtmlString("First Name")</th>
+            <th>@_loc.GetLocalizedHtmlString("Last Name")</th>
+            <th>@_loc.GetLocalizedHtmlString("Email")</th>
+            <th>@_loc.GetLocalizedHtmlString("Roles")</th>
+            <th>@_loc.GetLocalizedHtmlString("Action")</th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +27,7 @@
                 <td>@user.Email</td>
                 <td>@string.Join(" , ", user.Roles.ToList())</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
+                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">@_loc.GetLocalizedHtmlString("Manage Roles")</a>
                 </td>
             </tr>
         }

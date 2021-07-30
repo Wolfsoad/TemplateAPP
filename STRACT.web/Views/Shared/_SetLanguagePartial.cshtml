@@ -2,7 +2,9 @@
 @using Microsoft.AspNetCore.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Options
+@using STRACT.web.Resources
 
+@inject LocalizationService _loc
 @inject IViewLocalizer Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
 @{
@@ -17,7 +19,7 @@
           asp-action="SetLanguage"
           asp-route-returnUrl="@Context.Request.Path"
           method="post">
-        Language :-
+        @_loc.GetLocalizedHtmlString("Language") :-
         <select name="culture"
                 onchange="this.form.submit();"
                 asp-for="@requestCulture.RequestCulture.UICulture.Name"

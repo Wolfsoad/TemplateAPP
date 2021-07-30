@@ -117,13 +117,97 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Ação</value>
+  </data>
+  <data name="Add New Role" xml:space="preserve">
+    <value>Adicionar Função</value>
+  </data>
+  <data name="Add/Remove Roles for User" xml:space="preserve">
+    <value>Adicionar/Remover funções dos utilizadores</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="Confirm password" xml:space="preserve">
+    <value>Confirmação de senha</value>
+  </data>
   <data name="DateCreation" xml:space="preserve">
     <value>Data de Criação</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>Primeiro Nome</value>
+  </data>
+  <data name="Hello" xml:space="preserve">
+    <value>Olá</value>
+  </data>
+  <data name="Id" xml:space="preserve">
+    <value>Id</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Língua</value>
+  </data>
+  <data name="Last Name" xml:space="preserve">
+    <value>Último Nome</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Entrar</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Sair</value>
+  </data>
+  <data name="Manage" xml:space="preserve">
+    <value>Gestão</value>
+  </data>
+  <data name="Manage Roles" xml:space="preserve">
+    <value>Gerir funções</value>
+  </data>
+  <data name="Manage User Roles" xml:space="preserve">
+    <value>Gerir funções do utilizador</value>
   </data>
   <data name="Motive" xml:space="preserve">
     <value>Motivo</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Palavra passe</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacidade</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Registar</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Função</value>
+  </data>
+  <data name="Roles" xml:space="preserve">
+    <value>Funções</value>
+  </data>
+  <data name="Roles Manager" xml:space="preserve">
+    <value>Gestor de Funções</value>
+  </data>
+  <data name="The password and confirmation password do not match." xml:space="preserve">
+    <value>A senha e a senha de confirmação não correspondem.</value>
+  </data>
+  <data name="The {0} must be at least {2} and at max {1} characters long." xml:space="preserve">
+    <value>A {0} deve ter pelo menos {2} e no máximo {1} caracteres.</value>
+  </data>
   <data name="Title" xml:space="preserve">
     <value>Título</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Atualizar</value>
+  </data>
+  <data name="User Roles" xml:space="preserve">
+    <value>Funções do Utilizador</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nome do Utilizador</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bem Vindo</value>
   </data>
 </root>

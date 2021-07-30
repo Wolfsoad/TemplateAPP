@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using STRACT.Identity;
+using STRACT.web.Resources;
+using STRACT.Common;
 
 namespace STRACT.web.Areas.Identity.Pages.Account
 {
@@ -61,14 +63,14 @@ namespace STRACT.web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = Messages.PasswordLengthOutsideRequiredValues, MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = Messages.PasswordConfirmationDontMatchPassword)]
             public string ConfirmPassword { get; set; }
         }
 

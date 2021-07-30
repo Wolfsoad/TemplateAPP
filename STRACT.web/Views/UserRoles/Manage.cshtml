@@ -1,13 +1,16 @@
-﻿@model List<ManageUserRolesViewModel>
+﻿@using STRACT.web.Resources
+
+@model List<ManageUserRolesViewModel>
+@inject LocalizationService _loc
 @{
-    ViewData["Title"] = "Manage";
+    ViewData["Title"] = _loc.GetLocalizedHtmlString("Manage");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <form method="post">
     <div class="card">
         <div class="card-header">
-            <h2>Manage User Roles</h2>
-            Add/Remove Roles for User / @ViewBag.UserName.
+            <h2>@_loc.GetLocalizedHtmlString("Manage User Roles")</h2>
+            @_loc.GetLocalizedHtmlString("Add/Remove Roles for User") / @ViewBag.UserName.
         </div>
         <div class="card-body">
             @for (int i = 0; i < Model.Count; i++)
@@ -24,10 +27,10 @@
             <div asp-validation-summary="All" class="text-danger"></div>
         </div>
         <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary"
+            <input type="submit" value="@_loc.GetLocalizedHtmlString("Update")" class="btn btn-primary"
                    style="width:auto" />
             <a asp-action="EditUser" asp-route-id="@ViewBag.userId"
-               class="btn btn-primary" style="width:auto">Cancel</a>
-        </div>
+               class="btn btn-primary" style="width:auto">@_loc.GetLocalizedHtmlString("Cancel")</a>
+</div>
     </div>
 </form>

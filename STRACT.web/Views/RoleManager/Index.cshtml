@@ -1,22 +1,24 @@
-﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+﻿@using STRACT.web.Resources
+@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+@inject LocalizationService _loc
 @{
-    ViewData["Title"] = "Role Manager";
+    ViewData["Title"] = _loc.GetLocalizedHtmlString("Roles Manager");
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Role Manager</h1>
+<h1>@_loc.GetLocalizedHtmlString("Roles Manager")</h1>
 <form method="post" asp-action="AddRole" asp-controller="RoleManager">
     <div class="input-group">
         <input name="roleName" class="form-control w-25">
         <span class="input-group-btn">
-            <button class="btn btn-info">Add New Role</button>
-        </span>
+            <button class="btn btn-info">@_loc.GetLocalizedHtmlString("Add New Role")</button>
+</span>
     </div>
 </form>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Role</th>
+            <th>@_loc.GetLocalizedHtmlString("Id")</th>
+            <th>@_loc.GetLocalizedHtmlString("Role")</th>
         </tr>
     </thead>
     <tbody>

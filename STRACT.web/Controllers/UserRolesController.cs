@@ -14,13 +14,17 @@ namespace STRACT.web.Controllers
     [Authorize(Roles = "SuperAdmin")]
     public class UserRolesController : Controller
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UserRolesController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+
+        public UserRolesController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _roleManager = roleManager;
+            _signInManager = signInManager;
             _userManager = userManager;
         }
+
         public async Task<IActionResult> Index()
         {
             var users = await _userManager.Users.ToListAsync();
@@ -37,6 +41,7 @@ namespace STRACT.web.Controllers
             }
             return View(userRolesViewModel);
         }
+
         private async Task<List<string>> GetUserRoles(ApplicationUser user)
         {
             return new List<string>(await _userManager.GetRolesAsync(user));

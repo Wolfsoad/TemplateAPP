@@ -27,7 +27,19 @@
                 <td>@user.Email</td>
                 <td>@string.Join(" , ", user.Roles.ToList())</td>
                 <td>
-                    <a class="btn btn-primary" asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId">@_loc.GetLocalizedHtmlString("Manage Roles")</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @_loc.GetLocalizedHtmlString("Action")
+                        </button>
+                        <div class="dropdown-menu shadow animated--grow-in">
+                            <a class="dropdown-item">
+                                <i class="fas fa-pencil-alt"></i> @_loc.GetLocalizedHtmlString("Edit")
+                            </a>
+                            <a style='margin-right:16px' asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId" class="dropdown-item">
+                                <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Roles")
+                            </a>
+                        </div>
+                    </div>
                 </td>
             </tr>
         }

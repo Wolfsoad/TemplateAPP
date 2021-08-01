@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ namespace STRACT.web.Controllers
         }
 
         // GET: Declarations
+        [Authorize(Policy = "Permissions.Declarations.View")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Declaration.ToListAsync());
@@ -43,6 +45,7 @@ namespace STRACT.web.Controllers
             return View(declaration);
         }
 
+        [Authorize(Policy = "Permissions.Declarations.Create")]
         // GET: Declarations/Create
         public IActionResult Create()
         {
@@ -86,6 +89,7 @@ namespace STRACT.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Permissions.Declarations.Edit")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Motive,DateCreated,IdResponsible")] Declaration declaration)
         {
             if (id != declaration.Id)
@@ -137,6 +141,7 @@ namespace STRACT.web.Controllers
         // POST: Declarations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Policy = "Permissions.Declarations.Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var declaration = await _context.Declaration.FindAsync(id);

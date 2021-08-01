@@ -22,11 +22,12 @@ namespace STRACT.Entities.Declaration
         [Display(Name = "Motive")]
         public string Motive { get; set; }
 
-        [DisplayFormat(DataFormatString ="{dd MM yyyy}")]
         [Display(Name = "DateCreation")]
         public DateTime DateCreated { get; set; }
 
         [ForeignKey("Id")]
         public int IdResponsible { get; set; }
+
     }
+
 }

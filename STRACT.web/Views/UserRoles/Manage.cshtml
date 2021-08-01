@@ -29,8 +29,13 @@
         <div class="card-footer">
             <input type="submit" value="@_loc.GetLocalizedHtmlString("Update")" class="btn btn-primary"
                    style="width:auto" />
-            <a asp-action="EditUser" asp-route-id="@ViewBag.userId"
-               class="btn btn-primary" style="width:auto">@_loc.GetLocalizedHtmlString("Cancel")</a>
+            <button onclick="goBack()"
+               class="btn btn-primary" style="width:auto">@_loc.GetLocalizedHtmlString("Cancel")</button>
 </div>
     </div>
 </form>
+<script>
+    function goBack() {
+      window.history.back();
+    }
+</script>

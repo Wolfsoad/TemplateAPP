@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace STRACT.web.Controllers
 {
-    [Authorize(Roles = "SuperAdmin")]
+    [Authorize(Policy = "Permissions.RoleManager.View")]
     public class RoleManagerController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -24,7 +24,9 @@ namespace STRACT.web.Controllers
             return View(roles);
         }
 
+        [Authorize(Policy = "Permissions.RoleManager.Create")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddRole(string roleName)
         {
             if (roleName != null)

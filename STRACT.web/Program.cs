@@ -29,6 +29,7 @@ namespace STRACT.web
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRolesAsync(userManager, roleManager);
                     await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+                    await ContextSeed.SeedBasicUserAsync(userManager, roleManager);
 
                 }
                 catch (Exception ex)

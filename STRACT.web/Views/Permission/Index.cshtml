@@ -1,13 +1,38 @@
 ﻿@using STRACT.web.Resources
 
 @model PermissionViewModel
-@inject LocalizationService _loc 
+@inject LocalizationService _loc
+
+@{
+    ViewData["Title"] = _loc.GetLocalizedHtmlString("Permissions");
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 <h1>@_loc.GetLocalizedHtmlString("Permissions")</h1>
 <br />
 <div class="card">
     <div id="viewAll" class="card-body table-responsive">
-        <form asp-controller="permission" method="post" asp-action="Update" class="d-inline">
+        <form asp-controller="Permission" asp-action="Index" method="get">
+            <input asp-for="@Model.RoleId" type="hidden" />
+            <div class="form-actions input-group no-color">
+                <p>
+                    <div class="col-auto">
+                        Search permissions:
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" name="SearchString" value="@Model.SearchString" class="form-control wd-25" />
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" value="Search" class="btn btn-info" />
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-info" asp-action="Index" asp-route-roleId="@Model.RoleId" asp-route-searchString="">Back to Full List</a>
+                    </div>
+                </p>
+            </div>
+        </form>
+        <br />
+        <form asp-controller="Permission" method="post" asp-action="Update" class="d-inline">
             <input asp-for="@Model.RoleId" type="hidden" />
             <table class="table table-striped" id="permissionTable">
                 <thead>
@@ -45,11 +70,11 @@
                 </tbody>
             </table>
             <div class="col-sm-12" style="padding: 20px 20px 0px 0px">
-                <button type="submit" id="save" class="btn btn-primary">
+                <button type="submit" id="save" class="btn btn-info">
                     <i class="fa fa-check"></i>
                     @_loc.GetLocalizedHtmlString("Save")
                 </button>
-                
+
             </div>
         </form>
     </div>

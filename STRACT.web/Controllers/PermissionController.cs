@@ -19,8 +19,9 @@ namespace STRACT.web.Controllers
         {
             _roleManager = roleManager;
         }
-        public async Task<IActionResult> Index(string roleId)
+        public async Task<IActionResult> Index(string roleId, string searchString)
         {
+
             var model = new PermissionViewModel();
             var allPermissions = new List<RoleClaimsViewModel>();
             allPermissions.GetPermissions(typeof(Permissions.Declarations), roleId);
@@ -39,6 +40,17 @@ namespace STRACT.web.Controllers
                 }
             }
             model.RoleClaims = allPermissions;
+
+            #region Filtering
+            model.SearchString = searchString;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                model.RoleClaims = model.RoleClaims.Where(a => a.Value.ToLower().Contains(searchString.ToLower())).ToList();
+            }
+
+            #endregion
+
+
             return View(model);
         }
 

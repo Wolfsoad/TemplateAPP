@@ -8,16 +8,20 @@
 <h1>@_loc.GetLocalizedHtmlString("Roles Manager")</h1>
 <form method="post" asp-action="AddRole" asp-controller="RoleManager">
     <div class="input-group">
-        <input name="roleName" class="form-control w-25">
-        <span class="input-group-btn">
-            <button class="btn btn-info">@_loc.GetLocalizedHtmlString("Add New Role")</button>
-</span>
+        <div class="col-auto">
+            <input name="roleName" class="form-control">
+        </div>
+        <div class="col-auto">
+            <span class="input-group-btn">
+                <button class="btn btn-info">@_loc.GetLocalizedHtmlString("Add New Role")</button>
+            </span>
+        </div>
     </div>
 </form>
+<br />
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@_loc.GetLocalizedHtmlString("Id")</th>
             <th>@_loc.GetLocalizedHtmlString("Role")</th>
             <th style="width:10%">
                 @_loc.GetLocalizedHtmlString("Actions")
@@ -29,7 +33,6 @@
         {
             <tr>
                 <td>@role.Name</td>
-                <td>@role.Id</td>
                 <td class=" text-right">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -44,7 +47,7 @@
                             </form>
                             @if (role.Name != "SuperAdmin")
                             {
-                        <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" class="dropdown-item">
+                        <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" asp-route-searchString="" class="dropdown-item">
                             <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Permissions")
                         </a>
                             }

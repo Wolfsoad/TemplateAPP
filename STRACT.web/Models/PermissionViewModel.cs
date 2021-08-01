@@ -9,5 +9,7 @@ namespace STRACT.web.Models
     {
         public string RoleId { get; set; }
         public IList<RoleClaimsViewModel> RoleClaims { get; set; }
+
+        public string SearchString { get; set; }
     }
 }

@@ -18,6 +18,7 @@
     <form asp-controller="Culture"
           asp-action="SetLanguage"
           asp-route-returnUrl="@Context.Request.Path"
+          asp-route-queryString="@Context.Request.QueryString.ToString()"
           method="post">
         @_loc.GetLocalizedHtmlString("Language") : 
         <select name="culture"

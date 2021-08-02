@@ -8,7 +8,7 @@ namespace WebDemo.Controllers
     public class CultureController : Controller
     {
         [HttpPost]
-        public IActionResult SetLanguage(string culture, string returnUrl)
+        public IActionResult SetLanguage(string culture, string returnUrl, string queryString)
         {
             Response.Cookies.Append(
                 CookieRequestCultureProvider.DefaultCookieName,
@@ -16,7 +16,8 @@ namespace WebDemo.Controllers
                 new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
             );
 
-            return LocalRedirect(returnUrl);
+
+            return LocalRedirect(returnUrl + queryString);
         }
     }
 }

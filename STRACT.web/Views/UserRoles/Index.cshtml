@@ -36,6 +36,9 @@
                                 <i class="fas fa-pencil-alt"></i> @_loc.GetLocalizedHtmlString("Edit")
                             </a>
                             <a style='margin-right:16px' asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId" class="dropdown-item">
+                                <i class="fas fa-exchange-alt"></i> @_loc.GetLocalizedHtmlString("Change user Roles")
+                            </a>
+                            <a style='margin-right:16px' asp-controller="RoleManager" asp-action="Index" class="dropdown-item">
                                 <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Roles")
                             </a>
                         </div>

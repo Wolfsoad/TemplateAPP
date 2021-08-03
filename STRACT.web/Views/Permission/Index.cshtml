@@ -74,8 +74,16 @@
                     <i class="fa fa-check"></i>
                     @_loc.GetLocalizedHtmlString("Save")
                 </button>
-
-            </div>
+                <button onclick="goBack()"
+                        class="btn btn-info" style="width:auto">
+                    @_loc.GetLocalizedHtmlString("Cancel")
+                    </button>
+                </div>
         </form>
     </div>
 </div>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>

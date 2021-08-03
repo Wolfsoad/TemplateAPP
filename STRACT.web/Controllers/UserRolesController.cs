@@ -32,6 +32,7 @@ namespace STRACT.web.Controllers
             foreach (ApplicationUser user in users)
             {
                 var thisViewModel = new UserRolesViewModel();
+                thisViewModel.UserName = user.UserName;
                 thisViewModel.UserId = user.Id;
                 thisViewModel.Email = user.Email;
                 thisViewModel.FirstName = user.FirstName;

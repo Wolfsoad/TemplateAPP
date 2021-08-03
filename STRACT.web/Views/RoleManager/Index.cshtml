@@ -39,17 +39,11 @@
                             @_loc.GetLocalizedHtmlString("Action")
                         </button>
                         <div class="dropdown-menu shadow animated--grow-in">
-                            <a class="dropdown-item">
-                                <i class="fas fa-pencil-alt"></i> @_loc.GetLocalizedHtmlString("Edit")
-                            </a>
-                            <form class="d-inline">
-                                <a class="dropdown-item"><i class="fas fa-trash-alt"></i> @_loc.GetLocalizedHtmlString("Delete")</a>
-                            </form>
                             @if (role.Name != "SuperAdmin")
                             {
-                        <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" asp-route-searchString="" class="dropdown-item">
-                            <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Permissions")
-                        </a>
+                                <a style='margin-right:16px' asp-controller="Permission" asp-action="Index" asp-route-roleId="@role.Id" asp-route-searchString="" class="dropdown-item">
+                                    <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Permissions")
+                                </a>
                             }
                         </div>
                     </div>

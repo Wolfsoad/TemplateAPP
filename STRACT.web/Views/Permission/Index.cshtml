@@ -17,7 +17,7 @@
             <div class="form-actions input-group no-color">
                 <p>
                     <div class="col-auto">
-                        Search permissions:
+                        @_loc.GetLocalizedHtmlString("Search permissions"):
                     </div>
                     <div class="col-auto">
                         <input type="text" name="SearchString" value="@Model.SearchString" class="form-control wd-25" />
@@ -26,8 +26,8 @@
                         <input type="submit" value="Search" class="btn btn-info" />
                     </div>
                     <div class="col-auto">
-                        <a class="btn btn-info" asp-action="Index" asp-route-roleId="@Model.RoleId" asp-route-searchString="">Back to Full List</a>
-                    </div>
+                        <a class="btn btn-outline-info" asp-action="Index" asp-route-roleId="@Model.RoleId" asp-route-searchString="">@_loc.GetLocalizedHtmlString("Back to Full List")</a>
+</div>
                 </p>
             </div>
         </form>

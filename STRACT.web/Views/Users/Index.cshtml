@@ -2,7 +2,8 @@
 @using STRACT.Identity;
 @using STRACT.web.Resources;
 
-@model IEnumerable<ApplicationUser> 
+@model IEnumerable<ApplicationUser>
+@inject UserManager<ApplicationUser> UserManager
 @inject LocalizationService _loc
 
 <h1>@_loc.GetLocalizedHtmlString("User List")</h1>
@@ -10,6 +11,9 @@
 <table class="table table-striped" id="userTable">
     <thead>
         <tr>
+            <th>
+                @_loc.GetLocalizedHtmlString("")
+            </th>
             <th>
                 @_loc.GetLocalizedHtmlString("User")
             </th>
@@ -30,47 +34,50 @@
     <tbody>
         @foreach (var user in Model)
         {
-        <tr>
-            <td>
-                <div class="row">
-                    <div class="col-sm">
-                        <a>
-                            @user.UserName
-                        </a>
-                        <small>
-                            @user.Id
-                        </small>
+            <tr>
+                <td class="nav-item" style="align-self: center;">
+                    @if (user.ProfilePicture != null)
+                    {
+                        <img style="width:40px; height: 40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" />
+                    }
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-sm">
+                            <a>
+                                @user.UserName
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </td>
-            <td>
-                <a>
-                    @user.FirstName
-                </a>
-            </td>
-            <td>
-                <a>
-                    @user.LastName
-                </a>
-            </td>
-            <td>
-                <a>
-                    @user.Email
-                </a>
-            </td>
-            <td>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @_loc.GetLocalizedHtmlString("Action")
-                    </button>
-                    <div class="dropdown-menu shadow animated--grow-in">
-                        <a style='margin-right:16px' asp-controller="userroles" asp-action="Index" asp-route-userId="@user.Id" class="dropdown-item">
-                            <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("View User Roles")
-                        </a>
+                </td>
+                <td>
+                    <a>
+                        @user.FirstName
+                    </a>
+                </td>
+                <td>
+                    <a>
+                        @user.LastName
+                    </a>
+                </td>
+                <td>
+                    <a>
+                        @user.Email
+                    </a>
+                </td>
+                <td>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @_loc.GetLocalizedHtmlString("Action")
+                        </button>
+                        <div class="dropdown-menu shadow animated--grow-in">
+                            <a style='margin-right:16px' asp-controller="userroles" asp-action="Index" asp-route-userId="@user.Id" class="dropdown-item">
+                                <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("View User Roles")
+                            </a>
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

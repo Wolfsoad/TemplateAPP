@@ -120,14 +120,23 @@
   <data name="Action" xml:space="preserve">
     <value>Ação</value>
   </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Ações</value>
+  </data>
   <data name="Add New Role" xml:space="preserve">
     <value>Adicionar Função</value>
   </data>
   <data name="Add/Remove Roles for User" xml:space="preserve">
     <value>Adicionar/Remover funções dos utilizadores</value>
   </data>
+  <data name="Back to Full List" xml:space="preserve">
+    <value>Voltar para lista completa</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancelar</value>
+  </data>
+  <data name="Change User Roles" xml:space="preserve">
+    <value>Alterar funções</value>
   </data>
   <data name="Confirm password" xml:space="preserve">
     <value>Confirmação de senha</value>
@@ -171,6 +180,9 @@
   <data name="Manage" xml:space="preserve">
     <value>Gestão</value>
   </data>
+  <data name="Manage Permissions" xml:space="preserve">
+    <value>Gerir Permissões</value>
+  </data>
   <data name="Manage Roles" xml:space="preserve">
     <value>Gerir funções</value>
   </data>
@@ -182,6 +194,12 @@
   </data>
   <data name="Password" xml:space="preserve">
     <value>Palavra passe</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Permissão</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissões</value>
   </data>
   <data name="Privacy" xml:space="preserve">
     <value>Privacidade</value>
@@ -207,6 +225,15 @@
   <data name="Roles Manager" xml:space="preserve">
     <value>Gestor de Funções</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Procurar</value>
+  </data>
+  <data name="Search permissions" xml:space="preserve">
+    <value>Procurar permissões</value>
+  </data>
   <data name="The password and confirmation password do not match." xml:space="preserve">
     <value>A senha e a senha de confirmação não correspondem.</value>
   </data>
@@ -215,6 +242,9 @@
   </data>
   <data name="Title" xml:space="preserve">
     <value>Título</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Atualizar</value>
@@ -233,6 +263,9 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nome de Utilizador</value>
+  </data>
+  <data name="View User Roles" xml:space="preserve">
+    <value>Ver funções</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Bem Vindo</value>

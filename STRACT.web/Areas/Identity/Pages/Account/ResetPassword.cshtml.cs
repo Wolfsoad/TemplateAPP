@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using STRACT.Identity;
+using STRACT.Identity.Entities;
 
 namespace STRACT.web.Areas.Identity.Pages.Account
 {

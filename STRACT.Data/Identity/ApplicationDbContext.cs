@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using STRACT.Entities.Declaration;
 using Microsoft.AspNetCore.Identity;
-using STRACT.Identity;
+using STRACT.Identity.Entities;
 
-namespace STRACT.web.Data
+namespace STRACT.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

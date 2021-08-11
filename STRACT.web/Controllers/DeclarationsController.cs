@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Entities.Declaration;
-using STRACT.web.Data;
+using STRACT.Data;
 
 namespace STRACT.web.Controllers
 {

@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using STRACT.Identity;
+using STRACT.Identity.Entities;
 using STRACT.web.Models;
 using System;
 using System.Collections.Generic;

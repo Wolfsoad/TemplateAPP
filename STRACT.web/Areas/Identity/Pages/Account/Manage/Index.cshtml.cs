@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using STRACT.Identity;
+using STRACT.Identity.Entities;
 
 namespace STRACT.web.Areas.Identity.Pages.Account.Manage
 {
@@ -104,9 +104,9 @@ namespace STRACT.web.Areas.Identity.Pages.Account.Manage
             }
             if (Request.Form.Files.Count > 0)
             {
-                IFormFile file = Request.Form.Files.FirstOrDefault();
-                using (var dataStream = new MemoryStream())
+                using (MemoryStream dataStream = new MemoryStream())
                 {
+                    IFormFile file = Request.Form.Files.FirstOrDefault();
                     await file.CopyToAsync(dataStream);
                     user.ProfilePicture = dataStream.ToArray();
                 }

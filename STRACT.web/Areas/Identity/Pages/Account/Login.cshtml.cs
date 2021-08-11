@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using STRACT.Identity;
+using STRACT.Identity.Entities;
 using System.Net.Mail;
 
 namespace STRACT.web.Areas.Identity.Pages.Account
@@ -58,6 +58,7 @@ namespace STRACT.web.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            _logger.LogInformation("Requested login page.");
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -82,6 +83,7 @@ namespace STRACT.web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var userName = Input.Email;
+                _logger.LogInformation("Requested login from user" + userName);
                 if (IsValidEmail(Input.Email))
                 {
                     var user = await _userManager.FindByEmailAsync(Input.Email);

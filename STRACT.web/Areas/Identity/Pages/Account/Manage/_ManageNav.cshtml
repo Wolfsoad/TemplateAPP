@@ -1,4 +1,4 @@
-﻿@using STRACT.Identity;
+﻿@using STRACT.Identity.Entities;
 @inject SignInManager<ApplicationUser> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();

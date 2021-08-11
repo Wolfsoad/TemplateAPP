@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using STRACT.Identity;
+using STRACT.Identity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace STRACT.web.Data
+namespace STRACT.Data
 {
     public static class ContextSeed
     {

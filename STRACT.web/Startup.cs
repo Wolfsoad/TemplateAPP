@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using STRACT.Identity;
-using STRACT.web.Data;
+using STRACT.Identity.Entities;
+using STRACT.Data;
 using STRACT.web.Permission;
 using STRACT.web.Resources;
 using System;
@@ -53,7 +53,8 @@ namespace STRACT.web
             //.AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt => 
+                opt.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();

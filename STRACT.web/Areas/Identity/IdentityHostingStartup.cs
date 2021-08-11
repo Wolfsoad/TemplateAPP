@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using STRACT.web.Data;
+using STRACT.Data;
 
 [assembly: HostingStartup(typeof(STRACT.web.Areas.Identity.IdentityHostingStartup))]
 namespace STRACT.web.Areas.Identity

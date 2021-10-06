@@ -5,11 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using STRACT.Identity.Entities;
-using STRACT.Data;
+using STRACT.Data.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using STRACT.Data;
 
 namespace STRACT.web
 {
@@ -30,6 +31,7 @@ namespace STRACT.web
                     await ContextSeed.SeedRolesAsync(userManager, roleManager);
                     await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
                     await ContextSeed.SeedBasicUserAsync(userManager, roleManager);
+                    await PDCContextSeed.SeedDatabase(context);
 
                 }
                 catch (Exception ex)

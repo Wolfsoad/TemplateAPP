@@ -1,4 +1,4 @@
-﻿@model STRACT.Entities.Declaration.Declaration
+﻿@model STRACT.Entities.Declaration.DeclarationItem
 
 @{
     ViewData["Title"] = "Create";
@@ -28,9 +28,9 @@
                 <span asp-validation-for="DateCreated" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdResponsible" class="control-label"></label>
-                <input asp-for="IdResponsible" class="form-control" />
-                <span asp-validation-for="IdResponsible" class="text-danger"></span>
+                <label asp-for="UserId" class="control-label"></label>
+                <input asp-for="UserId" class="form-control" />
+                <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

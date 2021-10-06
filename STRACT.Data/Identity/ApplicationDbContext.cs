@@ -2,19 +2,43 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using STRACT.Identity.Entities;
+using STRACT.Entities.Declaration;
+using STRACT.Entities.HumanResources;
+using STRACT.Entities.Users;
+using STRACT.Entities.Certifications;
+using STRACT.Entities.CommissionProposals;
 
-namespace STRACT.Data
+namespace STRACT.Data.Identity
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : AuditableIdentityContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public DbSet<STRACT.Entities.Declaration.Declaration> Declaration { get; set; }
+
+        public DbSet<ActivityGroup> ActivityGroups { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityInGroup> ActivityInGroups { get; set; }
+        public DbSet<User> PDCUsers { get; set; }
+        public DbSet<DeclarationItem> Declarations { get; set; }
+        public DbSet<DeclarationSignature> DeclarationSignatures { get; set; }
+        public DbSet<CertificateProductLine> CertificateProductLines { get; set; }
+        public DbSet<CommissionForProject> CommissionForProjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ActivityGroup>().HasKey(m => m.ActivityGroupId);
+            builder.Entity<Activity>().HasKey(m => m.ActivityId);
+            builder.Entity<ActivityInGroup>().HasKey(m => m.ActivityId);
+            builder.Entity<ActivityInGroup>().HasKey(m => m.ActivityGroupId);
+            builder.Entity<User>().HasKey(m => m.UserId);
+            builder.Entity<DeclarationItem>().HasKey(m => m.DeclarationId);
+            builder.Entity<DeclarationSignature>().HasKey(m => m.SignatureId);
+            builder.Entity<CertificateProductLine>().HasKey(m => m.CertificateId);
+            builder.Entity<CertificateProductLine>().HasKey(m => m.ProductLineId);
+            builder.Entity<CommissionForProject>().HasKey(m => m.CommissionId);
+            builder.Entity<CommissionForProject>().HasKey(m => m.ProjectId);
             base.OnModelCreating(builder);
             builder.HasDefaultSchema("Identity");
             builder.Entity<ApplicationUser>(entity =>

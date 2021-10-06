@@ -21,8 +21,8 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using STRACT.Data.Identity;
 
-    
 namespace STRACT.web
 {
     public class Startup
@@ -43,6 +43,8 @@ namespace STRACT.web
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
+            var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
+            services.AddDbContext<PDCContext>(options => options.UseSqlite(connection));
             
             services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)

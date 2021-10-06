@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using STRACT.Identity.Entities;
-using STRACT.Data;
+using STRACT.Data.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;

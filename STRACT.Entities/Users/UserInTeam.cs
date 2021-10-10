@@ -32,8 +32,15 @@ namespace STRACT.Entities.Users
         public ICollection<TaskItem> TaskItems { get; set; }
         public ICollection<ChronogramRevision> ChronogramRevisions { get; set; }
         public ICollection<ToDoTask> ToDoTasks { get; set; }
+        public ICollection<UserHoliday> PersonalHolidays { get; set; }
         public int ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-
+        public List<DateTime> PersonalHolidaysDates
+        {
+            get
+            {
+                return PersonalHolidays.Select(p => p.DataOfHoliday).ToList();
+            }
+        }
     }
 }

@@ -10,7 +10,7 @@ using STRACT.Data.Identity;
 namespace STRACT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211009123501_INITIAL-MIGRATION")]
+    [Migration("20211009162051_INITIAL-MIGRATION")]
     partial class INITIALMIGRATION
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

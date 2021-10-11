@@ -70,26 +70,32 @@ namespace STRACT.Entities.Test.Chronogram
         public void ChronogramRevisionTotalDays_HasEndDateEqualToStartDate()
         {
             ChronogramRevision chronogramRevision = new ChronogramRevision();
+            ChronogramLine chronogramLine1 = new ChronogramLine { ChronogramLineId = 1, PlannedStart = DateTime.Parse("10/10/2021"), DurationInDays = 0, ChronogramRevision = chronogramRevision };
             List<ChronogramLine> chronogramLines = new List<ChronogramLine>
             {
-                new ChronogramLine{ChronogramLineId = 1, PlannedStart = DateTime.Parse("10/10/2021"), DurationInDays = 0},
+                chronogramLine1,
             };
+            chronogramRevision.User = new Users.UserInTeam();
+            chronogramRevision.User.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
-            Assert.True(chronogramRevision.TotalDaysOfChronogramRevision == 0);
+            Assert.Equal(0, chronogramRevision.TotalDaysOfChronogramRevision);
         }
 
         [Fact]
         public void ChronogramRevisionTotalDays_HasEndDateLowerThanStartDate()
         {
             ChronogramRevision chronogramRevision = new ChronogramRevision();
+            ChronogramLine chronogramLine1 = new ChronogramLine { ChronogramLineId = 1, PlannedStart = DateTime.Parse("10/10/2021"), DurationInDays = -10, ChronogramRevision = chronogramRevision };
             List<ChronogramLine> chronogramLines = new List<ChronogramLine>
             {
-                new ChronogramLine{ChronogramLineId = 1, PlannedStart = DateTime.Parse("10/10/2021"), DurationInDays = -10},
+                chronogramLine1,
             };
+            chronogramRevision.User = new Users.UserInTeam();
+            chronogramRevision.User.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
-            Assert.True(chronogramRevision.TotalDaysOfChronogramRevision == -10);
+            Assert.Equal(10, chronogramRevision.TotalDaysOfChronogramRevision);
         }
 
         [Fact]

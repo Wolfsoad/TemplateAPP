@@ -24,10 +24,21 @@ namespace STRACT.Common
         }
         public static int GetWorkDays(DateTime startDate, DateTime endDate, IDictionary<int, bool> ValidWorkingDays, IDictionary<string, DateTime> holidays, List<DateTime> userHolidays)
         {
-            List<DateTime> allDaysBetweenDates = Enumerable
-                .Range(0, 1 + endDate.Subtract(startDate).Days)
-                .Select(offset => startDate.AddDays(offset))
-                .ToList();
+            List<DateTime> allDaysBetweenDates = new List<DateTime>();
+            if (startDate <= endDate)
+            {
+                allDaysBetweenDates = Enumerable
+                    .Range(0, 1 + endDate.Subtract(startDate).Days)
+                    .Select(offset => startDate.AddDays(offset))
+                    .ToList();
+            }
+            else
+            {
+                allDaysBetweenDates = Enumerable
+                    .Range(0, 1 + startDate.Subtract(endDate).Days)
+                    .Select(offset => endDate.AddDays(offset))
+                    .ToList();
+            }
             List<DateTime> allDaysMinusNotWorkingDays = allDaysBetweenDates
                 .FindAll(date => ValidWorkingDays[(int)date.DayOfWeek] == true)
                 .ToList();

@@ -40,7 +40,7 @@ namespace STRACT.Entities.Chronogram
                 DurationInDays, 
                 DateTimeExtension.GetWorkingWeekDays(),
                 DateTimeExtension.GetNationalHolidaysBetweenDates(PlannedStart, PlannedStart.AddDays(DurationInDays)),
-                ChronogramRevision.User.PersonalHolidaysDates);
+                ChronogramRevision.Responsible.PersonalHolidaysDates);
         }
     }
 }

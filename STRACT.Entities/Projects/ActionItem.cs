@@ -87,5 +87,9 @@ namespace STRACT.Entities.Projects
                 .ToDictionary(g => g.Key, g => g.ToList());
             _totalFinancialLineByType = results;
         }
+        private void GetChronogramMilestones()
+        {
+            var result = ProjectItem.Chronograms.ToDictionary(g => g.RevisionDescription, g => g.ChronogramMilestones);
+        }
     }
 }

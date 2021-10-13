@@ -7,15 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Entities.Declaration;
+using STRACT.Data.Identity;
+using System.Security.Claims;
 using STRACT.Data;
 
 namespace STRACT.web.Controllers
 {
     public class DeclarationsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly PDCContext _context;
 
-        public DeclarationsController(ApplicationDbContext context)
+        public DeclarationsController(PDCContext context)
         {
             _context = context;
         }
@@ -24,7 +26,7 @@ namespace STRACT.web.Controllers
         [Authorize(Policy = "Permissions.Declarations.View")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Declaration.ToListAsync());
+            return View(await _context.Declarations.ToListAsync());
         }
 
         // GET: Declarations/Details/5
@@ -35,8 +37,8 @@ namespace STRACT.web.Controllers
                 return NotFound();
             }
 
-            var declaration = await _context.Declaration
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var declaration = await _context.Declarations
+                .FirstOrDefaultAsync(m => m.DeclarationItemId == id);
             if (declaration == null)
             {
                 return NotFound();
@@ -57,12 +59,12 @@ namespace STRACT.web.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Motive,DateCreated,IdResponsible")] Declaration declaration)
+        public async Task<IActionResult> Create([Bind("Id,Title,Motive,DateCreated,IdResponsible")] DeclarationItem declaration)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(declaration);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 return RedirectToAction(nameof(Index));
             }
             return View(declaration);
@@ -76,7 +78,7 @@ namespace STRACT.web.Controllers
                 return NotFound();
             }
 
-            var declaration = await _context.Declaration.FindAsync(id);
+            var declaration = await _context.Declarations.FindAsync(id);
             if (declaration == null)
             {
                 return NotFound();
@@ -90,9 +92,9 @@ namespace STRACT.web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "Permissions.Declarations.Edit")]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Motive,DateCreated,IdResponsible")] Declaration declaration)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Motive,DateCreated,IdResponsible")] DeclarationItem declaration)
         {
-            if (id != declaration.Id)
+            if (id != declaration.DeclarationItemId)
             {
                 return NotFound();
             }
@@ -102,11 +104,11 @@ namespace STRACT.web.Controllers
                 try
                 {
                     _context.Update(declaration);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DeclarationExists(declaration.Id))
+                    if (!DeclarationExists(declaration.DeclarationItemId))
                     {
                         return NotFound();
                     }
@@ -128,8 +130,8 @@ namespace STRACT.web.Controllers
                 return NotFound();
             }
 
-            var declaration = await _context.Declaration
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var declaration = await _context.Declarations
+                .FirstOrDefaultAsync(m => m.DeclarationItemId == id);
             if (declaration == null)
             {
                 return NotFound();
@@ -144,15 +146,15 @@ namespace STRACT.web.Controllers
         [Authorize(Policy = "Permissions.Declarations.Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var declaration = await _context.Declaration.FindAsync(id);
-            _context.Declaration.Remove(declaration);
+            var declaration = await _context.Declarations.FindAsync(id);
+            _context.Declarations.Remove(declaration);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool DeclarationExists(int id)
         {
-            return _context.Declaration.Any(e => e.Id == id);
+            return _context.Declarations.Any(e => e.DeclarationItemId == id);
         }
     }
 }

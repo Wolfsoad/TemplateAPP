@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using STRACT.Identity.Interfaces;
+using System.Collections.Generic;
 
 namespace STRACT.Identity.Entities
 {

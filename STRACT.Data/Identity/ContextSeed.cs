@@ -7,7 +7,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace STRACT.Data
+namespace STRACT.Data.Identity
 {
     public static class ContextSeed
     {

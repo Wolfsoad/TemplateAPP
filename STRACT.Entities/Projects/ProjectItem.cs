@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using STRACT.Entities.Chronogram;
 using STRACT.Entities.General;
+using STRACT.Common;
 
 namespace STRACT.Entities.Projects
 {
@@ -30,6 +31,18 @@ namespace STRACT.Entities.Projects
         public ICollection<ChronogramRevision> Chronograms { get; set; }
         public ICollection<ToDoTask> toDoTasks { get; set; }
         public KanbanBoard KanbanBoard { get; set; }
+        //Public Methods
+        public double GetActionCompletionPercentage()
+        {
+            if (Chronograms.Count != 0)
+            {
+                return Chronograms.Where(c => c.IsMain).FirstOrDefault().AverageCompletion;
+            }
+            else
+            {
+                throw new Exception(string.Format(Messages.NoItemsFoundException,Chronograms.ToString()));
+            }
+        }
 
     }
 }

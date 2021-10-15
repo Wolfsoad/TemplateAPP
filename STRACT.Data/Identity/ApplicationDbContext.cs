@@ -24,6 +24,7 @@ namespace STRACT.Data.Identity
         public DbSet<CertificationInActionItem> CertificationInActionItems { get; set; }
         public DbSet<Priority> Priority { get; set; }
         public DbSet<TaskType> TaskTypes { get; set; }
+        public DbSet<LocationInKanban> LocationInKanbans { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -77,6 +78,7 @@ namespace STRACT.Data.Identity
             builder.Entity<TaskInKanban>().HasKey(m => m.TaskItemId);
             builder.Entity<TaskInKanban>().HasOne(m =>m.Sprint).WithMany().HasForeignKey(m => m.SprintId);
             builder.Entity<TaskType>(entity => entity.ToTable("TaskTypes"));
+            builder.Entity<LocationInKanban>(entity => entity.ToTable("LocationInKanbans"));
 
             builder.Entity<AlertInProject>().HasKey(m => m.AlertTypeId);
             builder.Entity<AlertInProject>().HasKey(m => m.ProjectItemId);

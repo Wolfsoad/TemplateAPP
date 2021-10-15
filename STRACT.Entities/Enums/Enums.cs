@@ -23,5 +23,14 @@ namespace STRACT.Entities.Enums
             Content,
             Feature
         }
+        public enum LocationInKanbans
+        {
+            Backlog,
+            ToDoThisSprint,
+            InProgress,
+            TestVerify,
+            Done,
+            ProjectItemsConcluded
+        }
     }
 }

@@ -52,5 +52,24 @@ namespace STRACT.Data
             }
 
         }
+        public static async Task SeedKanbanLocationsAsync(ApplicationDbContext context)
+        {
+            //Seed Roles
+            if (!context.LocationInKanbans.Any())
+            {
+                var locations = new List<LocationInKanban>
+                {
+                    //new LocationInKanban { Description = Enums.TaskTypes.Content.ToString(), Color="00587a" },
+                    //new LocationInKanban { Description = Enums.TaskTypes.Update.ToString(), Color="00C7B0" },
+                    //new LocationInKanban { Description = Enums.TaskTypes.Feature.ToString(), Color="FFCE52" },
+                    //new LocationInKanban { Description = Enums.TaskTypes.Task.ToString(), Color="FFA257" },
+                    //new LocationInKanban { Description = Enums.TaskTypes.Research.ToString(), Color="FF6038" },
+                };
+
+                await context.AddRangeAsync(locations);
+                await context.SaveChangesAsync();
+            }
+
+        }
     }
 }

@@ -15,5 +15,15 @@ namespace STRACT.Entities.Kanban
         public int PointsDone { get; set; }
         public ICollection<TaskInKanban> Tasks { get; set; }
 
+        private void GetTotalPointsRequired()
+        {
+            var result = Tasks.Select(t => t.TaskItem)
+                .Sum(t => t.Points);
+        }
+        private void GetTotalPointsInKanbanByLocation()
+        {
+            var result = Tasks.GroupBy(g => g.LocationInKanban.Description)
+                .ToDictionary(g => g.Key, g => g.Sum(p => p.TaskItem.Points));
+        }
     }
 }

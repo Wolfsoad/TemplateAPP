@@ -15,6 +15,7 @@ namespace STRACT.Entities.Chronogram
         public string RevisionDescription { get; set; }
         public DateTime RevisionDate { get; set; }
         public int Version { get; set; }
+        public bool IsMain { get; set; }
         public int? UserId { get; set; }
         public UserInTeam Responsible { get; set; }
         public int ProjectItemId { get; set; }

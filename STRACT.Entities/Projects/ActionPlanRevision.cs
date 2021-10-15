@@ -21,5 +21,10 @@ namespace STRACT.Entities.Projects
         public int? ProposalId { get; set; }
         public Proposal Proposal { get; set; }
         public ICollection<ActionItem> ActionItems { get; set; }
+        //Private methods
+        private void GetAverageCompletion()
+        {
+            var result = ActionItems;
+        }
     }
 }

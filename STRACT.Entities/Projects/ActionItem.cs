@@ -31,6 +31,8 @@ namespace STRACT.Entities.Projects
         private double _totalValueAccounted;
         private Dictionary<string, double> _totalValueInBudgetByType;
         private Dictionary<string, List<FinancialLine>> _totalFinancialLineByType;
+        private Dictionary<int, Dictionary<string, DateTime>> _chronogramsMilestones;
+        private int _actionPlanYear;
         //Additional read only properties
         public double TotalValueInBudget
         { 
@@ -64,6 +66,22 @@ namespace STRACT.Entities.Projects
                 return _totalFinancialLineByType;
             }
         }
+        public Dictionary<int, Dictionary<string, DateTime>> ChronogramsMilesones
+        {
+            get
+            {
+                GetChronogramsMilestones();
+                return _chronogramsMilestones;
+            }
+        }
+        public int ActionPlanYear
+        {
+            get
+            {
+                GetActionPlanYear();
+                return _actionPlanYear;
+            }
+        }
         //Private methods
         private void GetTotalValueInBudget()
         {
@@ -87,9 +105,19 @@ namespace STRACT.Entities.Projects
                 .ToDictionary(g => g.Key, g => g.ToList());
             _totalFinancialLineByType = results;
         }
-        private void GetChronogramMilestones()
+        private void GetChronogramsMilestones()
         {
-            var result = ProjectItem.Chronograms.ToDictionary(g => g.RevisionDescription, g => g.ChronogramMilestones);
+            var result = ProjectItem.Chronograms.ToDictionary(g => g.ChronogramRevisionId, g => g.ChronogramMilestones);
+            _chronogramsMilestones = result;
+        }
+        private void GetActionPlanYear()
+        {
+            _actionPlanYear = ActionPlanRevision.ActionPlanYear;
+        }
+        //Public Methods
+        public double GetActionCompletionPercentage()
+        {
+            return ProjectItem.GetActionCompletionPercentage();
         }
     }
 }

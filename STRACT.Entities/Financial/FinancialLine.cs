@@ -39,5 +39,11 @@ namespace STRACT.Entities.Financial
         public FinancialLineSubType FinancialLineSubType { get; set; }
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
+        
+        //Private methods
+        private void GetAccountedValueInApplicationCurrency()
+        {
+            
+        }
     }
 }

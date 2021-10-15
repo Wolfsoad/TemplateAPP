@@ -12,5 +12,6 @@ namespace STRACT.Common
 
         public const string PasswordConfirmationDontMatchPassword = "The password and confirmation password do not match.";
 
+        public const string NoItemsFoundException = "The list {0} does not contain any element.";
     }
 }

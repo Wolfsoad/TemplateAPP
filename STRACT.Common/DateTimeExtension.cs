@@ -8,9 +8,14 @@ namespace STRACT.Common
 {
     public static class DateTimeExtension
     {
-        public static DateTime AddWorkDays(this DateTime date, int workingDays, IDictionary<int,bool> ValidWorkingDays, IDictionary<string, DateTime> holidays, List<DateTime> userHolidays)
+        public static DateTime AddWorkDays(this DateTime date, int workingDays, IDictionary<int,bool> ValidWorkingDays, IDictionary<string, DateTime> holidays = null, List<DateTime> userHolidays = null)
         {
             int direction = workingDays < 0 ? -1 : 1;
+            //Constructing dictionaries if null
+            if (holidays == null) new Dictionary<string, DateTime>();
+            if (userHolidays == null) new Dictionary<string, DateTime>();
+
+            //Logic
             DateTime newDate = date;
             while (workingDays != 0)
             {
@@ -22,8 +27,13 @@ namespace STRACT.Common
             }
             return newDate;
         }
-        public static int GetWorkDays(DateTime startDate, DateTime endDate, IDictionary<int, bool> ValidWorkingDays, IDictionary<string, DateTime> holidays, List<DateTime> userHolidays)
+        public static int GetWorkDays(DateTime startDate, DateTime endDate, IDictionary<int, bool> ValidWorkingDays, IDictionary<string, DateTime> holidays = null, List<DateTime> userHolidays = null)
         {
+            //Constructing dictionaries if null
+            if (holidays == null) new Dictionary<string, DateTime>();
+            if (userHolidays == null) new Dictionary<string, DateTime>();
+
+            //Logic
             List<DateTime> allDaysBetweenDates = new List<DateTime>();
             if (startDate <= endDate)
             {

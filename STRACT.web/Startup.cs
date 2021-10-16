@@ -22,6 +22,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using STRACT.Data.Identity;
+using ElectronNET.API;
+using ElectronNET.API.Entities;
 
 namespace STRACT.web
 {
@@ -134,6 +136,24 @@ namespace STRACT.web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            // Open the Electron-Window here
+            ElectronBootstrap();
+        }
+
+        public async void ElectronBootstrap()
+        {
+            BrowserWindowOptions options = new BrowserWindowOptions
+            {
+                Show = false,
+            };
+            BrowserWindow mainWindow = await Electron.WindowManager.CreateWindowAsync(options);
+            mainWindow.OnReadyToShow += () =>
+            {
+                mainWindow.Show();
+                mainWindow.SetTitle("Application Name");
+                mainWindow.WebContents.OpenDevTools();
+            };
 
         }
     }

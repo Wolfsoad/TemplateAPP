@@ -57,7 +57,7 @@ namespace STRACT.Entities.Test.Chronogram
                 chronogramLine2,
                 chronogramLine3,
             };
-            chronogramRevision.Responsible = new Users.UserInTeam();
+            chronogramRevision.Responsible = new Entities.Users.UserInTeam();
             chronogramRevision.Responsible.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
@@ -72,7 +72,7 @@ namespace STRACT.Entities.Test.Chronogram
             {
                 chronogramLine1,
             };
-            chronogramRevision.Responsible = new Users.UserInTeam();
+            chronogramRevision.Responsible = new Entities.Users.UserInTeam();
             chronogramRevision.Responsible.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
@@ -87,7 +87,7 @@ namespace STRACT.Entities.Test.Chronogram
             {
                 chronogramLine1,
             };
-            chronogramRevision.Responsible = new Users.UserInTeam();
+            chronogramRevision.Responsible = new Entities.Users.UserInTeam();
             chronogramRevision.Responsible.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
@@ -115,7 +115,7 @@ namespace STRACT.Entities.Test.Chronogram
                 chronogramLine2,
                 chronogramLine3,
             };
-            chronogramRevision.Responsible = new Users.UserInTeam();
+            chronogramRevision.Responsible = new Entities.Users.UserInTeam();
             chronogramRevision.Responsible.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 
@@ -137,7 +137,7 @@ namespace STRACT.Entities.Test.Chronogram
                 chronogramLine2,
                 chronogramLine3,
             };
-            chronogramRevision.Responsible = new Users.UserInTeam();
+            chronogramRevision.Responsible = new Entities.Users.UserInTeam();
             chronogramRevision.Responsible.PersonalHolidays = new List<UserHoliday>();
             chronogramRevision.ChronogramLines = chronogramLines;
 

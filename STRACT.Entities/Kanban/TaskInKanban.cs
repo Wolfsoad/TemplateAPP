@@ -16,5 +16,14 @@ namespace STRACT.Entities.Kanban
         public Sprint Sprint { get; set; }
         public int LocationInKanbanId { get; set; }
         public LocationInKanban LocationInKanban { get; set; }
+        
+        //Public Methods
+        public bool IsTaskInAnOpenSprint
+        {
+            get
+            {
+                return !Sprint.IsSprintEnded;
+            }
+        }
     }
 }

@@ -42,5 +42,36 @@ namespace STRACT.Entities.Users
                 return PersonalHolidays.Select(p => p.DataOfHoliday).ToList();
             }
         }
+
+        //Private properties
+        private List<ToDoTask> _tasksNotCompleted;
+        private List<TaskItem> _taskItensInActiveSprints;
+
+        //Public extra properties
+        public List<ToDoTask> TasksNotCompleted 
+        { 
+            get 
+            {
+                GetTasksNotCompleted();
+                return _tasksNotCompleted;
+            }
+        }
+        public List<TaskItem> TaskItensInActiveSprints
+        {
+            get
+            {
+                GetTasksInActiveSprints();
+                return _taskItensInActiveSprints;
+            }
+        }
+        //Private methods
+        private void GetTasksNotCompleted()
+        {
+            _tasksNotCompleted = ToDoTasks.Where(t => !t.IsConcluded).ToList();
+        }
+        private void GetTasksInActiveSprints()
+        {
+            _taskItensInActiveSprints = TaskItems.Where(t => t.TaskInKanban.IsTaskInAnOpenSprint).ToList();
+        }
     }
 }

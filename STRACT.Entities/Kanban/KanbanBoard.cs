@@ -14,6 +14,13 @@ namespace STRACT.Entities.Kanban
         public ProjectItem ProjectItem { get; set; }
         public ICollection<Sprint> Sprints { get; set; }
         public ICollection<TaskInKanban> Tasks { get; set; }
-
+        //Public methods
+        public Sprint RunningSprint
+        {
+            get
+            {
+                return Sprints.Where(s => !s.IsSprintEnded).FirstOrDefault();
+            }
+        }
     }
 }

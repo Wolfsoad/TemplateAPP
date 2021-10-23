@@ -1,6 +1,7 @@
 ﻿using STRACT.Entities.Certifications;
 using STRACT.Entities.Financial;
 using STRACT.Entities.General;
+using STRACT.Entities.HumanResources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,15 +18,18 @@ namespace STRACT.Entities.Projects
         public bool IsActive { get; set; }
         public int ActionGroupId { get; set; }
         public ActionGroup ActionGroup { get; set; }
-        public int ActionPlanRevisionId { get; set; }
+        public int? ActionPlanRevisionId { get; set; }
         public ActionPlanRevision ActionPlanRevision { get; set; }
-        public int ProjectItemId { get; set; }
+        public int? ProjectItemId { get; set; }
         public ProjectItem ProjectItem { get; set; }
+        public int DepartmentId { get; set; }
+        public Department RequestedBy { get; set; }
         public ICollection<LocationsForAction> Locations { get; set; }
         public ICollection<LineOfProduct> LinesOfProducts { get; set; }
         public ICollection<CertificationInActionItem> CertificationInActionItems { get; set; }
         public ICollection<ToDoTask> ToDoTasks { get; set; }
         public ICollection<FinancialLine> FinancialLines { get; set; }
+
         //Private properties
         private double _totalValueInBudget;
         private double _totalValueAccounted;
@@ -33,6 +37,8 @@ namespace STRACT.Entities.Projects
         private Dictionary<string, List<FinancialLine>> _totalFinancialLineByType;
         private Dictionary<int, Dictionary<string, DateTime>> _chronogramsMilestones;
         private int _actionPlanYear;
+        private double _actionCompletionPercentage;
+
         //Additional read only properties
         public double TotalValueInBudget
         { 
@@ -82,6 +88,15 @@ namespace STRACT.Entities.Projects
                 return _actionPlanYear;
             }
         }
+        public double ActionCompletionPercentage
+        {
+            get
+            {
+                GetActionCompletionPercentage();
+                return _actionCompletionPercentage;
+            }
+        }
+
         //Private methods
         private void GetTotalValueInBudget()
         {
@@ -114,10 +129,12 @@ namespace STRACT.Entities.Projects
         {
             _actionPlanYear = ActionPlanRevision.ActionPlanYear;
         }
-        //Public Methods
-        public double GetActionCompletionPercentage()
+        private void GetActionCompletionPercentage()
         {
-            return ProjectItem.GetActionCompletionPercentage();
+            _actionCompletionPercentage = ProjectItem.GetActionCompletionPercentage();
         }
+
+        //Public Methods
+
     }
 }

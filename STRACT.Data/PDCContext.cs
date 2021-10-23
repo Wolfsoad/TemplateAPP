@@ -15,6 +15,7 @@ using STRACT.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using STRACT.Entities.Projects;
 using STRACT.Entities.General;
+using STRACT.Entities.Financial;
 
 namespace STRACT.Data
 {
@@ -32,37 +33,41 @@ namespace STRACT.Data
         public DbSet<LocationInKanban> LocationInKanbans { get; set; }
         public DbSet<ActivityGroup> ActivityGroups { get; set; }
         public DbSet<DeclarationItem> Declarations { get; set; }
+        public DbSet<ActionGroup> ActionGroups { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<LineOfProduct> LinesOfProducts { get; set; }
+        public DbSet<AlertType> AlertTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.HasDefaultSchema("PDC");
             builder.Entity<ApplicationUser>(entity =>
             {
-                entity.ToTable(name: "User", "Identity");
+                entity.ToTable(name: "ApplicationUser");
             });
             builder.Entity<IdentityRole>(entity =>
             {
-                entity.ToTable(name: "Role", "Identity");
+                entity.ToTable(name: "Role");
             });
             builder.Entity<IdentityUserRole<string>>(entity =>
             {
-                entity.ToTable("UserRoles", "Identity").HasKey(n => new {n.RoleId, n.UserId });
+                entity.ToTable("UserRoles").HasKey(n => new {n.RoleId, n.UserId });
             });
             builder.Entity<IdentityUserClaim<string>>(entity =>
             {
-                entity.ToTable("UserClaims", "Identity");
+                entity.ToTable("UserClaims");
             });
             builder.Entity<IdentityUserLogin<string>>(entity =>
             {
-                entity.ToTable("UserLogins", "Identity").HasKey(n => n.UserId);
+                entity.ToTable("UserLogins").HasKey(n => n.UserId);
             });
             builder.Entity<IdentityRoleClaim<string>>(entity =>
             {
-                entity.ToTable("RoleClaims", "Identity");
+                entity.ToTable("RoleClaims");
             });
             builder.Entity<IdentityUserToken<string>>(entity =>
             {
-                entity.ToTable("UserTokens", "Identity").HasKey(c => c.UserId);
+                entity.ToTable("UserTokens").HasKey(c => c.UserId);
             });
 
             builder.Entity<CertificateProductLine>().HasKey(m => m.CertificateId);
@@ -96,13 +101,21 @@ namespace STRACT.Data
             builder.Entity<ProjectMember>().HasKey(m => m.UserId);
             builder.Entity<TopicInProject>().HasKey(m => m.TopicId);
             builder.Entity<TopicInProject>().HasKey(m => m.ProjectItemId);
+            builder.Entity<ActionGroup>(entity => entity.ToTable("ActionGroups"));
 
-            builder.Entity<UserInTeam>().HasKey(m => m.UserId);
+            builder.Entity<Topic>(entity => entity.ToTable("Topics"));
+            builder.Entity<Location>(entity => entity.ToTable("Locations"));
+            builder.Entity<LineOfProduct>(entity => entity.ToTable("LinesOfProducts"));
+            builder.Entity<AlertType>(entity => entity.ToTable("AlertTypes"));
 
-            builder.Entity<ToDoTask>().HasOne(user => user.User).WithMany().HasForeignKey(user => user.UserInTeamId);
-            builder.Entity<UserInTeam>().HasMany(user => user.ToDoTasks);
-            builder.Entity<TaskItem>().HasOne(user => user.Responsible).WithMany().HasForeignKey(user => user.UserId);
-            builder.Entity<UserInTeam>().HasMany(user => user.TaskItems);
+            builder.Entity<UserInTeam>().HasKey(m => m.UserInTeamId);
+
+            builder.Entity<UserInTeam>().Ignore(u => u.TasksNotCompleted);
+            builder.Entity<UserInTeam>().Ignore(u => u.TaskItensInActiveSprints);
+
+            builder.Entity<FinancialLine>().Ignore(u => u.AdjudicatedValueInEuro);
+
+            
         }
     }
 }

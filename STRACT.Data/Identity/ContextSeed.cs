@@ -74,6 +74,11 @@ namespace STRACT.Data.Identity
             var adminRole = await roleManager.FindByNameAsync("SuperAdmin");
             await roleManager.AddPermissionClaim(adminRole, "Declarations");
             await roleManager.AddPermissionClaim(adminRole, "RoleManager");
+            await roleManager.AddPermissionClaim(adminRole, "ActionGroups");
+            await roleManager.AddPermissionClaim(adminRole, "AlertTypes");
+            await roleManager.AddPermissionClaim(adminRole, "LineOfProducts");
+            await roleManager.AddPermissionClaim(adminRole, "Locations");
+            await roleManager.AddPermissionClaim(adminRole, "Topics");
         }
 
         public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)

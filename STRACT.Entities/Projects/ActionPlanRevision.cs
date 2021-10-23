@@ -16,15 +16,29 @@ namespace STRACT.Entities.Projects
         public double Budget { get; set; }
         public int ActionPlanYear { get; set; }
         public int Version { get; set; }
-        public int? UserId { get; set; }
-        public UserInTeam User { get; set; }
+        public int? UserInTeamId { get; set; }
+        public UserInTeam UserInTeam { get; set; }
         public int? ProposalId { get; set; }
         public Proposal Proposal { get; set; }
         public ICollection<ActionItem> ActionItems { get; set; }
+
+        //Private properties
+        private double _actionPlanCompletionPercentage;
+
+        //Public properties
+        public double ActionPlanCompletionPercentage
+        {
+            get
+            {
+                GetAverageCompletion();
+                return _actionPlanCompletionPercentage;
+            }
+        }
+
         //Private methods
         private void GetAverageCompletion()
         {
-            var result = ActionItems;
+            _actionPlanCompletionPercentage = ActionItems.Average(a => a.ActionCompletionPercentage);
         }
     }
 }

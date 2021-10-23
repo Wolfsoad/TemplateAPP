@@ -10,6 +10,8 @@ using STRACT.Entities.CommissionProposals;
 using STRACT.Entities.Kanban;
 using STRACT.Entities.Chronogram;
 using STRACT.Entities.Projects;
+using STRACT.Entities.General;
+using STRACT.Entities.Financial;
 
 namespace STRACT.Data.Identity
 {
@@ -31,7 +33,7 @@ namespace STRACT.Data.Identity
             builder.HasDefaultSchema("PDC"); 
             builder.Entity<ApplicationUser>(entity =>
             {
-                entity.ToTable(name: "User", "Identity");
+                entity.ToTable(name: "ApplicationUser", "Identity");
             });
             builder.Entity<IdentityRole>(entity =>
             {
@@ -89,7 +91,11 @@ namespace STRACT.Data.Identity
             builder.Entity<ProjectMember>().HasKey(m => m.UserId);
             builder.Entity<TopicInProject>().HasKey(m => m.TopicId);
             builder.Entity<TopicInProject>().HasKey(m => m.ProjectItemId);
-            builder.Entity<UserInTeam>().HasKey(m => m.UserId);
+            builder.Entity<UserInTeam>().HasKey(m => m.UserInTeamId);
+            builder.Entity<UserInTeam>().Ignore(m => m.TasksNotCompleted);
+            builder.Entity<UserInTeam>().Ignore(m => m.TaskItensInActiveSprints);
+
+            builder.Entity<FinancialLine>().Ignore(u => u.AdjudicatedValueInEuro);
         }
     }
 }

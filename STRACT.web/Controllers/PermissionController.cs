@@ -26,6 +26,11 @@ namespace STRACT.web.Controllers
             var allPermissions = new List<RoleClaimsViewModel>();
             allPermissions.GetPermissions(typeof(Permissions.Declarations), roleId);
             allPermissions.GetPermissions(typeof(Permissions.RoleManager), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.ActionGroups), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.AlertTypes), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.LineOfProducts), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Locations), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Topics), roleId);
             var role = await _roleManager.FindByIdAsync(roleId);
             model.RoleId = roleId;
             var claims = await _roleManager.GetClaimsAsync(role);

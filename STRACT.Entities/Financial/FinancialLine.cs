@@ -1,4 +1,5 @@
-﻿using STRACT.Entities.CommissionProposals;
+﻿using STRACT.Common;
+using STRACT.Entities.CommissionProposals;
 using STRACT.Entities.General;
 using STRACT.Entities.Projects;
 using System;
@@ -40,10 +41,20 @@ namespace STRACT.Entities.Financial
         public int CurrencyId { get; set; }
         public Currency Currency { get; set; }
         
-        //Private methods
-        private void GetAccountedValueInApplicationCurrency()
+        //Public properties
+        public double AdjudicatedValueInEuro
         {
-            
+            get
+            {
+                if (AdjudicatedValueOriginalCurrency < 0 || ExchangeRateToEuro < 0)
+                {
+                    throw new Exception(Messages.NegativeValuesNotAllowed);
+                }
+                else
+                {
+                    return AdjudicatedValueOriginalCurrency * ExchangeRateToEuro;
+                }
+            }
         }
     }
 }

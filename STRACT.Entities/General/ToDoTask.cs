@@ -18,7 +18,7 @@ namespace STRACT.Entities.General
         public bool IsPublic { get; set; }
         public int ActionItemId { get; set; }
         public ActionItem ActionItem { get; set; }
-        public int UserInTeamId { get; set; }
-        public UserInTeam User { get; set; }
+        public int? UserInTeamId { get; set; }
+        public UserInTeam UserInTeam { get; set; }
     }
 }

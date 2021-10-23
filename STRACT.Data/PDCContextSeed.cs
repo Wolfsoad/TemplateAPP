@@ -11,21 +11,21 @@ namespace STRACT.Data
 {
     public class PDCContextSeed
     {
-        public static async Task SeedDatabase(ApplicationDbContext context)
+        public static async Task SeedDatabase(PDCContext context)
         {
             await SeedKanbanPriorityAsync(context);
             await SeedKanbanTaskTypesAsync(context);
         }
-        public static async Task SeedKanbanPriorityAsync(ApplicationDbContext context)
+        public static async Task SeedKanbanPriorityAsync(PDCContext context)
         {
             //Seed Roles
             if (!context.Priority.Any())
             {
                 var priorities = new List<Priority>
                 {
-                    new Priority { Description = Enums.Priorities.High.ToString(), Color="D62828" },
-                    new Priority { Description = Enums.Priorities.Medium.ToString(), Color="F77F00" },
-                    new Priority { Description = Enums.Priorities.Low.ToString(), Color="EAE2B7" },
+                    new Priority { Description = Enums.Priorities.High.ToString(), Color="#D62828" },
+                    new Priority { Description = Enums.Priorities.Medium.ToString(), Color="#F77F00" },
+                    new Priority { Description = Enums.Priorities.Low.ToString(), Color="#EAE2B7" },
                 };
 
                 await context.AddRangeAsync(priorities);
@@ -33,18 +33,18 @@ namespace STRACT.Data
             }
             
         }
-        public static async Task SeedKanbanTaskTypesAsync(ApplicationDbContext context)
+        public static async Task SeedKanbanTaskTypesAsync(PDCContext context)
         {
             //Seed Roles
             if (!context.TaskTypes.Any())
             {
                 var tasktypes = new List<TaskType>
                 {
-                    new TaskType { Description = Enums.TaskTypes.Content.ToString(), Color="00587a" },
-                    new TaskType { Description = Enums.TaskTypes.Update.ToString(), Color="00C7B0" },
-                    new TaskType { Description = Enums.TaskTypes.Feature.ToString(), Color="FFCE52" },
-                    new TaskType { Description = Enums.TaskTypes.Task.ToString(), Color="FFA257" },
-                    new TaskType { Description = Enums.TaskTypes.Research.ToString(), Color="FF6038" },
+                    new TaskType { Description = Enums.TaskTypes.Content.ToString(), Color="#00587a" },
+                    new TaskType { Description = Enums.TaskTypes.Update.ToString(), Color="#00C7B0" },
+                    new TaskType { Description = Enums.TaskTypes.Feature.ToString(), Color="#FFCE52" },
+                    new TaskType { Description = Enums.TaskTypes.Task.ToString(), Color="#FFA257" },
+                    new TaskType { Description = Enums.TaskTypes.Research.ToString(), Color="#FF6038" },
                 };
 
                 await context.AddRangeAsync(tasktypes);

@@ -234,6 +234,9 @@
   <data name="Search permissions" xml:space="preserve">
     <value>Procurar permissões</value>
   </data>
+  <data name="Task Types" xml:space="preserve">
+    <value>Tipos de Tarefas</value>
+  </data>
   <data name="The password and confirmation password do not match." xml:space="preserve">
     <value>A senha e a senha de confirmação não correspondem.</value>
   </data>
@@ -263,6 +266,9 @@
   </data>
   <data name="Username" xml:space="preserve">
     <value>Nome de Utilizador</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Utilizadores</value>
   </data>
   <data name="View User Roles" xml:space="preserve">
     <value>Ver funções</value>

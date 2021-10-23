@@ -58,7 +58,7 @@ namespace STRACT.web
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
             services.AddIdentity<ApplicationUser, IdentityRole>(opt => 
                 opt.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<PDCContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
             #endregion
@@ -151,8 +151,8 @@ namespace STRACT.web
             mainWindow.OnReadyToShow += () =>
             {
                 mainWindow.Show();
-                mainWindow.SetTitle("Application Name");
                 mainWindow.WebContents.OpenDevTools();
+                mainWindow.SetTitle("Application Name");
             };
 
         }

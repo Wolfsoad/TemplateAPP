@@ -17,7 +17,7 @@ namespace STRACT.Data.Migrations
             modelBuilder
                 .HasDefaultSchema("PDC")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.10")
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ActionItemLineOfProduct", b =>
@@ -508,10 +508,13 @@ namespace STRACT.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsMain")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProjectItemId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ResponsibleUserId")
+                    b.Property<int?>("ResponsibleUserInTeamId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("RevisionDate")
@@ -530,7 +533,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("ProjectItemId");
 
-                    b.HasIndex("ResponsibleUserId");
+                    b.HasIndex("ResponsibleUserInTeamId");
 
                     b.ToTable("ChronogramRevision");
                 });
@@ -656,7 +659,7 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("Path")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ResponsibleUserId")
+                    b.Property<int?>("ResponsibleUserInTeamId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -669,7 +672,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("CommissionId");
 
-                    b.HasIndex("ResponsibleUserId");
+                    b.HasIndex("ResponsibleUserInTeamId");
 
                     b.ToTable("Proposal");
                 });
@@ -982,7 +985,7 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserInTeamId")
                         .HasColumnType("int");
 
                     b.HasKey("ToDoTaskId");
@@ -991,7 +994,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("ProjectItemId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserInTeamId");
 
                     b.ToTable("ToDoTask");
                 });
@@ -1220,7 +1223,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("LocationInKanbanId");
 
-                    b.ToTable("LocationInKanban");
+                    b.ToTable("LocationInKanbans");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.Priority", b =>
@@ -1250,6 +1253,9 @@ namespace STRACT.Data.Migrations
 
                     b.Property<int>("DurationInDays")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsSprintEnded")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("KanbanBoardKanbanId")
                         .HasColumnType("int");
@@ -1340,13 +1346,10 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ResponsibleUserId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TaskTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserInTeamId")
                         .HasColumnType("int");
 
                     b.HasKey("TaskItemId");
@@ -1359,9 +1362,9 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("PriorityId");
 
-                    b.HasIndex("ResponsibleUserId");
-
                     b.HasIndex("TaskTypeId");
+
+                    b.HasIndex("UserInTeamId");
 
                     b.ToTable("TaskItem");
                 });
@@ -1457,7 +1460,7 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("RevisionDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int?>("UserInTeamId")
                         .HasColumnType("int");
 
                     b.Property<int>("Version")
@@ -1469,7 +1472,7 @@ namespace STRACT.Data.Migrations
                         .IsUnique()
                         .HasFilter("[ProposalId] IS NOT NULL");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserInTeamId");
 
                     b.ToTable("ActionPlanRevision");
                 });
@@ -1531,7 +1534,7 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("ConceptsDeveloped")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("CoordinatorUserId")
+                    b.Property<int?>("CoordinatorUserInTeamId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -1560,7 +1563,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("ProjectItemId");
 
-                    b.HasIndex("CoordinatorUserId");
+                    b.HasIndex("CoordinatorUserInTeamId");
 
                     b.ToTable("ProjectItem");
                 });
@@ -1581,7 +1584,7 @@ namespace STRACT.Data.Migrations
                     b.Property<int>("ProjectItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId1")
+                    b.Property<int>("UserInTeamId")
                         .HasColumnType("int");
 
                     b.HasKey("UserId");
@@ -1590,7 +1593,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("ProjectItemId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserInTeamId");
 
                     b.ToTable("ProjectMember");
                 });
@@ -1619,7 +1622,7 @@ namespace STRACT.Data.Migrations
 
             modelBuilder.Entity("STRACT.Entities.Users.UserInTeam", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserInTeamId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -1636,7 +1639,7 @@ namespace STRACT.Data.Migrations
                     b.Property<int>("OrganizationalRoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId");
+                    b.HasKey("UserInTeamId");
 
                     b.HasIndex("ApplicationUserId1");
 
@@ -1697,7 +1700,7 @@ namespace STRACT.Data.Migrations
                     b.Property<int>("UsernameChangeLimit")
                         .HasColumnType("int");
 
-                    b.ToTable("User", "Identity");
+                    b.ToTable("ApplicationUser", "Identity");
                 });
 
             modelBuilder.Entity("ActionItemLineOfProduct", b =>
@@ -1936,7 +1939,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "Responsible")
                         .WithMany("ChronogramRevisions")
-                        .HasForeignKey("ResponsibleUserId");
+                        .HasForeignKey("ResponsibleUserInTeamId");
 
                     b.Navigation("ProjectItem");
 
@@ -1983,7 +1986,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "Responsible")
                         .WithMany("Proposals")
-                        .HasForeignKey("ResponsibleUserId");
+                        .HasForeignKey("ResponsibleUserInTeamId");
 
                     b.Navigation("Commission");
 
@@ -2094,15 +2097,15 @@ namespace STRACT.Data.Migrations
                         .WithMany("toDoTasks")
                         .HasForeignKey("ProjectItemId");
 
-                    b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
+                    b.HasOne("STRACT.Entities.Users.UserInTeam", "UserInTeam")
                         .WithMany("ToDoTasks")
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserInTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ActionItem");
 
-                    b.Navigation("User");
+                    b.Navigation("UserInTeam");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInGroup", b =>
@@ -2225,15 +2228,15 @@ namespace STRACT.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("STRACT.Entities.Users.UserInTeam", "Responsible")
-                        .WithMany("TaskItems")
-                        .HasForeignKey("ResponsibleUserId");
-
                     b.HasOne("STRACT.Entities.Kanban.TaskType", "TaskType")
                         .WithMany("TaskItems")
                         .HasForeignKey("TaskTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("STRACT.Entities.Users.UserInTeam", "UserResponsible")
+                        .WithMany("TaskItems")
+                        .HasForeignKey("UserInTeamId");
 
                     b.Navigation("Audit");
 
@@ -2243,9 +2246,9 @@ namespace STRACT.Data.Migrations
 
                     b.Navigation("RequestedFrom");
 
-                    b.Navigation("Responsible");
-
                     b.Navigation("TaskType");
+
+                    b.Navigation("UserResponsible");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Projects.ActionItem", b =>
@@ -2281,13 +2284,13 @@ namespace STRACT.Data.Migrations
                         .WithOne("ActionPlanRevision")
                         .HasForeignKey("STRACT.Entities.Projects.ActionPlanRevision", "ProposalId");
 
-                    b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
+                    b.HasOne("STRACT.Entities.Users.UserInTeam", "UserInTeam")
                         .WithMany("ActionPlanRevisions")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserInTeamId");
 
                     b.Navigation("Proposal");
 
-                    b.Navigation("User");
+                    b.Navigation("UserInTeam");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Projects.AlertInProject", b =>
@@ -2330,7 +2333,7 @@ namespace STRACT.Data.Migrations
                 {
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "Coordinator")
                         .WithMany("ProjectsCoordinated")
-                        .HasForeignKey("CoordinatorUserId");
+                        .HasForeignKey("CoordinatorUserInTeamId");
 
                     b.Navigation("Coordinator");
                 });
@@ -2351,7 +2354,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
                         .WithMany("ProjectsInTeam")
-                        .HasForeignKey("UserId1")
+                        .HasForeignKey("UserInTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

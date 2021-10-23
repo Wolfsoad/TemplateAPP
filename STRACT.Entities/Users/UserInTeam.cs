@@ -17,7 +17,7 @@ namespace STRACT.Entities.Users
 {
     public class UserInTeam
     {
-        public int UserId { get; set; }
+        public int UserInTeamId { get; set; }
         public bool Active { get; set; }
         public int OrganizationalRoleId { get; set; }
         public OrganizationalRole OrganizationalRole { get; set; }
@@ -64,6 +64,7 @@ namespace STRACT.Entities.Users
                 return _taskItensInActiveSprints;
             }
         }
+
         //Private methods
         private void GetTasksNotCompleted()
         {

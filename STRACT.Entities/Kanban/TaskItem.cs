@@ -18,8 +18,8 @@ namespace STRACT.Entities.Kanban
         public int Points { get; set; }
         public double Hours { get; set; }
         public bool IsRepeatable { get; set; }
-        public int UserId { get; set; }
-        public UserInTeam Responsible { get; set; }
+        public int? UserInTeamId { get; set; }
+        public UserInTeam UserResponsible { get; set; }
         public int OrganizationRoleId { get; set; }
         public OrganizationalRole OrganizationalRole { get; set; }
         public int TaskTypeId { get; set; }
@@ -29,7 +29,7 @@ namespace STRACT.Entities.Kanban
         public int PriorityId { get; set; }
         public Priority Priority { get; set; }
         public int DepartmentId { get; set; }
-        public Department RequestedFrom { get; set; }
+        public Department RequestedBy { get; set; }
         public TaskInKanban TaskInKanban { get; set; }
     }
 }

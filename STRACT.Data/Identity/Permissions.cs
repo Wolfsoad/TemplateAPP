@@ -61,4 +61,25 @@ public static class Permissions
         public const string Edit = "Permissions.Topics.Edit";
         public const string Delete = "Permissions.Topics.Delete";
     }
+    public static class Currencies
+    {
+        public const string View = "Permissions.Currencies.View";
+        public const string Create = "Permissions.Currencies.Create";
+        public const string Edit = "Permissions.Currencies.Edit";
+        public const string Delete = "Permissions.Currencies.Delete";
+    }
+    public static class FinancialLineTypes
+    {
+        public const string View = "Permissions.FinancialLineTypes.View";
+        public const string Create = "Permissions.FinancialLineTypes.Create";
+        public const string Edit = "Permissions.FinancialLineTypes.Edit";
+        public const string Delete = "Permissions.FinancialLineTypes.Delete";
+    }
+    public static class FinancialLineSubTypes
+    {
+        public const string View = "Permissions.FinancialLineSubTypes.View";
+        public const string Create = "Permissions.FinancialLineSubTypes.Create";
+        public const string Edit = "Permissions.FinancialLineSubTypes.Edit";
+        public const string Delete = "Permissions.FinancialLineSubTypes.Delete";
+    }
 }

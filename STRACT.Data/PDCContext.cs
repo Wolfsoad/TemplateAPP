@@ -38,6 +38,9 @@ namespace STRACT.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<LineOfProduct> LinesOfProducts { get; set; }
         public DbSet<AlertType> AlertTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<FinancialLineType> FinancialLineTypes { get; set; }
+        public DbSet<FinancialLineSubType> FinancialLineSubTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -114,8 +117,10 @@ namespace STRACT.Data
             builder.Entity<UserInTeam>().Ignore(u => u.TaskItensInActiveSprints);
 
             builder.Entity<FinancialLine>().Ignore(u => u.AdjudicatedValueInEuro);
+            builder.Entity<Currency>(entity => entity.ToTable("Currencies"));
+            builder.Entity<FinancialLineType>(entity => entity.ToTable("FinancialLineTypes"));
+            builder.Entity<FinancialLineSubType>(entity => entity.ToTable("FinancialLineSubTypes"));
 
-            
         }
     }
 }

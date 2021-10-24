@@ -16,9 +16,9 @@ namespace STRACT.web.Controllers
     [Authorize(Roles = "SuperAdmin, Admin")]
     public class AuditsController : Controller
     {
-        private readonly PDCContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public AuditsController(PDCContext context)
+        public AuditsController(ApplicationDbContext context)
         {
             _context = context;
         }

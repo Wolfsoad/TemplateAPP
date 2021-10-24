@@ -44,8 +44,8 @@ namespace STRACT.web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
-            services.AddDbContext<PDCContext>(options => options.UseSqlite(connection));
+            //var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
+            //services.AddDbContext<PDCContext>(options => options.UseSqlite(connection));
             
             services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
@@ -58,7 +58,7 @@ namespace STRACT.web
             services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
             services.AddIdentity<ApplicationUser, IdentityRole>(opt => 
                 opt.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<PDCContext>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
             #endregion
@@ -146,6 +146,10 @@ namespace STRACT.web
             BrowserWindowOptions options = new BrowserWindowOptions
             {
                 Show = false,
+                WebPreferences = new WebPreferences
+                {
+                    NodeIntegration = true,
+                },
             };
             BrowserWindow mainWindow = await Electron.WindowManager.CreateWindowAsync(options);
             mainWindow.OnReadyToShow += () =>

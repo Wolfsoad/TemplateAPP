@@ -7,12 +7,12 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="6ccfd7c0-c1cf-4bdc-9bac-3cf4910f5c75"
+    Name="a0539841-f7e8-48bc-81de-e14e1d5e40d6"
     Publisher="CN=pmram"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>STRACT.App1 (Package)</DisplayName>
+    <DisplayName>STRACT.desktop (Package)</DisplayName>
     <PublisherDisplayName>pmram</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="STRACT.App1 (Package)"
-        Description="STRACT.App1 (Package)"
+        DisplayName="STRACT.desktop (Package)"
+        Description="STRACT.desktop (Package)"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">

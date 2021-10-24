@@ -9,27 +9,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data;
 using STRACT.Data.Identity;
-using STRACT.Entities.General;
+using STRACT.Entities.Financial;
 
-namespace STRACT.web.Controllers.General
+namespace STRACT.web.Controllers.Financial
 {
-    [Authorize(Policy = "Permissions.LineOfProducts.View")]
-    public class LineOfProductsController : Controller
+    [Authorize(Policy = "Permissions.Currencies.View")]
+    public class CurrenciesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LineOfProductsController(ApplicationDbContext context)
+        public CurrenciesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: LineOfProducts
+        // GET: Currencies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LinesOfProducts.ToListAsync());
+            return View(await _context.Currencies.ToListAsync());
         }
 
-        // GET: LineOfProducts/Details/5
+        // GET: Currencies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,41 +37,41 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts
-                .FirstOrDefaultAsync(m => m.LineOfProductId == id);
-            if (lineOfProduct == null)
+            var currency = await _context.Currencies
+                .FirstOrDefaultAsync(m => m.CurrencyId == id);
+            if (currency == null)
             {
                 return NotFound();
             }
 
-            return View(lineOfProduct);
+            return View(currency);
         }
 
-        // GET: LineOfProducts/Create
-        [Authorize(Policy = "Permissions.LineOfProducts.Create")]
+        // GET: Currencies/Create
+        [Authorize(Policy = "Permissions.Currencies.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: LineOfProducts/Create
+        // POST: Currencies/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LineOfProductId,Description")] LineOfProduct lineOfProduct)
+        public async Task<IActionResult> Create([Bind("CurrencyId,CurrencyCode")] Currency currency)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lineOfProduct);
+                _context.Add(currency);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 return RedirectToAction(nameof(Index));
             }
-            return View(lineOfProduct);
+            return View(currency);
         }
 
-        // GET: LineOfProducts/Edit/5
-        [Authorize(Policy = "Permissions.LineOfProducts.Edit")]
+        // GET: Currencies/Edit/5
+        [Authorize(Policy = "Permissions.Currencies.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +79,22 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts.FindAsync(id);
-            if (lineOfProduct == null)
+            var currency = await _context.Currencies.FindAsync(id);
+            if (currency == null)
             {
                 return NotFound();
             }
-            return View(lineOfProduct);
+            return View(currency);
         }
 
-        // POST: LineOfProducts/Edit/5
+        // POST: Currencies/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LineOfProductId,Description")] LineOfProduct lineOfProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("CurrencyId,CurrencyCode")] Currency currency)
         {
-            if (id != lineOfProduct.LineOfProductId)
+            if (id != currency.CurrencyId)
             {
                 return NotFound();
             }
@@ -103,13 +103,13 @@ namespace STRACT.web.Controllers.General
             {
                 try
                 {
-                    var old = await _context.LinesOfProducts.FindAsync(id);
-                    _context.Entry(old).CurrentValues.SetValues(lineOfProduct);
+                    var old = await _context.Currencies.FindAsync(id);
+                    _context.Entry(old).CurrentValues.SetValues(currency);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LineOfProductExists(lineOfProduct.LineOfProductId))
+                    if (!CurrencyExists(currency.CurrencyId))
                     {
                         return NotFound();
                     }
@@ -120,11 +120,11 @@ namespace STRACT.web.Controllers.General
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(lineOfProduct);
+            return View(currency);
         }
 
-        // GET: LineOfProducts/Delete/5
-        [Authorize(Policy = "Permissions.LineOfProducts.Delete")]
+        // GET: Currencies/Delete/5
+        [Authorize(Policy = "Permissions.Currencies.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,30 +132,30 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts
-                .FirstOrDefaultAsync(m => m.LineOfProductId == id);
-            if (lineOfProduct == null)
+            var currency = await _context.Currencies
+                .FirstOrDefaultAsync(m => m.CurrencyId == id);
+            if (currency == null)
             {
                 return NotFound();
             }
 
-            return View(lineOfProduct);
+            return View(currency);
         }
 
-        // POST: LineOfProducts/Delete/5
+        // POST: Currencies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lineOfProduct = await _context.LinesOfProducts.FindAsync(id);
-            _context.LinesOfProducts.Remove(lineOfProduct);
+            var currency = await _context.Currencies.FindAsync(id);
+            _context.Currencies.Remove(currency);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LineOfProductExists(int id)
+        private bool CurrencyExists(int id)
         {
-            return _context.LinesOfProducts.Any(e => e.LineOfProductId == id);
+            return _context.Currencies.Any(e => e.CurrencyId == id);
         }
     }
 }

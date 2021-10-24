@@ -23,14 +23,7 @@ namespace STRACT.web.Controllers
         {
 
             var model = new PermissionViewModel();
-            var allPermissions = new List<RoleClaimsViewModel>();
-            allPermissions.GetPermissions(typeof(Permissions.Declarations), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.RoleManager), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.ActionGroups), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.AlertTypes), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.LineOfProducts), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.Locations), roleId);
-            allPermissions.GetPermissions(typeof(Permissions.Topics), roleId);
+            List<RoleClaimsViewModel> allPermissions = GetAllPermissions(roleId);
             var role = await _roleManager.FindByIdAsync(roleId);
             model.RoleId = roleId;
             var claims = await _roleManager.GetClaimsAsync(role);
@@ -57,6 +50,23 @@ namespace STRACT.web.Controllers
 
 
             return View(model);
+        }
+
+        private static List<RoleClaimsViewModel> GetAllPermissions(string roleId)
+        {
+            var allPermissions = new List<RoleClaimsViewModel>();
+            allPermissions.GetPermissions(typeof(Permissions.Declarations), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.RoleManager), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.ActionGroups), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.AlertTypes), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.LineOfProducts), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Locations), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Topics), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Currencies), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.LineOfProducts), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.FinancialLineTypes), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.FinancialLineSubTypes), roleId);
+            return allPermissions;
         }
 
         public async Task<IActionResult> Update(PermissionViewModel model)

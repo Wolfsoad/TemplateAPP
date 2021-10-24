@@ -34,13 +34,13 @@
 
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
-    <PathToXAMLWinRTImplementations>STRACT.App1\</PathToXAMLWinRTImplementations>
+    <PathToXAMLWinRTImplementations>STRACT.desktop\</PathToXAMLWinRTImplementations>
   </PropertyGroup>
 
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
 
   <PropertyGroup>
-    <ProjectGuid>f2dc4c69-3f41-42a7-bab9-9bfce45b6faa</ProjectGuid>
+    <ProjectGuid>44a5a9ef-826a-4d2f-8a56-8ce0578743fe</ProjectGuid>
     <TargetPlatformVersion>10.0.22000.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <AssetTargetFallback>net5.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
@@ -67,7 +67,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\STRACT.App1\STRACT.App1.csproj">
+    <ProjectReference Include="..\STRACT.desktop\STRACT.desktop.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
     </ProjectReference>

@@ -26,18 +26,8 @@ namespace STRACT.web
                 var loggerFactory = services.GetRequiredService<ILoggerFactory>();
                 try
                 {
-                    //#region SQL Server Seed
-                    //var context = services.GetRequiredService<ApplicationDbContext>();
-                    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    //var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-                    //await ContextSeed.SeedRolesAsync(userManager, roleManager);
-                    //await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
-                    //await ContextSeed.SeedBasicUserAsync(userManager, roleManager);
-                    //await PDCContextSeed.SeedDatabase(context);
-                    //#endregion
-
-                    #region SQLite Seed
-                    var context = services.GetRequiredService<PDCContext>();
+                    #region SQL Server Seed
+                    var context = services.GetRequiredService<ApplicationDbContext>();
                     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
                     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
                     await ContextSeed.SeedRolesAsync(userManager, roleManager);
@@ -45,6 +35,16 @@ namespace STRACT.web
                     await ContextSeed.SeedBasicUserAsync(userManager, roleManager);
                     await PDCContextSeed.SeedDatabase(context);
                     #endregion
+
+                    //#region SQLite Seed
+                    //var context = services.GetRequiredService<PDCContext>();
+                    //var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                    //var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    //await ContextSeed.SeedRolesAsync(userManager, roleManager);
+                    //await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+                    //await ContextSeed.SeedBasicUserAsync(userManager, roleManager);
+                    //await PDCContextSeed.SeedDatabase(context);
+                    //#endregion
 
                 }
                 catch (Exception ex)

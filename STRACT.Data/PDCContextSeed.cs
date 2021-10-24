@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using STRACT.Data.Identity;
 using STRACT.Entities.Enums;
 using STRACT.Entities.Kanban;
@@ -11,12 +12,12 @@ namespace STRACT.Data
 {
     public class PDCContextSeed
     {
-        public static async Task SeedDatabase(PDCContext context)
+        public static async Task SeedDatabase(ApplicationDbContext context)
         {
             await SeedKanbanPriorityAsync(context);
             await SeedKanbanTaskTypesAsync(context);
         }
-        public static async Task SeedKanbanPriorityAsync(PDCContext context)
+        public static async Task SeedKanbanPriorityAsync(ApplicationDbContext context)
         {
             //Seed Roles
             if (!context.Priority.Any())
@@ -33,7 +34,7 @@ namespace STRACT.Data
             }
             
         }
-        public static async Task SeedKanbanTaskTypesAsync(PDCContext context)
+        public static async Task SeedKanbanTaskTypesAsync(ApplicationDbContext context)
         {
             //Seed Roles
             if (!context.TaskTypes.Any())

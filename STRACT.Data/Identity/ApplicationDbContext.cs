@@ -27,6 +27,16 @@ namespace STRACT.Data.Identity
         public DbSet<Priority> Priority { get; set; }
         public DbSet<TaskType> TaskTypes { get; set; }
         public DbSet<LocationInKanban> LocationInKanbans { get; set; }
+        public DbSet<ActivityGroup> ActivityGroups { get; set; }
+        public DbSet<DeclarationItem> Declarations { get; set; }
+        public DbSet<ActionGroup> ActionGroups { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<LineOfProduct> LinesOfProducts { get; set; }
+        public DbSet<AlertType> AlertTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<FinancialLineType> FinancialLineTypes { get; set; }
+        public DbSet<FinancialLineSubType> FinancialLineSubTypes { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -59,7 +69,7 @@ namespace STRACT.Data.Identity
             {
                 entity.ToTable("UserTokens", "Identity") ;
             });
-            
+
             builder.Entity<CertificateProductLine>().HasKey(m => m.CertificateId);
             builder.Entity<CertificateProductLine>().HasKey(m => m.ProductLineId);
             builder.Entity<CertificationInActionItem>().HasKey(m => m.ActionItemId);
@@ -78,7 +88,7 @@ namespace STRACT.Data.Identity
             builder.Entity<TaskInKanban>().HasKey(m => m.KanbanBoardId);
             builder.Entity<TaskInKanban>().HasKey(m => m.LocationInKanbanId);
             builder.Entity<TaskInKanban>().HasKey(m => m.TaskItemId);
-            builder.Entity<TaskInKanban>().HasOne(m =>m.Sprint).WithMany().HasForeignKey(m => m.SprintId);
+            builder.Entity<TaskInKanban>().HasOne(m => m.Sprint).WithMany().HasForeignKey(m => m.SprintId);
             builder.Entity<TaskType>(entity => entity.ToTable("TaskTypes"));
             builder.Entity<LocationInKanban>(entity => entity.ToTable("LocationInKanbans"));
 
@@ -91,11 +101,22 @@ namespace STRACT.Data.Identity
             builder.Entity<ProjectMember>().HasKey(m => m.UserId);
             builder.Entity<TopicInProject>().HasKey(m => m.TopicId);
             builder.Entity<TopicInProject>().HasKey(m => m.ProjectItemId);
+            builder.Entity<ActionGroup>(entity => entity.ToTable("ActionGroups"));
+
+            builder.Entity<Topic>(entity => entity.ToTable("Topics"));
+            builder.Entity<Location>(entity => entity.ToTable("Locations"));
+            builder.Entity<LineOfProduct>(entity => entity.ToTable("LinesOfProducts"));
+            builder.Entity<AlertType>(entity => entity.ToTable("AlertTypes"));
+
             builder.Entity<UserInTeam>().HasKey(m => m.UserInTeamId);
-            builder.Entity<UserInTeam>().Ignore(m => m.TasksNotCompleted);
-            builder.Entity<UserInTeam>().Ignore(m => m.TaskItensInActiveSprints);
+
+            builder.Entity<UserInTeam>().Ignore(u => u.TasksNotCompleted);
+            builder.Entity<UserInTeam>().Ignore(u => u.TaskItensInActiveSprints);
 
             builder.Entity<FinancialLine>().Ignore(u => u.AdjudicatedValueInEuro);
+            builder.Entity<Currency>(entity => entity.ToTable("Currencies"));
+            builder.Entity<FinancialLineType>(entity => entity.ToTable("FinancialLineTypes"));
+            builder.Entity<FinancialLineSubType>(entity => entity.ToTable("FinancialLineSubTypes"));
         }
     }
 }

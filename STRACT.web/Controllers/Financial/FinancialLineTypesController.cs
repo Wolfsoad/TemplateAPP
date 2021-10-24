@@ -9,27 +9,27 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data;
 using STRACT.Data.Identity;
-using STRACT.Entities.General;
+using STRACT.Entities.Financial;
 
-namespace STRACT.web.Controllers.General
+namespace STRACT.web.Controllers.Financial
 {
-    [Authorize(Policy = "Permissions.LineOfProducts.View")]
-    public class LineOfProductsController : Controller
+    [Authorize(Policy = "Permissions.FinancialLineTypes.View")]
+    public class FinancialLineTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public LineOfProductsController(ApplicationDbContext context)
+        public FinancialLineTypesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: LineOfProducts
+        // GET: FinancialLineTypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.LinesOfProducts.ToListAsync());
+            return View(await _context.FinancialLineTypes.ToListAsync());
         }
 
-        // GET: LineOfProducts/Details/5
+        // GET: FinancialLineTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,41 +37,41 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts
-                .FirstOrDefaultAsync(m => m.LineOfProductId == id);
-            if (lineOfProduct == null)
+            var financialLineType = await _context.FinancialLineTypes
+                .FirstOrDefaultAsync(m => m.FinancialLineTypeId == id);
+            if (financialLineType == null)
             {
                 return NotFound();
             }
 
-            return View(lineOfProduct);
+            return View(financialLineType);
         }
 
-        // GET: LineOfProducts/Create
-        [Authorize(Policy = "Permissions.LineOfProducts.Create")]
+        // GET: FinancialLineTypes/Create
+        [Authorize(Policy = "Permissions.FinancialLineTypes.Create")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: LineOfProducts/Create
+        // POST: FinancialLineTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LineOfProductId,Description")] LineOfProduct lineOfProduct)
+        public async Task<IActionResult> Create([Bind("FinancialLineTypeId,Description")] FinancialLineType financialLineType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(lineOfProduct);
+                _context.Add(financialLineType);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 return RedirectToAction(nameof(Index));
             }
-            return View(lineOfProduct);
+            return View(financialLineType);
         }
 
-        // GET: LineOfProducts/Edit/5
-        [Authorize(Policy = "Permissions.LineOfProducts.Edit")]
+        // GET: FinancialLineTypes/Edit/5
+        [Authorize(Policy = "Permissions.FinancialLineTypes.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +79,22 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts.FindAsync(id);
-            if (lineOfProduct == null)
+            var financialLineType = await _context.FinancialLineTypes.FindAsync(id);
+            if (financialLineType == null)
             {
                 return NotFound();
             }
-            return View(lineOfProduct);
+            return View(financialLineType);
         }
 
-        // POST: LineOfProducts/Edit/5
+        // POST: FinancialLineTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LineOfProductId,Description")] LineOfProduct lineOfProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("FinancialLineTypeId,Description")] FinancialLineType financialLineType)
         {
-            if (id != lineOfProduct.LineOfProductId)
+            if (id != financialLineType.FinancialLineTypeId)
             {
                 return NotFound();
             }
@@ -103,13 +103,13 @@ namespace STRACT.web.Controllers.General
             {
                 try
                 {
-                    var old = await _context.LinesOfProducts.FindAsync(id);
-                    _context.Entry(old).CurrentValues.SetValues(lineOfProduct);
+                    var old = await _context.FinancialLineTypes.FindAsync(id);
+                    _context.Entry(old).CurrentValues.SetValues(financialLineType);
                     await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LineOfProductExists(lineOfProduct.LineOfProductId))
+                    if (!FinancialLineTypeExists(financialLineType.FinancialLineTypeId))
                     {
                         return NotFound();
                     }
@@ -120,11 +120,11 @@ namespace STRACT.web.Controllers.General
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(lineOfProduct);
+            return View(financialLineType);
         }
 
-        // GET: LineOfProducts/Delete/5
-        [Authorize(Policy = "Permissions.LineOfProducts.Delete")]
+        // GET: FinancialLineTypes/Delete/5
+        [Authorize(Policy = "Permissions.FinancialLineTypes.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,30 +132,30 @@ namespace STRACT.web.Controllers.General
                 return NotFound();
             }
 
-            var lineOfProduct = await _context.LinesOfProducts
-                .FirstOrDefaultAsync(m => m.LineOfProductId == id);
-            if (lineOfProduct == null)
+            var financialLineType = await _context.FinancialLineTypes
+                .FirstOrDefaultAsync(m => m.FinancialLineTypeId == id);
+            if (financialLineType == null)
             {
                 return NotFound();
             }
 
-            return View(lineOfProduct);
+            return View(financialLineType);
         }
 
-        // POST: LineOfProducts/Delete/5
+        // POST: FinancialLineTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var lineOfProduct = await _context.LinesOfProducts.FindAsync(id);
-            _context.LinesOfProducts.Remove(lineOfProduct);
+            var financialLineType = await _context.FinancialLineTypes.FindAsync(id);
+            _context.FinancialLineTypes.Remove(financialLineType);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool LineOfProductExists(int id)
+        private bool FinancialLineTypeExists(int id)
         {
-            return _context.LinesOfProducts.Any(e => e.LineOfProductId == id);
+            return _context.FinancialLineTypes.Any(e => e.FinancialLineTypeId == id);
         }
     }
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data;
+using STRACT.Data.Identity;
 using STRACT.Entities.General;
 
 namespace STRACT.web.Controllers.General
@@ -15,9 +16,9 @@ namespace STRACT.web.Controllers.General
     [Authorize(Policy = "Permissions.Topics.View")]
     public class TopicsController : Controller
     {
-        private readonly PDCContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public TopicsController(PDCContext context)
+        public TopicsController(ApplicationDbContext context)
         {
             _context = context;
         }

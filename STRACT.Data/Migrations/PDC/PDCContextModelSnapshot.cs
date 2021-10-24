@@ -726,7 +726,7 @@ namespace STRACT.Data.Migrations.PDC
 
                     b.HasKey("CurrencyId");
 
-                    b.ToTable("Currency");
+                    b.ToTable("Currencies");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Financial.FinancialLine", b =>
@@ -826,7 +826,7 @@ namespace STRACT.Data.Migrations.PDC
 
                     b.HasKey("FinancialLineSubTypeId");
 
-                    b.ToTable("FinancialLineSubType");
+                    b.ToTable("FinancialLineSubTypes");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Financial.FinancialLineType", b =>
@@ -840,7 +840,7 @@ namespace STRACT.Data.Migrations.PDC
 
                     b.HasKey("FinancialLineTypeId");
 
-                    b.ToTable("FinancialLineType");
+                    b.ToTable("FinancialLineTypes");
                 });
 
             modelBuilder.Entity("STRACT.Entities.General.AlertType", b =>

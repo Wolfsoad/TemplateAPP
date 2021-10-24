@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data;
+using STRACT.Data.Identity;
 using STRACT.Entities.Projects;
 
 namespace STRACT.web.Controllers.Projects
@@ -15,9 +16,9 @@ namespace STRACT.web.Controllers.Projects
     [Authorize(Policy = "Permissions.ActionGroups.View")]
     public class ActionGroupsController : Controller
     {
-        private readonly PDCContext _context;
+        private readonly ApplicationDbContext _context;
 
-        public ActionGroupsController(PDCContext context)
+        public ActionGroupsController(ApplicationDbContext context)
         {
             _context = context;
         }

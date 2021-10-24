@@ -52,6 +52,7 @@ namespace STRACT.web.Controllers
         {
             ViewBag.userId = userId;
             var user = await _userManager.FindByIdAsync(userId);
+            var userRoles = await _userManager.GetRolesAsync(user);
             if (user == null)
             {
                 ViewBag.ErrorMessage = $"User with Id = {userId} cannot be found";

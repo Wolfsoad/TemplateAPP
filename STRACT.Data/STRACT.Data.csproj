@@ -21,9 +21,4 @@
     <ProjectReference Include="..\STRACT.Entities\STRACT.Entities.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Migrations\" />
-  </ItemGroup>
-
 </Project>

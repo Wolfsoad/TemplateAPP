@@ -45,8 +45,8 @@ namespace STRACT.web
                     Configuration.GetConnectionString("DefaultConnection")));
 
             //var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
-            //services.AddDbContext<PDCContext>(options => options.UseSqlite(connection));
-            
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));
+
             services.AddControllersWithViews()
                 .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
                 .AddDataAnnotationsLocalization();
@@ -155,7 +155,6 @@ namespace STRACT.web
             mainWindow.OnReadyToShow += () =>
             {
                 mainWindow.Show();
-                mainWindow.WebContents.OpenDevTools();
                 mainWindow.SetTitle("Application Name");
             };
 

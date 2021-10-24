@@ -4,6 +4,9 @@
     <UserSecretsId>aspnet-STRACT.web-813B75C9-8FA9-477E-A482-76CDF3201FFC</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="PDC.db-wal" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.1.2" />
     <PackageReference Include="Bower" Version="1.3.11" />
     <PackageReference Include="ElectronNET.API" Version="13.5.1" />

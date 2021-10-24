@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace STRACT.Data.Migrations.PDC
+namespace STRACT.Data.Migrations
 {
-    public partial class INITIALMIGRATION : Migration
+    public partial class UPDATE202110241509 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace STRACT.Data.Migrations.PDC
                 name: "Identity");
 
             migrationBuilder.CreateTable(
-                name: "ActionGroup",
+                name: "ActionGroups",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -24,7 +24,7 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActionGroup", x => x.ActionGroupId);
+                    table.PrimaryKey("PK_ActionGroups", x => x.ActionGroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +58,7 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "AlertType",
+                name: "AlertTypes",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -69,7 +69,33 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlertType", x => x.AlertTypeId);
+                    table.PrimaryKey("PK_AlertTypes", x => x.AlertTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetUsers",
+                schema: "PDC",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetUsers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,7 +150,7 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "Currency",
+                name: "Currencies",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -134,7 +160,7 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currency", x => x.CurrencyId);
+                    table.PrimaryKey("PK_Currencies", x => x.CurrencyId);
                 });
 
             migrationBuilder.CreateTable(
@@ -168,7 +194,7 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "FinancialLineSubType",
+                name: "FinancialLineSubTypes",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -178,11 +204,11 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FinancialLineSubType", x => x.FinancialLineSubTypeId);
+                    table.PrimaryKey("PK_FinancialLineSubTypes", x => x.FinancialLineSubTypeId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FinancialLineType",
+                name: "FinancialLineTypes",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -192,7 +218,7 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FinancialLineType", x => x.FinancialLineTypeId);
+                    table.PrimaryKey("PK_FinancialLineTypes", x => x.FinancialLineTypeId);
                 });
 
             migrationBuilder.CreateTable(
@@ -211,7 +237,7 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "LineOfProduct",
+                name: "LinesOfProducts",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -221,23 +247,7 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LineOfProduct", x => x.LineOfProductId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Location",
-                schema: "PDC",
-                columns: table => new
-                {
-                    LocationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    PostCode = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Location", x => x.LocationId);
+                    table.PrimaryKey("PK_LinesOfProducts", x => x.LineOfProductId);
                 });
 
             migrationBuilder.CreateTable(
@@ -253,6 +263,22 @@ namespace STRACT.Data.Migrations.PDC
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LocationInKanbans", x => x.LocationInKanbanId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Locations",
+                schema: "PDC",
+                columns: table => new
+                {
+                    LocationId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    Address = table.Column<string>(type: "TEXT", nullable: true),
+                    PostCode = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locations", x => x.LocationId);
                 });
 
             migrationBuilder.CreateTable(
@@ -305,29 +331,13 @@ namespace STRACT.Data.Migrations.PDC
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedName = table.Column<string>(type: "TEXT", nullable: true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Role", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleClaims",
-                schema: "Identity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -361,7 +371,7 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "Topic",
+                name: "Topics",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -372,92 +382,7 @@ namespace STRACT.Data.Migrations.PDC
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Topic", x => x.TopicId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserClaims",
-                schema: "Identity",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserClaims", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserLogins",
-                schema: "Identity",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: true),
-                    ProviderKey = table.Column<string>(type: "TEXT", nullable: true),
-                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserLogins", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserRoles",
-                schema: "Identity",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.RoleId, x.UserId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Users",
-                schema: "PDC",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", nullable: true),
-                    Email = table.Column<string>(type: "TEXT", nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserTokens",
-                schema: "Identity",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Value = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserTokens", x => x.UserId);
+                    table.PrimaryKey("PK_Topics", x => x.TopicId);
                 });
 
             migrationBuilder.CreateTable(
@@ -486,6 +411,96 @@ namespace STRACT.Data.Migrations.PDC
                         principalSchema: "PDC",
                         principalTable: "ActivityGroups",
                         principalColumn: "ActivityGroupId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationUser",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
+                    LastName = table.Column<string>(type: "TEXT", nullable: true),
+                    UsernameChangeLimit = table.Column<int>(type: "INTEGER", nullable: false),
+                    ProfilePicture = table.Column<byte[]>(type: "BLOB", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationUser_AspNetUsers_Id",
+                        column: x => x.Id,
+                        principalSchema: "PDC",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserClaims",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserClaims_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "PDC",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLogins",
+                schema: "Identity",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
+                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLogins", x => new { x.LoginProvider, x.ProviderKey });
+                    table.ForeignKey(
+                        name: "FK_UserLogins_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "PDC",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                schema: "Identity",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_UserTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "PDC",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -651,6 +666,56 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
+                name: "RoleClaims",
+                schema: "Identity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
+                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
+                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoleClaims_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Identity",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                schema: "Identity",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "TEXT", nullable: false),
+                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "PDC",
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Identity",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skill",
                 schema: "PDC",
                 columns: table => new
@@ -674,25 +739,33 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "ApplicationUser",
-                schema: "Identity",
+                name: "UserInTeam",
+                schema: "PDC",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    UsernameChangeLimit = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProfilePicture = table.Column<byte[]>(type: "BLOB", nullable: true)
+                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Active = table.Column<bool>(type: "INTEGER", nullable: false),
+                    OrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ApplicationUserId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ApplicationUserId1 = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ApplicationUser", x => x.Id);
+                    table.PrimaryKey("PK_UserInTeam", x => x.UserInTeamId);
                     table.ForeignKey(
-                        name: "FK_ApplicationUser_Users_Id",
-                        column: x => x.Id,
-                        principalSchema: "PDC",
-                        principalTable: "Users",
+                        name: "FK_UserInTeam_ApplicationUser_ApplicationUserId1",
+                        column: x => x.ApplicationUserId1,
+                        principalSchema: "Identity",
+                        principalTable: "ApplicationUser",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserInTeam_OrganizationalRole_OrganizationalRoleId",
+                        column: x => x.OrganizationalRoleId,
+                        principalSchema: "PDC",
+                        principalTable: "OrganizationalRole",
+                        principalColumn: "OrganizationalRoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -750,66 +823,6 @@ namespace STRACT.Data.Migrations.PDC
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserInTeam",
-                schema: "PDC",
-                columns: table => new
-                {
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Active = table.Column<bool>(type: "INTEGER", nullable: false),
-                    OrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ApplicationUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ApplicationUserId1 = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserInTeam", x => x.UserInTeamId);
-                    table.ForeignKey(
-                        name: "FK_UserInTeam_ApplicationUser_ApplicationUserId1",
-                        column: x => x.ApplicationUserId1,
-                        principalSchema: "Identity",
-                        principalTable: "ApplicationUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserInTeam_OrganizationalRole_OrganizationalRoleId",
-                        column: x => x.OrganizationalRoleId,
-                        principalSchema: "PDC",
-                        principalTable: "OrganizationalRole",
-                        principalColumn: "OrganizationalRoleId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CertificateProductLines",
-                schema: "PDC",
-                columns: table => new
-                {
-                    ProductLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CertificateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LineOfProductId = table.Column<int>(type: "INTEGER", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CertificateProductLines", x => x.ProductLineId);
-                    table.ForeignKey(
-                        name: "FK_CertificateProductLines_Certificate_CertificateId",
-                        column: x => x.CertificateId,
-                        principalSchema: "PDC",
-                        principalTable: "Certificate",
-                        principalColumn: "CertificateId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CertificateProductLines_LineOfProduct_LineOfProductId",
-                        column: x => x.LineOfProductId,
-                        principalSchema: "PDC",
-                        principalTable: "LineOfProduct",
-                        principalColumn: "LineOfProductId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Audit",
                 schema: "PDC",
                 columns: table => new
@@ -834,10 +847,10 @@ namespace STRACT.Data.Migrations.PDC
                         principalColumn: "CertificationLineId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Audit_Location_LocationId",
+                        name: "FK_Audit_Locations_LocationId",
                         column: x => x.LocationId,
                         principalSchema: "PDC",
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -958,6 +971,35 @@ namespace STRACT.Data.Migrations.PDC
                         principalTable: "UserInTeam",
                         principalColumn: "UserInTeamId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CertificateProductLines",
+                schema: "PDC",
+                columns: table => new
+                {
+                    ProductLineId = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    CertificateId = table.Column<int>(type: "INTEGER", nullable: false),
+                    LineOfProductId = table.Column<int>(type: "INTEGER", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CertificateProductLines", x => x.ProductLineId);
+                    table.ForeignKey(
+                        name: "FK_CertificateProductLines_Certificate_CertificateId",
+                        column: x => x.CertificateId,
+                        principalSchema: "PDC",
+                        principalTable: "Certificate",
+                        principalColumn: "CertificateId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CertificateProductLines_LinesOfProducts_LineOfProductId",
+                        column: x => x.LineOfProductId,
+                        principalSchema: "PDC",
+                        principalTable: "LinesOfProducts",
+                        principalColumn: "LineOfProductId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1103,10 +1145,10 @@ namespace STRACT.Data.Migrations.PDC
                 {
                     table.PrimaryKey("PK_AlertInProject", x => x.ProjectItemId);
                     table.ForeignKey(
-                        name: "FK_AlertInProject_AlertType_AlertTypeId",
+                        name: "FK_AlertInProject_AlertTypes_AlertTypeId",
                         column: x => x.AlertTypeId,
                         principalSchema: "PDC",
-                        principalTable: "AlertType",
+                        principalTable: "AlertTypes",
                         principalColumn: "AlertTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1232,10 +1274,10 @@ namespace STRACT.Data.Migrations.PDC
                         principalColumn: "ProjectItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TopicInProject_Topic_TopicId",
+                        name: "FK_TopicInProject_Topics_TopicId",
                         column: x => x.TopicId,
                         principalSchema: "PDC",
-                        principalTable: "Topic",
+                        principalTable: "Topics",
                         principalColumn: "TopicId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1346,17 +1388,18 @@ namespace STRACT.Data.Migrations.PDC
                     RequestedIn = table.Column<DateTime>(type: "TEXT", nullable: false),
                     IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
                     ActionGroupId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActionPlanRevisionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActionPlanRevisionId = table.Column<int>(type: "INTEGER", nullable: true),
+                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: true),
+                    DepartmentId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActionItem", x => x.ActionItemId);
                     table.ForeignKey(
-                        name: "FK_ActionItem_ActionGroup_ActionGroupId",
+                        name: "FK_ActionItem_ActionGroups_ActionGroupId",
                         column: x => x.ActionGroupId,
                         principalSchema: "PDC",
-                        principalTable: "ActionGroup",
+                        principalTable: "ActionGroups",
                         principalColumn: "ActionGroupId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1365,6 +1408,13 @@ namespace STRACT.Data.Migrations.PDC
                         principalSchema: "PDC",
                         principalTable: "ActionPlanRevision",
                         principalColumn: "ActionPlanRevisionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ActionItem_Department_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalSchema: "PDC",
+                        principalTable: "Department",
+                        principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ActionItem_ProjectItem_ProjectItemId",
@@ -1372,7 +1422,7 @@ namespace STRACT.Data.Migrations.PDC
                         principalSchema: "PDC",
                         principalTable: "ProjectItem",
                         principalColumn: "ProjectItemId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1445,10 +1495,10 @@ namespace STRACT.Data.Migrations.PDC
                         principalColumn: "ActionItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActionItemLineOfProduct_LineOfProduct_LinesOfProductsLineOfProductId",
+                        name: "FK_ActionItemLineOfProduct_LinesOfProducts_LinesOfProductsLineOfProductId",
                         column: x => x.LinesOfProductsLineOfProductId,
                         principalSchema: "PDC",
-                        principalTable: "LineOfProduct",
+                        principalTable: "LinesOfProducts",
                         principalColumn: "LineOfProductId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1522,31 +1572,31 @@ namespace STRACT.Data.Migrations.PDC
                         principalColumn: "ActionItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FinancialLine_Currency_CurrencyId",
+                        name: "FK_FinancialLine_Currencies_CurrencyId",
                         column: x => x.CurrencyId,
                         principalSchema: "PDC",
-                        principalTable: "Currency",
+                        principalTable: "Currencies",
                         principalColumn: "CurrencyId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FinancialLine_FinancialLineSubType_FinancialLineSubtypeId",
+                        name: "FK_FinancialLine_FinancialLineSubTypes_FinancialLineSubtypeId",
                         column: x => x.FinancialLineSubtypeId,
                         principalSchema: "PDC",
-                        principalTable: "FinancialLineSubType",
+                        principalTable: "FinancialLineSubTypes",
                         principalColumn: "FinancialLineSubTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FinancialLine_FinancialLineType_FinancialLineTypeId",
+                        name: "FK_FinancialLine_FinancialLineTypes_FinancialLineTypeId",
                         column: x => x.FinancialLineTypeId,
                         principalSchema: "PDC",
-                        principalTable: "FinancialLineType",
+                        principalTable: "FinancialLineTypes",
                         principalColumn: "FinancialLineTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FinancialLine_Location_LocationId",
+                        name: "FK_FinancialLine_Locations_LocationId",
                         column: x => x.LocationId,
                         principalSchema: "PDC",
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1580,10 +1630,10 @@ namespace STRACT.Data.Migrations.PDC
                         principalColumn: "ActionItemId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LocationsForAction_Location_LocationId1",
+                        name: "FK_LocationsForAction_Locations_LocationId1",
                         column: x => x.LocationId1,
                         principalSchema: "PDC",
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "LocationId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -1641,6 +1691,12 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC",
                 table: "ActionItem",
                 column: "ActionPlanRevisionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActionItem_DepartmentId",
+                schema: "PDC",
+                table: "ActionItem",
+                column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActionItem_ProjectItemId",
@@ -1708,6 +1764,19 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC",
                 table: "AlertInProject",
                 column: "ProjectItemId1");
+
+            migrationBuilder.CreateIndex(
+                name: "EmailIndex",
+                schema: "PDC",
+                table: "AspNetUsers",
+                column: "NormalizedEmail");
+
+            migrationBuilder.CreateIndex(
+                name: "UserNameIndex",
+                schema: "PDC",
+                table: "AspNetUsers",
+                column: "NormalizedUserName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Audit_CertificationLineId",
@@ -1933,6 +2002,19 @@ namespace STRACT.Data.Migrations.PDC
                 column: "ResponsibleUserInTeamId");
 
             migrationBuilder.CreateIndex(
+                name: "RoleNameIndex",
+                schema: "Identity",
+                table: "Role",
+                column: "NormalizedName",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleClaims_RoleId",
+                schema: "Identity",
+                table: "RoleClaims",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Skill_SkillGroupId",
                 schema: "PDC",
                 table: "Skill",
@@ -2035,6 +2117,12 @@ namespace STRACT.Data.Migrations.PDC
                 column: "TopicId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserClaims_UserId",
+                schema: "Identity",
+                table: "UserClaims",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserHoliday_UserInTeamId",
                 schema: "PDC",
                 table: "UserHoliday",
@@ -2051,6 +2139,18 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC",
                 table: "UserInTeam",
                 column: "OrganizationalRoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserLogins_UserId",
+                schema: "Identity",
+                table: "UserLogins",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRoles_RoleId",
+                schema: "Identity",
+                table: "UserRoles",
+                column: "RoleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -2128,10 +2228,6 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Role",
-                schema: "Identity");
-
-            migrationBuilder.DropTable(
                 name: "RoleClaims",
                 schema: "Identity");
 
@@ -2180,7 +2276,7 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "AlertType",
+                name: "AlertTypes",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2188,7 +2284,7 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "LineOfProduct",
+                name: "LinesOfProducts",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2208,15 +2304,15 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Currency",
+                name: "Currencies",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "FinancialLineSubType",
+                name: "FinancialLineSubTypes",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "FinancialLineType",
+                name: "FinancialLineTypes",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2240,8 +2336,12 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Topic",
+                name: "Topics",
                 schema: "PDC");
+
+            migrationBuilder.DropTable(
+                name: "Role",
+                schema: "Identity");
 
             migrationBuilder.DropTable(
                 name: "SkillGroup",
@@ -2256,10 +2356,6 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Department",
-                schema: "PDC");
-
-            migrationBuilder.DropTable(
                 name: "Priority",
                 schema: "PDC");
 
@@ -2268,11 +2364,15 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "ActionGroup",
+                name: "ActionGroups",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
                 name: "ActionPlanRevision",
+                schema: "PDC");
+
+            migrationBuilder.DropTable(
+                name: "Department",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2284,7 +2384,7 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Location",
+                name: "Locations",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2312,7 +2412,7 @@ namespace STRACT.Data.Migrations.PDC
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Users",
+                name: "AspNetUsers",
                 schema: "PDC");
         }
     }

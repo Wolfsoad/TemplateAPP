@@ -151,13 +151,7 @@ namespace STRACT.web
                     NodeIntegration = true,
                 },
             };
-            BrowserWindow mainWindow = await Electron.WindowManager.CreateWindowAsync(options);
-            mainWindow.OnReadyToShow += () =>
-            {
-                mainWindow.Show();
-                mainWindow.SetTitle("Application Name");
-            };
-
+            await Task.Run(async () => await Electron.WindowManager.CreateWindowAsync());
         }
     }
 }

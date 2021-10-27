@@ -82,4 +82,32 @@ public static class Permissions
         public const string Edit = "Permissions.FinancialLineSubTypes.Edit";
         public const string Delete = "Permissions.FinancialLineSubTypes.Delete";
     }
+    public static class Activities
+    {
+        public const string View = "Permissions.Activities.View";
+        public const string Create = "Permissions.Activities.Create";
+        public const string Edit = "Permissions.Activities.Edit";
+        public const string Delete = "Permissions.Activities.Delete";
+    }
+    public static class ActivityGroups
+    {
+        public const string View = "Permissions.ActivityGroups.View";
+        public const string Create = "Permissions.ActivityGroups.Create";
+        public const string Edit = "Permissions.ActivityGroups.Edit";
+        public const string Delete = "Permissions.ActivityGroups.Delete";
+    }
+    public static class Departments
+    {
+        public const string View = "Permissions.Departments.View";
+        public const string Create = "Permissions.Departments.Create";
+        public const string Edit = "Permissions.Departments.Edit";
+        public const string Delete = "Permissions.Departments.Delete";
+    }
+    public static class SkillGroups
+    {
+        public const string View = "Permissions.SkillGroups.View";
+        public const string Create = "Permissions.SkillGroups.Create";
+        public const string Edit = "Permissions.SkillGroups.Edit";
+        public const string Delete = "Permissions.SkillGroups.Delete";
+    }
 }

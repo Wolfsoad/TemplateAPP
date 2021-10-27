@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using STRACT.Data.Identity;
 using STRACT.Entities.Enums;
 using STRACT.Entities.Kanban;
+using STRACT.Entities.HumanResources;
 
 namespace STRACT.Data
 {
@@ -16,6 +17,7 @@ namespace STRACT.Data
         {
             await SeedKanbanPriorityAsync(context);
             await SeedKanbanTaskTypesAsync(context);
+            await SeedActivityGroupsAsync(context);
         }
         public static async Task SeedKanbanPriorityAsync(ApplicationDbContext context)
         {
@@ -68,6 +70,60 @@ namespace STRACT.Data
                 };
 
                 await context.AddRangeAsync(locations);
+                await context.SaveChangesAsync();
+            }
+
+        }
+
+        public static async Task SeedActivityGroupsAsync(ApplicationDbContext context)
+        {
+            //Seed Roles
+            if (!context.ActivityGroups.Any())
+            {
+                var activityGroups = new List<ActivityGroup>
+                {
+                    new ActivityGroup { Name = "Gestão de Certificações", Description = ""},
+                    new ActivityGroup { Name = "Gestão de Projetos", Description = ""},
+                    new ActivityGroup { Name = "Desenvolvimento de Linhas", Description = ""},
+                    new ActivityGroup { Name = "Desenvolvimento de Componentes", Description = ""},
+                    new ActivityGroup { Name = "Desenvolvimento de Aplicações", Description = "" }
+
+                };
+
+                await context.AddRangeAsync(activityGroups);
+                await context.SaveChangesAsync();
+
+            }
+            if (!context.Activities.Any())
+            {
+                var activities = new List<Activity>
+                    {
+                        new Activity { Name = "Contactar organismo", Description = ""},
+                        new Activity { Name = "Preparar dossier certificação", Description = ""},
+                        new Activity { Name = "Desenhar componente em 3D", Description = ""},
+                        new Activity { Name = "Desenhar componente em 2D", Description = ""},
+                        new Activity { Name = "Programar orientado a objetos", Description = "" }
+
+                    };
+
+                await context.AddRangeAsync(activities);
+                await context.SaveChangesAsync();
+            }
+            if (!context.ActivityInGroups.Any())
+            {
+                var activityInGroup = new List<ActivityInGroup>
+                    {
+                        new ActivityInGroup { ActivityId = 1, ActivityGroupId = 1},
+                        new ActivityInGroup { ActivityId = 2, ActivityGroupId = 1},
+                        new ActivityInGroup { ActivityId = 3, ActivityGroupId = 3},
+                        new ActivityInGroup { ActivityId = 3, ActivityGroupId = 4},
+                        new ActivityInGroup { ActivityId = 4, ActivityGroupId = 3},
+                        new ActivityInGroup { ActivityId = 4, ActivityGroupId = 4},
+                        new ActivityInGroup { ActivityId = 5, ActivityGroupId = 5}
+
+                    };
+
+                await context.AddRangeAsync(activityInGroup);
                 await context.SaveChangesAsync();
             }
 

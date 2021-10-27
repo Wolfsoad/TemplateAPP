@@ -66,6 +66,10 @@ namespace STRACT.web.Controllers
             allPermissions.GetPermissions(typeof(Permissions.LineOfProducts), roleId);
             allPermissions.GetPermissions(typeof(Permissions.FinancialLineTypes), roleId);
             allPermissions.GetPermissions(typeof(Permissions.FinancialLineSubTypes), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Activities), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.ActivityGroups), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.Departments), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.SkillGroups), roleId);
             return allPermissions;
         }
 

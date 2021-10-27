@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace STRACT.Data.Migrations
 {
-    public partial class UPDATE202110241509 : Migration
+    public partial class CORRECTIONPRIMARYKEYS : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,9 +18,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActionGroupId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    ActionGroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,18 +28,18 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Activity",
+                name: "Activities",
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    ActivityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Activity", x => x.ActivityId);
+                    table.PrimaryKey("PK_Activities", x => x.ActivityId);
                 });
 
             migrationBuilder.CreateTable(
@@ -47,10 +47,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivityGroupId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    ActivityGroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -62,10 +62,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    AlertTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    AlertTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,21 +77,21 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    UserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedUserName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    Email = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedEmail = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    PasswordHash = table.Column<string>(type: "TEXT", nullable: true),
-                    SecurityStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumberConfirmed = table.Column<bool>(type: "INTEGER", nullable: false),
-                    TwoFactorEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(type: "TEXT", nullable: true),
-                    LockoutEnabled = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AccessFailedCount = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,16 +103,16 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: true),
-                    Type = table.Column<string>(type: "TEXT", nullable: true),
-                    TableName = table.Column<string>(type: "TEXT", nullable: true),
-                    DateTime = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    OldValues = table.Column<string>(type: "TEXT", nullable: true),
-                    NewValues = table.Column<string>(type: "TEXT", nullable: true),
-                    AffectedColumns = table.Column<string>(type: "TEXT", nullable: true),
-                    PrimaryKey = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TableName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OldValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NewValues = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AffectedColumns = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PrimaryKey = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,11 +124,11 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ChronogramTextId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Repeatable = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Milestone = table.Column<bool>(type: "INTEGER", nullable: false)
+                    ChronogramTextId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Repeatable = table.Column<bool>(type: "bit", nullable: false),
+                    Milestone = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -140,9 +140,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    CommissionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    CommissionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,9 +154,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    CurrencyId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CurrencyCode = table.Column<string>(type: "TEXT", nullable: true)
+                    CurrencyId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CurrencyCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -164,18 +164,18 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Department",
+                name: "Departments",
                 schema: "PDC",
                 columns: table => new
                 {
-                    DepartmentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Department", x => x.DepartmentId);
+                    table.PrimaryKey("PK_Departments", x => x.DepartmentId);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,10 +183,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    EntityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    SupplierCode = table.Column<string>(type: "TEXT", nullable: true)
+                    EntityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SupplierCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -198,9 +198,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    FinancialLineSubTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    FinancialLineSubTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,9 +212,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    FinancialLineTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    FinancialLineTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -226,10 +226,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    FunctionalRoleId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    FunctionalRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -241,9 +241,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    LineOfProductId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    LineOfProductId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -255,10 +255,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    LocationInKanbanId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    LocationInKanbanId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -270,11 +270,11 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    LocationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Address = table.Column<string>(type: "TEXT", nullable: true),
-                    PostCode = table.Column<string>(type: "TEXT", nullable: true)
+                    LocationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -286,10 +286,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    OrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    OrganizationalRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -301,10 +301,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    PriorityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    PriorityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -316,9 +316,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProposalStatusId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Text = table.Column<string>(type: "TEXT", nullable: true)
+                    ProposalStatusId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -330,10 +330,10 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "TEXT", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -341,18 +341,18 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SkillGroup",
+                name: "SkillGroups",
                 schema: "PDC",
                 columns: table => new
                 {
-                    SkillGroupId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true)
+                    SkillGroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SkillGroup", x => x.SkillGroupId);
+                    table.PrimaryKey("PK_SkillGroups", x => x.SkillGroupId);
                 });
 
             migrationBuilder.CreateTable(
@@ -360,10 +360,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    TaskTypeId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    TaskTypeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -375,10 +375,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    TopicId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Color = table.Column<string>(type: "TEXT", nullable: true)
+                    TopicId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -390,19 +390,17 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ActivityId1 = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActivityGroupId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    ActivityGroupId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityInGroup", x => x.ActivityId);
+                    table.PrimaryKey("PK_ActivityInGroup", x => new { x.ActivityGroupId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_ActivityInGroup_Activity_ActivityId1",
-                        column: x => x.ActivityId1,
+                        name: "FK_ActivityInGroup_Activities_ActivityId",
+                        column: x => x.ActivityId,
                         principalSchema: "PDC",
-                        principalTable: "Activity",
+                        principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -419,11 +417,11 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
-                    FirstName = table.Column<string>(type: "TEXT", nullable: true),
-                    LastName = table.Column<string>(type: "TEXT", nullable: true),
-                    UsernameChangeLimit = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProfilePicture = table.Column<byte[]>(type: "BLOB", nullable: true)
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UsernameChangeLimit = table.Column<int>(type: "int", nullable: false),
+                    ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -434,7 +432,7 @@ namespace STRACT.Data.Migrations
                         principalSchema: "PDC",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -442,11 +440,11 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -465,10 +463,10 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    ProviderKey = table.Column<string>(type: "TEXT", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<string>(type: "TEXT", nullable: false)
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -487,10 +485,10 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    LoginProvider = table.Column<string>(type: "TEXT", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    Value = table.Column<string>(type: "TEXT", nullable: true)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -509,17 +507,16 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProjectId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CommissionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Proposal = table.Column<string>(type: "TEXT", nullable: true),
-                    SupportDocuments = table.Column<string>(type: "TEXT", nullable: true),
-                    Justification = table.Column<string>(type: "TEXT", nullable: true),
-                    Advantages = table.Column<string>(type: "TEXT", nullable: true)
+                    CommissionId = table.Column<int>(type: "int", nullable: false),
+                    ProjectId = table.Column<int>(type: "int", nullable: false),
+                    Proposal = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SupportDocuments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Justification = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Advantages = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CommissionForProject", x => x.ProjectId);
+                    table.PrimaryKey("PK_CommissionForProject", x => new { x.CommissionId, x.ProjectId });
                     table.ForeignKey(
                         name: "FK_CommissionForProject_Commission_CommissionId",
                         column: x => x.CommissionId,
@@ -534,13 +531,13 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    CertificationLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    FactoryAudit = table.Column<bool>(type: "INTEGER", nullable: false),
-                    FolderPath = table.Column<string>(type: "TEXT", nullable: true),
-                    AuditFrequency = table.Column<int>(type: "INTEGER", nullable: false),
-                    EntityId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CertificationLineId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FactoryAudit = table.Column<bool>(type: "bit", nullable: false),
+                    FolderPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AuditFrequency = table.Column<int>(type: "int", nullable: false),
+                    EntityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -559,12 +556,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ContactPersonId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: true),
-                    IsMainContact = table.Column<bool>(type: "INTEGER", nullable: false),
-                    EntityId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ContactPersonId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsMainContact = table.Column<bool>(type: "bit", nullable: false),
+                    EntityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -583,17 +580,17 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivitiesActivityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FunctionalRolesFunctionalRoleId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActivitiesActivityId = table.Column<int>(type: "int", nullable: false),
+                    FunctionalRolesFunctionalRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActivityFunctionalRole", x => new { x.ActivitiesActivityId, x.FunctionalRolesFunctionalRoleId });
                     table.ForeignKey(
-                        name: "FK_ActivityFunctionalRole_Activity_ActivitiesActivityId",
+                        name: "FK_ActivityFunctionalRole_Activities_ActivitiesActivityId",
                         column: x => x.ActivitiesActivityId,
                         principalSchema: "PDC",
-                        principalTable: "Activity",
+                        principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -610,17 +607,17 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivitiesActivityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrganizationalRolesOrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActivitiesActivityId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationalRolesOrganizationalRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActivityOrganizationalRole", x => new { x.ActivitiesActivityId, x.OrganizationalRolesOrganizationalRoleId });
                     table.ForeignKey(
-                        name: "FK_ActivityOrganizationalRole_Activity_ActivitiesActivityId",
+                        name: "FK_ActivityOrganizationalRole_Activities_ActivitiesActivityId",
                         column: x => x.ActivitiesActivityId,
                         principalSchema: "PDC",
-                        principalTable: "Activity",
+                        principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -637,14 +634,14 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    DecisionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Subject = table.Column<string>(type: "TEXT", nullable: true),
-                    Minutes = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    DateOfDecision = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    StatusId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CommissionId = table.Column<int>(type: "INTEGER", nullable: false)
+                    DecisionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Subject = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Minutes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfDecision = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    CommissionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -670,11 +667,11 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false),
-                    ClaimType = table.Column<string>(type: "TEXT", nullable: true),
-                    ClaimValue = table.Column<string>(type: "TEXT", nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -693,8 +690,8 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "TEXT", nullable: false),
-                    RoleId = table.Column<string>(type: "TEXT", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -720,20 +717,20 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    SkillId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    SkillGroupId = table.Column<int>(type: "INTEGER", nullable: false)
+                    SkillId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SkillGroupId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skill", x => x.SkillId);
                     table.ForeignKey(
-                        name: "FK_Skill_SkillGroup_SkillGroupId",
+                        name: "FK_Skill_SkillGroups_SkillGroupId",
                         column: x => x.SkillGroupId,
                         principalSchema: "PDC",
-                        principalTable: "SkillGroup",
+                        principalTable: "SkillGroups",
                         principalColumn: "SkillGroupId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -743,12 +740,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Active = table.Column<bool>(type: "INTEGER", nullable: false),
-                    OrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ApplicationUserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ApplicationUserId1 = table.Column<string>(type: "TEXT", nullable: true)
+                    UserInTeamId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Active = table.Column<bool>(type: "bit", nullable: false),
+                    OrganizationalRoleId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
+                    ApplicationUserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -774,14 +771,14 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    CertificateId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    Number = table.Column<string>(type: "TEXT", nullable: true),
-                    EmissionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    ValidUntil = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CertificateUrl = table.Column<string>(type: "TEXT", nullable: true),
-                    CertificationLineId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CertificateId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmissionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ValidUntil = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CertificateUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CertificationLineId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -800,17 +797,17 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivitiesActivityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SkillsSkillId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActivitiesActivityId = table.Column<int>(type: "int", nullable: false),
+                    SkillsSkillId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ActivitySkill", x => new { x.ActivitiesActivityId, x.SkillsSkillId });
                     table.ForeignKey(
-                        name: "FK_ActivitySkill_Activity_ActivitiesActivityId",
+                        name: "FK_ActivitySkill_Activities_ActivitiesActivityId",
                         column: x => x.ActivitiesActivityId,
                         principalSchema: "PDC",
-                        principalTable: "Activity",
+                        principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -827,14 +824,14 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    AuditId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    DateOfAudit = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Concluded = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CertificationLineId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LocationId = table.Column<int>(type: "INTEGER", nullable: false)
+                    AuditId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    DateOfAudit = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Concluded = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CertificationLineId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -867,12 +864,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    DeclarationItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Motive = table.Column<string>(type: "TEXT", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                    DeclarationItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Motive = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -891,18 +888,18 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    DetailOfProblem = table.Column<string>(type: "TEXT", nullable: true),
-                    MappedBenefits = table.Column<string>(type: "TEXT", nullable: true),
-                    ExpectedResults = table.Column<string>(type: "TEXT", nullable: true),
-                    ConceptsDeveloped = table.Column<string>(type: "TEXT", nullable: true),
-                    MainConclusions = table.Column<string>(type: "TEXT", nullable: true),
-                    FolderPath = table.Column<string>(type: "TEXT", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CoordinatorUserInTeamId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DetailOfProblem = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MappedBenefits = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpectedResults = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConceptsDeveloped = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MainConclusions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FolderPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    CoordinatorUserInTeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -921,16 +918,16 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProposalId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Code = table.Column<string>(type: "TEXT", nullable: true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    DateOfCreation = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DateSent = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Path = table.Column<string>(type: "TEXT", nullable: true),
-                    CommissionId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ResponsibleUserInTeamId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ProposalId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfCreation = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateSent = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Path = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CommissionId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ResponsibleUserInTeamId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -956,10 +953,10 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    UserHolidayId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DataOfHoliday = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: false)
+                    UserHolidayId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DataOfHoliday = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserInTeamId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -978,14 +975,13 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProductLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    CertificateId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LineOfProductId = table.Column<int>(type: "INTEGER", nullable: true)
+                    CertificateId = table.Column<int>(type: "int", nullable: false),
+                    ProductLineId = table.Column<int>(type: "int", nullable: false),
+                    LineOfProductId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificateProductLines", x => x.ProductLineId);
+                    table.PrimaryKey("PK_CertificateProductLines", x => new { x.CertificateId, x.ProductLineId });
                     table.ForeignKey(
                         name: "FK_CertificateProductLines_Certificate_CertificateId",
                         column: x => x.CertificateId,
@@ -1007,21 +1003,21 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    TaskItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    FeatureActivity = table.Column<string>(type: "TEXT", nullable: true),
-                    Reason = table.Column<string>(type: "TEXT", nullable: true),
-                    Details = table.Column<string>(type: "TEXT", nullable: true),
-                    Points = table.Column<int>(type: "INTEGER", nullable: false),
-                    Hours = table.Column<double>(type: "REAL", nullable: false),
-                    IsRepeatable = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: true),
-                    OrganizationRoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    OrganizationalRoleId = table.Column<int>(type: "INTEGER", nullable: true),
-                    TaskTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    AuditId = table.Column<int>(type: "INTEGER", nullable: false),
-                    PriorityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DepartmentId = table.Column<int>(type: "INTEGER", nullable: false)
+                    TaskItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FeatureActivity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Points = table.Column<int>(type: "int", nullable: false),
+                    Hours = table.Column<double>(type: "float", nullable: false),
+                    IsRepeatable = table.Column<bool>(type: "bit", nullable: false),
+                    UserInTeamId = table.Column<int>(type: "int", nullable: true),
+                    OrganizationRoleId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationalRoleId = table.Column<int>(type: "int", nullable: true),
+                    TaskTypeId = table.Column<int>(type: "int", nullable: false),
+                    AuditId = table.Column<int>(type: "int", nullable: false),
+                    PriorityId = table.Column<int>(type: "int", nullable: false),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1034,10 +1030,10 @@ namespace STRACT.Data.Migrations
                         principalColumn: "AuditId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TaskItem_Department_DepartmentId",
+                        name: "FK_TaskItem_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalSchema: "PDC",
-                        principalTable: "Department",
+                        principalTable: "Departments",
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1075,12 +1071,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    DeclarationRevisionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RevisionDescription = table.Column<string>(type: "TEXT", nullable: true),
-                    RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DeclarationItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                    DeclarationRevisionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RevisionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RevisionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    DeclarationItemId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1106,22 +1102,21 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    SignatureId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    DateSigned = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DeclarationItemId = table.Column<int>(type: "INTEGER", nullable: true),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true)
+                    SignatureId = table.Column<int>(type: "int", nullable: false),
+                    DeclarationItemId = table.Column<int>(type: "int", nullable: false),
+                    DateSigned = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeclarationSignature", x => x.SignatureId);
+                    table.PrimaryKey("PK_DeclarationSignature", x => new { x.DeclarationItemId, x.SignatureId });
                     table.ForeignKey(
                         name: "FK_DeclarationSignature_Declarations_DeclarationItemId",
                         column: x => x.DeclarationItemId,
                         principalSchema: "PDC",
                         principalTable: "Declarations",
                         principalColumn: "DeclarationItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_DeclarationSignature_UserInTeam_UserId",
                         column: x => x.UserId,
@@ -1136,14 +1131,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    AlertTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectItemId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    AlertTypeId = table.Column<int>(type: "int", nullable: false),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AlertInProject", x => x.ProjectItemId);
+                    table.PrimaryKey("PK_AlertInProject", x => new { x.AlertTypeId, x.ProjectItemId });
                     table.ForeignKey(
                         name: "FK_AlertInProject_AlertTypes_AlertTypeId",
                         column: x => x.AlertTypeId,
@@ -1152,8 +1145,8 @@ namespace STRACT.Data.Migrations
                         principalColumn: "AlertTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AlertInProject_ProjectItem_ProjectItemId1",
-                        column: x => x.ProjectItemId1,
+                        name: "FK_AlertInProject_ProjectItem_ProjectItemId",
+                        column: x => x.ProjectItemId,
                         principalSchema: "PDC",
                         principalTable: "ProjectItem",
                         principalColumn: "ProjectItemId",
@@ -1165,15 +1158,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ChronogramRevisionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RevisionDescription = table.Column<string>(type: "TEXT", nullable: true),
-                    RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Version = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsMain = table.Column<bool>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ResponsibleUserInTeamId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ChronogramRevisionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RevisionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RevisionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false),
+                    IsMain = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    ResponsibleUserInTeamId = table.Column<int>(type: "int", nullable: true),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1199,9 +1192,9 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    KanbanId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
+                    KanbanId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1220,16 +1213,14 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FunctionalRoleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    DescriptionOfFunction = table.Column<string>(type: "TEXT", nullable: true)
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    FunctionalRoleId = table.Column<int>(type: "int", nullable: false),
+                    DescriptionOfFunction = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectMember", x => x.UserId);
+                    table.PrimaryKey("PK_ProjectMember", x => new { x.ProjectItemId, x.UserId, x.FunctionalRoleId });
                     table.ForeignKey(
                         name: "FK_ProjectMember_FunctionalRole_FunctionalRoleId",
                         column: x => x.FunctionalRoleId,
@@ -1245,8 +1236,8 @@ namespace STRACT.Data.Migrations
                         principalColumn: "ProjectItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectMember_UserInTeam_UserInTeamId",
-                        column: x => x.UserInTeamId,
+                        name: "FK_ProjectMember_UserInTeam_UserId",
+                        column: x => x.UserId,
                         principalSchema: "PDC",
                         principalTable: "UserInTeam",
                         principalColumn: "UserInTeamId",
@@ -1258,17 +1249,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    TopicId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProjectItemId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    TopicId = table.Column<int>(type: "int", nullable: false),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TopicInProject", x => x.ProjectItemId);
+                    table.PrimaryKey("PK_TopicInProject", x => new { x.TopicId, x.ProjectItemId });
                     table.ForeignKey(
-                        name: "FK_TopicInProject_ProjectItem_ProjectItemId1",
-                        column: x => x.ProjectItemId1,
+                        name: "FK_TopicInProject_ProjectItem_ProjectItemId",
+                        column: x => x.ProjectItemId,
                         principalSchema: "PDC",
                         principalTable: "ProjectItem",
                         principalColumn: "ProjectItemId",
@@ -1287,15 +1276,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActionPlanRevisionId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    RevisionDescription = table.Column<string>(type: "TEXT", nullable: true),
-                    RevisionDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Budget = table.Column<double>(type: "REAL", nullable: false),
-                    ActionPlanYear = table.Column<int>(type: "INTEGER", nullable: false),
-                    Version = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProposalId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ActionPlanRevisionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RevisionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RevisionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Budget = table.Column<double>(type: "float", nullable: false),
+                    ActionPlanYear = table.Column<int>(type: "int", nullable: false),
+                    Version = table.Column<int>(type: "int", nullable: false),
+                    UserInTeamId = table.Column<int>(type: "int", nullable: true),
+                    ProposalId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1321,16 +1310,16 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ChronogramLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PlannedStart = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DurationInDays = table.Column<int>(type: "INTEGER", nullable: false),
-                    EffectiveStartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    EffectiveEndDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    PercentOfConclusion = table.Column<double>(type: "REAL", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ChronogramTextId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ChronogramRevisionId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ChronogramLineId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PlannedStart = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DurationInDays = table.Column<int>(type: "int", nullable: false),
+                    EffectiveStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EffectiveEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PercentOfConclusion = table.Column<double>(type: "float", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ChronogramTextId = table.Column<int>(type: "int", nullable: false),
+                    ChronogramRevisionId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1356,14 +1345,14 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    SprintId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    StartDate = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    DurationInDays = table.Column<int>(type: "INTEGER", nullable: false),
-                    PointsRequired = table.Column<int>(type: "INTEGER", nullable: false),
-                    PointsDone = table.Column<int>(type: "INTEGER", nullable: false),
-                    IsSprintEnded = table.Column<bool>(type: "INTEGER", nullable: false),
-                    KanbanBoardKanbanId = table.Column<int>(type: "INTEGER", nullable: true)
+                    SprintId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DurationInDays = table.Column<int>(type: "int", nullable: false),
+                    PointsRequired = table.Column<int>(type: "int", nullable: false),
+                    PointsDone = table.Column<int>(type: "int", nullable: false),
+                    IsSprintEnded = table.Column<bool>(type: "bit", nullable: false),
+                    KanbanBoardKanbanId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1382,15 +1371,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActionItemId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    RequestedIn = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsActive = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ActionGroupId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActionPlanRevisionId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: true),
-                    DepartmentId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActionItemId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestedIn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ActionGroupId = table.Column<int>(type: "int", nullable: false),
+                    ActionPlanRevisionId = table.Column<int>(type: "int", nullable: true),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1410,10 +1399,10 @@ namespace STRACT.Data.Migrations
                         principalColumn: "ActionPlanRevisionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_ActionItem_Department_DepartmentId",
+                        name: "FK_ActionItem_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalSchema: "PDC",
-                        principalTable: "Department",
+                        principalTable: "Departments",
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1430,15 +1419,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    TaskItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    KanbanBoardId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SprintId = table.Column<int>(type: "INTEGER", nullable: true),
-                    LocationInKanbanId = table.Column<int>(type: "INTEGER", nullable: false),
-                    SprintId1 = table.Column<int>(type: "INTEGER", nullable: true)
+                    TaskItemId = table.Column<int>(type: "int", nullable: false),
+                    KanbanBoardId = table.Column<int>(type: "int", nullable: false),
+                    LocationInKanbanId = table.Column<int>(type: "int", nullable: false),
+                    SprintId = table.Column<int>(type: "int", nullable: true),
+                    SprintId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TaskInKanban", x => x.TaskItemId);
+                    table.PrimaryKey("PK_TaskInKanban", x => new { x.KanbanBoardId, x.LocationInKanbanId, x.TaskItemId });
                     table.ForeignKey(
                         name: "FK_TaskInKanban_KanbanBoard_KanbanBoardId",
                         column: x => x.KanbanBoardId,
@@ -1481,8 +1470,8 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActionItemsActionItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    LinesOfProductsLineOfProductId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActionItemsActionItemId = table.Column<int>(type: "int", nullable: false),
+                    LinesOfProductsLineOfProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1508,14 +1497,12 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    CertificationLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    ActionItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CertificationLineId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    ActionItemId = table.Column<int>(type: "int", nullable: false),
+                    CertificationLineId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CertificationInActionItems", x => x.CertificationLineId);
+                    table.PrimaryKey("PK_CertificationInActionItems", x => new { x.ActionItemId, x.CertificationLineId });
                     table.ForeignKey(
                         name: "FK_CertificationInActionItems_ActionItem_ActionItemId",
                         column: x => x.ActionItemId,
@@ -1524,8 +1511,8 @@ namespace STRACT.Data.Migrations
                         principalColumn: "ActionItemId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CertificationInActionItems_CertificationLine_CertificationLineId1",
-                        column: x => x.CertificationLineId1,
+                        name: "FK_CertificationInActionItems_CertificationLine_CertificationLineId",
+                        column: x => x.CertificationLineId,
                         principalSchema: "PDC",
                         principalTable: "CertificationLine",
                         principalColumn: "CertificationLineId",
@@ -1537,29 +1524,29 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    FinancialLineId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Year = table.Column<int>(type: "INTEGER", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    InvestmentOrder = table.Column<string>(type: "TEXT", nullable: true),
-                    InvestmentCode = table.Column<string>(type: "TEXT", nullable: true),
-                    ExpenseAccount = table.Column<string>(type: "TEXT", nullable: true),
-                    BudgetValue = table.Column<double>(type: "REAL", nullable: false),
-                    AdjudicatedValueOriginalCurrency = table.Column<double>(type: "REAL", nullable: false),
-                    ExchangeRateToEuro = table.Column<double>(type: "REAL", nullable: false),
-                    AccountedValue = table.Column<double>(type: "REAL", nullable: false),
-                    Claim = table.Column<string>(type: "TEXT", nullable: true),
-                    PurchaseOrder = table.Column<string>(type: "TEXT", nullable: true),
-                    PurchaseRequest = table.Column<string>(type: "TEXT", nullable: true),
-                    ProductionOrder = table.Column<string>(type: "TEXT", nullable: true),
-                    Invoice = table.Column<string>(type: "TEXT", nullable: true),
-                    ServiceAcceptance = table.Column<string>(type: "TEXT", nullable: true),
-                    LocationId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActionItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ProposalId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FinancialLineTypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    FinancialLineSubtypeId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CurrencyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    FinancialLineId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Year = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvestmentOrder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InvestmentCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExpenseAccount = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BudgetValue = table.Column<double>(type: "float", nullable: false),
+                    AdjudicatedValueOriginalCurrency = table.Column<double>(type: "float", nullable: false),
+                    ExchangeRateToEuro = table.Column<double>(type: "float", nullable: false),
+                    AccountedValue = table.Column<double>(type: "float", nullable: false),
+                    Claim = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PurchaseOrder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PurchaseRequest = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProductionOrder = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Invoice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ServiceAcceptance = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    ActionItemId = table.Column<int>(type: "int", nullable: false),
+                    ProposalId = table.Column<int>(type: "int", nullable: false),
+                    FinancialLineTypeId = table.Column<int>(type: "int", nullable: false),
+                    FinancialLineSubtypeId = table.Column<int>(type: "int", nullable: false),
+                    CurrencyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1613,15 +1600,13 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    LocationId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    LocationId1 = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActionLineId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActionItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    ActionLineId = table.Column<int>(type: "int", nullable: false),
+                    ActionItemId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LocationsForAction", x => x.LocationId);
+                    table.PrimaryKey("PK_LocationsForAction", x => new { x.ActionLineId, x.LocationId });
                     table.ForeignKey(
                         name: "FK_LocationsForAction_ActionItem_ActionItemId",
                         column: x => x.ActionItemId,
@@ -1630,8 +1615,8 @@ namespace STRACT.Data.Migrations
                         principalColumn: "ActionItemId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LocationsForAction_Locations_LocationId1",
-                        column: x => x.LocationId1,
+                        name: "FK_LocationsForAction_Locations_LocationId",
+                        column: x => x.LocationId,
                         principalSchema: "PDC",
                         principalTable: "Locations",
                         principalColumn: "LocationId",
@@ -1643,16 +1628,16 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 columns: table => new
                 {
-                    ToDoTaskId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: true),
-                    Description = table.Column<string>(type: "TEXT", nullable: true),
-                    DateCreated = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsConcluded = table.Column<bool>(type: "INTEGER", nullable: false),
-                    IsPublic = table.Column<bool>(type: "INTEGER", nullable: false),
-                    ActionItemId = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserInTeamId = table.Column<int>(type: "INTEGER", nullable: true),
-                    ProjectItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                    ToDoTaskId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsConcluded = table.Column<bool>(type: "bit", nullable: false),
+                    IsPublic = table.Column<bool>(type: "bit", nullable: false),
+                    ActionItemId = table.Column<int>(type: "int", nullable: false),
+                    UserInTeamId = table.Column<int>(type: "int", nullable: true),
+                    ProjectItemId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1715,7 +1700,8 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 table: "ActionPlanRevision",
                 column: "ProposalId",
-                unique: true);
+                unique: true,
+                filter: "[ProposalId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActionPlanRevision_UserInTeamId",
@@ -1730,16 +1716,10 @@ namespace STRACT.Data.Migrations
                 column: "FunctionalRolesFunctionalRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityInGroup_ActivityGroupId",
+                name: "IX_ActivityInGroup_ActivityId",
                 schema: "PDC",
                 table: "ActivityInGroup",
-                column: "ActivityGroupId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ActivityInGroup_ActivityId1",
-                schema: "PDC",
-                table: "ActivityInGroup",
-                column: "ActivityId1");
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivityOrganizationalRole_OrganizationalRolesOrganizationalRoleId",
@@ -1754,16 +1734,10 @@ namespace STRACT.Data.Migrations
                 column: "SkillsSkillId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlertInProject_AlertTypeId",
+                name: "IX_AlertInProject_ProjectItemId",
                 schema: "PDC",
                 table: "AlertInProject",
-                column: "AlertTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AlertInProject_ProjectItemId1",
-                schema: "PDC",
-                table: "AlertInProject",
-                column: "ProjectItemId1");
+                column: "ProjectItemId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
@@ -1776,7 +1750,8 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Audit_CertificationLineId",
@@ -1803,28 +1778,16 @@ namespace STRACT.Data.Migrations
                 column: "CertificationLineId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CertificateProductLines_CertificateId",
-                schema: "PDC",
-                table: "CertificateProductLines",
-                column: "CertificateId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CertificateProductLines_LineOfProductId",
                 schema: "PDC",
                 table: "CertificateProductLines",
                 column: "LineOfProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CertificationInActionItems_ActionItemId",
+                name: "IX_CertificationInActionItems_CertificationLineId",
                 schema: "PDC",
                 table: "CertificationInActionItems",
-                column: "ActionItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CertificationInActionItems_CertificationLineId1",
-                schema: "PDC",
-                table: "CertificationInActionItems",
-                column: "CertificationLineId1");
+                column: "CertificationLineId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CertificationLine_EntityId",
@@ -1855,12 +1818,6 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 table: "ChronogramRevision",
                 column: "ResponsibleUserInTeamId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_CommissionForProject_CommissionId",
-                schema: "PDC",
-                table: "CommissionForProject",
-                column: "CommissionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ContactPerson_EntityId",
@@ -1897,12 +1854,6 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 table: "Declarations",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_DeclarationSignature_DeclarationItemId",
-                schema: "PDC",
-                table: "DeclarationSignature",
-                column: "DeclarationItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DeclarationSignature_UserId",
@@ -1960,10 +1911,10 @@ namespace STRACT.Data.Migrations
                 column: "ActionItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_LocationsForAction_LocationId1",
+                name: "IX_LocationsForAction_LocationId",
                 schema: "PDC",
                 table: "LocationsForAction",
-                column: "LocationId1");
+                column: "LocationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectItem_CoordinatorUserInTeamId",
@@ -1978,16 +1929,10 @@ namespace STRACT.Data.Migrations
                 column: "FunctionalRoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectMember_ProjectItemId",
+                name: "IX_ProjectMember_UserId",
                 schema: "PDC",
                 table: "ProjectMember",
-                column: "ProjectItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectMember_UserInTeamId",
-                schema: "PDC",
-                table: "ProjectMember",
-                column: "UserInTeamId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Proposal_CommissionId",
@@ -2006,7 +1951,8 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 table: "Role",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoleClaims_RoleId",
@@ -2027,12 +1973,6 @@ namespace STRACT.Data.Migrations
                 column: "KanbanBoardKanbanId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TaskInKanban_KanbanBoardId",
-                schema: "PDC",
-                table: "TaskInKanban",
-                column: "KanbanBoardId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TaskInKanban_LocationInKanbanId",
                 schema: "PDC",
                 table: "TaskInKanban",
@@ -2049,6 +1989,13 @@ namespace STRACT.Data.Migrations
                 schema: "PDC",
                 table: "TaskInKanban",
                 column: "SprintId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TaskInKanban_TaskItemId",
+                schema: "PDC",
+                table: "TaskInKanban",
+                column: "TaskItemId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TaskItem_AuditId",
@@ -2105,16 +2052,10 @@ namespace STRACT.Data.Migrations
                 column: "UserInTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TopicInProject_ProjectItemId1",
+                name: "IX_TopicInProject_ProjectItemId",
                 schema: "PDC",
                 table: "TopicInProject",
-                column: "ProjectItemId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TopicInProject_TopicId",
-                schema: "PDC",
-                table: "TopicInProject",
-                column: "TopicId");
+                column: "ProjectItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserClaims_UserId",
@@ -2268,7 +2209,7 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Activity",
+                name: "Activities",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2344,7 +2285,7 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "SkillGroup",
+                name: "SkillGroups",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2372,7 +2313,7 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Department",
+                name: "Departments",
                 schema: "PDC");
 
             migrationBuilder.DropTable(

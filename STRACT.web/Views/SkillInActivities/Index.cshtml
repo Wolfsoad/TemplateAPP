@@ -1,0 +1,47 @@
+﻿@model IEnumerable<STRACT.Entities.HumanResources.SkillInActivity>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Activity)
+            </th>
+            <th>
+                Skill Group | Skill
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestedScore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activity.Name)
+            </td>
+            <td>
+               @item.Skill.SkillGroup.Name <span> | </span> @Html.DisplayFor(modelItem => item.Skill.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestedScore)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId, activityId = item.ActivityId}) |
+                @Html.ActionLink("Details", "Details", new { skillId = item.SkillId, activityId = item.ActivityId }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

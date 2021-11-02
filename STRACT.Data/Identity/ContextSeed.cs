@@ -86,6 +86,9 @@ namespace STRACT.Data.Identity
             await roleManager.AddPermissionClaim(adminRole, "ActivityGroups");
             await roleManager.AddPermissionClaim(adminRole, "Departments");
             await roleManager.AddPermissionClaim(adminRole, "SkillGroups");
+            await roleManager.AddPermissionClaim(adminRole, "Skills");
+            await roleManager.AddPermissionClaim(adminRole, "FunctionalRoles");
+            await roleManager.AddPermissionClaim(adminRole, "OrganizationalRoles");
         }
 
         public static async Task AddPermissionClaim(this RoleManager<IdentityRole> roleManager, IdentityRole role, string module)

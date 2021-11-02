@@ -1,0 +1,65 @@
+﻿@model STRACT.Entities.HumanResources.SkillGroup
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Skill Group</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h5>Skills in Skill Group</h5>
+    <table>
+         <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+            </th>
+        </tr>
+        @foreach (var skill in Model.Skills)
+       {
+           <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => skill.SkillId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => skill.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => skill.Description)
+                </td>
+                <td>
+                    
+                </td>
+            </tr>
+       }
+    </table>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.SkillGroupId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -110,4 +110,25 @@ public static class Permissions
         public const string Edit = "Permissions.SkillGroups.Edit";
         public const string Delete = "Permissions.SkillGroups.Delete";
     }
+    public static class Skills
+    {
+        public const string View = "Permissions.Skills.View";
+        public const string Create = "Permissions.Skills.Create";
+        public const string Edit = "Permissions.Skills.Edit";
+        public const string Delete = "Permissions.Skills.Delete";
+    }
+    public static class FunctionalRoles
+    {
+        public const string View = "Permissions.FunctionalRoles.View";
+        public const string Create = "Permissions.FunctionalRoles.Create";
+        public const string Edit = "Permissions.FunctionalRoles.Edit";
+        public const string Delete = "Permissions.FunctionalRoles.Delete";
+    }
+    public static class OrganizationalRoles
+    {
+        public const string View = "Permissions.OrganizationalRoles.View";
+        public const string Create = "Permissions.OrganizationalRoles.Create";
+        public const string Edit = "Permissions.OrganizationalRoles.Edit";
+        public const string Delete = "Permissions.OrganizationalRoles.Delete";
+    }
 }

@@ -1,4 +1,4 @@
-﻿namespace STRACT.web.Models
+﻿namespace STRACT.web.Models.HumanResources
 {
     public class AssignedActivityGroups
     {

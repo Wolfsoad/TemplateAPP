@@ -41,6 +41,10 @@ namespace STRACT.Data.Identity
         public DbSet<ActivityInGroup> ActivityInGroups {  get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<SkillGroup> SkillGroups { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<OrganizationalRole> OrganizationalRoles { get; set; }
+        public DbSet<FunctionalRole> FunctionalRoles { get; set; }
+        public DbSet<SkillInActivity> SkillInActivity { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -92,11 +96,16 @@ namespace STRACT.Data.Identity
 
             #region HumanResources DB Configuration
             builder.Entity<ActivityInGroup>().HasKey(m => new { m.ActivityGroupId, m.ActivityId });
+            builder.Entity<SkillInActivity>().HasKey(m => new { m.SkillId, m.ActivityId });
             builder.Entity<Activity>(entity => entity.ToTable("Activities"));
             builder.Entity<ActivityGroup>(entity => entity.ToTable("ActivityGroups"));
             builder.Entity<ActivityInGroup>(entity => entity.ToTable("ActivityInGroups"));
             builder.Entity<Department>(entity => entity.ToTable("Departments"));
             builder.Entity<SkillGroup>(entity => entity.ToTable("SkillGroups"));
+            builder.Entity<Skill>(entity => entity.ToTable("Skills"));
+            builder.Entity<OrganizationalRole>(entity => entity.ToTable("OrganizationalRoles"));
+            builder.Entity<FunctionalRole>(entity => entity.ToTable("FuntionalRoles"));
+            builder.Entity<SkillInActivity>(entity => entity.ToTable("SkillInActivity"));
             #endregion
 
             #region Kanban DB Configuration

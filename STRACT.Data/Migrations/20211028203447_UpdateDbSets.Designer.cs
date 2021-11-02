@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STRACT.Data.Identity;
 
 namespace STRACT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211028203447_UpdateDbSets")]
+    partial class UpdateDbSets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1082,7 +1084,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("FunctionalRoleId");
 
-                    b.ToTable("FuntionalRoles");
+                    b.ToTable("FunctionalRole");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.OrganizationalRole", b =>
@@ -1100,7 +1102,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("OrganizationalRoleId");
 
-                    b.ToTable("OrganizationalRoles");
+                    b.ToTable("OrganizationalRole");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.Skill", b =>
@@ -1142,24 +1144,6 @@ namespace STRACT.Data.Migrations
                     b.HasKey("SkillGroupId");
 
                     b.ToTable("SkillGroups");
-                });
-
-            modelBuilder.Entity("STRACT.Entities.HumanResources.SkillInActivity", b =>
-                {
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestedScore")
-                        .HasColumnType("int");
-
-                    b.HasKey("SkillId", "ActivityId");
-
-                    b.HasIndex("ActivityId");
-
-                    b.ToTable("SkillInActivity");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.UserHoliday", b =>
@@ -2108,25 +2092,6 @@ namespace STRACT.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("SkillGroup");
-                });
-
-            modelBuilder.Entity("STRACT.Entities.HumanResources.SkillInActivity", b =>
-                {
-                    b.HasOne("STRACT.Entities.HumanResources.Activity", "Activity")
-                        .WithMany()
-                        .HasForeignKey("ActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("STRACT.Entities.HumanResources.Skill", "Skill")
-                        .WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.UserHoliday", b =>

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data.Identity;
 using STRACT.Entities.HumanResources;
-using STRACT.web.Models;
+using STRACT.web.Models.HumanResources;
 
 namespace STRACT.web.Controllers.HumanResources
 {
@@ -39,6 +39,11 @@ namespace STRACT.web.Controllers.HumanResources
                 ViewData["ActivityId"] = id.Value;
                 Activity activity = viewModel.Activities.Where(i => i.ActivityId == id.Value).Single();
                 viewModel.ActivityGroups = activity.ActivityInGroups.Select(s => s.ActivityGroup);
+                viewModel.SkillInActivities = _context.SkillInActivity
+                    .Include(s => s.Skill)
+                        .ThenInclude(sg => sg.SkillGroup)
+                    .Include(a => a.Activity)
+                    .Where(a => a.ActivityId == activity.ActivityId);
             }
 
             return View(viewModel);
@@ -66,6 +71,7 @@ namespace STRACT.web.Controllers.HumanResources
         [Authorize(Policy = "Permissions.Activities.Create")]
         public IActionResult Create()
         {
+            PopulateAssignedActivityGroupsData(new Activity { });
             return View();
         }
 
@@ -74,14 +80,16 @@ namespace STRACT.web.Controllers.HumanResources
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ActivityId,Name,Description")] Activity activity)
+        public async Task<IActionResult> Create([Bind("ActivityId,Name,Description")] Activity activity, string[] selectedGroups)
         {
             if (ModelState.IsValid)
             {
+                UpdateActivityGroups(selectedGroups, activity);
                 _context.Add(activity);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 return RedirectToAction(nameof(Index));
             }
+            PopulateAssignedActivityGroupsData(activity);
             return View(activity);
         }
 
@@ -107,43 +115,6 @@ namespace STRACT.web.Controllers.HumanResources
             return View(activity);
         }
 
-
-        // POST: Activities/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("ActivityId,Name,Description")] Activity activity)
-        //{
-        //    if (id != activity.ActivityId)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            var old = await _context.Activities.FindAsync(id);
-        //            _context.Entry(old).CurrentValues.SetValues(activity);
-        //            await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!ActivityExists(activity.ActivityId))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-
-        //    return View(activity);
-        //}
         //POST: Activities/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -214,7 +185,9 @@ namespace STRACT.web.Controllers.HumanResources
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var activity = await _context.Activities.FindAsync(id);
+            var activity = await _context.Activities
+                .Include(a => a.ActivityInGroups)
+                .SingleAsync(i => i.ActivityId == id);
             _context.Activities.Remove(activity);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
             return RedirectToAction(nameof(Index));
@@ -228,7 +201,9 @@ namespace STRACT.web.Controllers.HumanResources
         private void PopulateAssignedActivityGroupsData(Activity activity)
         {
             var allActivityGroups = _context.ActivityGroups;
-            var activityGroups = new HashSet<int>(activity.ActivityInGroups.Select(c => c.ActivityGroupId));
+            var activityGroups = activity.ActivityInGroups == null ? 
+                new HashSet<int>() : 
+                new HashSet<int>(activity.ActivityInGroups.Select(c => c.ActivityGroupId));
             var viewModel = new List<AssignedActivityGroups>();
             foreach (var group in allActivityGroups)
             {
@@ -251,13 +226,19 @@ namespace STRACT.web.Controllers.HumanResources
             }
 
             var selectedGroupsHashSet = new HashSet<string>(selectedGroups);
-            var activityGroups = new HashSet<int>(activityToUpdate.ActivityInGroups.Select(a => a.ActivityGroupId));
+            var activityGroups = activityToUpdate.ActivityInGroups == null ?
+                new HashSet<int>() :
+                new HashSet<int>(activityToUpdate.ActivityInGroups.Select(c => c.ActivityGroupId));
             foreach (var group in _context.ActivityGroups)
             {
                 if (selectedGroupsHashSet.Contains(group.ActivityGroupId.ToString()))
                 {
                     if (!activityGroups.Contains(group.ActivityGroupId))
                     {
+                        if (activityToUpdate.ActivityInGroups == null) 
+                        { 
+                            activityToUpdate.ActivityInGroups = new List<ActivityInGroup>(); 
+                        }
                         activityToUpdate.ActivityInGroups.Add(new ActivityInGroup { ActivityId = activityToUpdate.ActivityId, ActivityGroupId = group.ActivityGroupId });
                     }
                 }

@@ -45,6 +45,7 @@ namespace STRACT.Data.Identity
         public DbSet<OrganizationalRole> OrganizationalRoles { get; set; }
         public DbSet<FunctionalRole> FunctionalRoles { get; set; }
         public DbSet<SkillInActivity> SkillInActivity { get; set; }
+        public DbSet<UserInTeam> UserInTeam { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -96,6 +97,8 @@ namespace STRACT.Data.Identity
 
             #region HumanResources DB Configuration
             builder.Entity<ActivityInGroup>().HasKey(m => new { m.ActivityGroupId, m.ActivityId });
+            builder.Entity<ActivityInFunctionalRoles>().HasKey(m => new { m.FunctionalRoleId, m.ActivityId });
+            builder.Entity<ActivityInOrganizationalRole>().HasKey(m => new { m.OrganizationalRoleId, m.ActivityId });
             builder.Entity<SkillInActivity>().HasKey(m => new { m.SkillId, m.ActivityId });
             builder.Entity<Activity>(entity => entity.ToTable("Activities"));
             builder.Entity<ActivityGroup>(entity => entity.ToTable("ActivityGroups"));
@@ -133,6 +136,8 @@ namespace STRACT.Data.Identity
 
             #region Users DB Configuration
             builder.Entity<UserInTeam>().HasKey(m => m.UserInTeamId);
+            builder.Entity<UserInTeam>().HasOne(m => m.ApplicationUser)
+                .WithOne();
             builder.Entity<UserInTeam>().Ignore(u => u.TasksNotCompleted);
             builder.Entity<UserInTeam>().Ignore(u => u.TaskItensInActiveSprints);
             #endregion

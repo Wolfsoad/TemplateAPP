@@ -63,7 +63,7 @@
 </table>
 @if (Model.ActivityGroups != null)
 {
-    <h3>Activity Groups that contain selected Activity</h3>
+    <h5>Activity Groups that contain selected Activity</h5>
     <table class="table">
         <tr>
             <th>Id</th>
@@ -88,9 +88,36 @@
 
     </table>
 }
+@if (Model.OrganizationalRoles != null)
+{
+    <h5>Organizational Roles that contain selected Activity</h5>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+
+        @foreach (var item in Model.OrganizationalRoles)
+        {
+            <tr>
+                <td>
+                    @item.OrganizationalRoleId
+                </td>
+                <td>
+                     @item.Name
+                </td>
+                <td>
+                    @item.Description
+                </td>
+            </tr>
+        }
+
+    </table>
+}
 @if (Model.SkillInActivities != null)
 {
-    <h3>Skills associated</h3>
+    <h5>Skills associated</h5>
     <table class="table">
         <tr>
             <th>Id</th>

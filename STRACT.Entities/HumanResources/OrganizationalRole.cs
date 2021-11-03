@@ -12,7 +12,7 @@ namespace STRACT.Entities.HumanResources
         public int OrganizationalRoleId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<ActivityInOrganizationalRole> ActivityInOrganizationalRoles { get; set; }
         public ICollection<TaskItem> TaskItems { get; set; }
     }
 }

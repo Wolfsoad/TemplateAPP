@@ -22,6 +22,9 @@
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
+            <br/>
+            <h5>Activity Groups</h5>
+            <hr />
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <table>
@@ -41,6 +44,36 @@
                                             value="@group.ActivityGroupId"
                                             @(Html.Raw(group.Assigned ? "checked=\"checked\"" : ""))/>
                                             @group.ActivityGroupId @: @group.Name
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+
+                </div>
+            </div>
+            <br/>
+            <h5>Organizational Roles</h5>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                cnt = 0;
+                                List<STRACT.web.Models.HumanResources.AssignedOrganizationalRoles> organizationalRoles = ViewBag.OrganizationalRoles;
+                                foreach (var group in organizationalRoles)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input  type="checkbox"
+                                            name="selectedOrgRoles"
+                                            value="@group.OrganizationalRolesId"
+                                            @(Html.Raw(group.Assigned ? "checked=\"checked\"" : ""))/>
+                                            @group.OrganizationalRolesId @: @group.Name
                                     @:</td>
                                 }
                                 @:</tr>

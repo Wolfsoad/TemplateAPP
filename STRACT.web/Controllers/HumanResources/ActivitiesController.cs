@@ -30,6 +30,10 @@ namespace STRACT.web.Controllers.HumanResources
             viewModel.Activities = await _context.Activities
                 .Include(a => a.ActivityInGroups)
                     .ThenInclude(a => a.ActivityGroup)
+                .Include(a => a.ActivityInOrganizationalRoles)
+                    .ThenInclude(a => a.OrganizationalRole)
+                .Include(a => a.ActivityInFunctionalRoles)
+                    .ThenInclude(a => a.FunctionalRole)
                 .AsNoTracking()
                 .OrderBy(a => a.Name)
                 .ToListAsync();
@@ -39,6 +43,7 @@ namespace STRACT.web.Controllers.HumanResources
                 ViewData["ActivityId"] = id.Value;
                 Activity activity = viewModel.Activities.Where(i => i.ActivityId == id.Value).Single();
                 viewModel.ActivityGroups = activity.ActivityInGroups.Select(s => s.ActivityGroup);
+                viewModel.OrganizationalRoles = activity.ActivityInOrganizationalRoles.Select(s => s.OrganizationalRole);
                 viewModel.SkillInActivities = _context.SkillInActivity
                     .Include(s => s.Skill)
                         .ThenInclude(sg => sg.SkillGroup)
@@ -72,6 +77,7 @@ namespace STRACT.web.Controllers.HumanResources
         public IActionResult Create()
         {
             PopulateAssignedActivityGroupsData(new Activity { });
+            PopulateAssignedOrganizationalRolesData(new Activity { });
             return View();
         }
 
@@ -80,16 +86,18 @@ namespace STRACT.web.Controllers.HumanResources
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ActivityId,Name,Description")] Activity activity, string[] selectedGroups)
+        public async Task<IActionResult> Create([Bind("ActivityId,Name,Description")] Activity activity, string[] selectedGroups, string[] selectedOrgRoles)
         {
             if (ModelState.IsValid)
             {
                 UpdateActivityGroups(selectedGroups, activity);
+                UpdateOrganizationalRoles(selectedOrgRoles, activity);
                 _context.Add(activity);
                 await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
                 return RedirectToAction(nameof(Index));
             }
             PopulateAssignedActivityGroupsData(activity);
+            PopulateAssignedOrganizationalRolesData(activity);
             return View(activity);
         }
 
@@ -105,6 +113,10 @@ namespace STRACT.web.Controllers.HumanResources
             var activity = await _context.Activities
                 .Include(a => a.ActivityInGroups)
                     .ThenInclude(a => a.ActivityGroup)
+                .Include(a => a.ActivityInOrganizationalRoles)
+                    .ThenInclude(a => a.OrganizationalRole)
+                .Include(a => a.ActivityInFunctionalRoles)
+                    .ThenInclude(a => a.FunctionalRole)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ActivityId == id);
             if (activity == null)
@@ -112,6 +124,7 @@ namespace STRACT.web.Controllers.HumanResources
                 return NotFound();
             }
             PopulateAssignedActivityGroupsData(activity);
+            PopulateAssignedOrganizationalRolesData(activity);
             return View(activity);
         }
 
@@ -120,7 +133,7 @@ namespace STRACT.web.Controllers.HumanResources
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, string[] selectedGroups)
+        public async Task<IActionResult> Edit(int? id, string[] selectedGroups, string[] selectedOrgRoles)
         {
             if (id == null)
             {
@@ -130,12 +143,17 @@ namespace STRACT.web.Controllers.HumanResources
             var activityToUpdate = await _context.Activities
                 .Include(a => a.ActivityInGroups)
                     .ThenInclude(a => a.ActivityGroup)
+                .Include(a => a.ActivityInOrganizationalRoles)
+                    .ThenInclude(a => a.OrganizationalRole)
+                .Include(a => a.ActivityInFunctionalRoles)
+                    .ThenInclude(a => a.FunctionalRole)
                 .FirstOrDefaultAsync(m => m.ActivityId == id);
 
             if (await TryUpdateModelAsync<Activity>(
                 activityToUpdate, "", i => i.Name, i => i.Description))
             {
                 UpdateActivityGroups(selectedGroups, activityToUpdate);
+                UpdateOrganizationalRoles(selectedOrgRoles, activityToUpdate);
                 try
                 {
                     var old = await _context.Activities.FindAsync(id);
@@ -156,7 +174,9 @@ namespace STRACT.web.Controllers.HumanResources
                 return RedirectToAction(nameof(Index));
             }
             UpdateActivityGroups(selectedGroups, activityToUpdate);
+            UpdateOrganizationalRoles(selectedOrgRoles, activityToUpdate);
             PopulateAssignedActivityGroupsData(activityToUpdate);
+            PopulateAssignedOrganizationalRolesData(activityToUpdate);
             return View(activityToUpdate);
         }
 
@@ -187,6 +207,8 @@ namespace STRACT.web.Controllers.HumanResources
         {
             var activity = await _context.Activities
                 .Include(a => a.ActivityInGroups)
+                .Include(a => a.ActivityInOrganizationalRoles)
+                .Include(a => a.ActivityInFunctionalRoles)
                 .SingleAsync(i => i.ActivityId == id);
             _context.Activities.Remove(activity);
             await _context.SaveChangesAsync(User?.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -215,6 +237,25 @@ namespace STRACT.web.Controllers.HumanResources
                 }) ;
             }
             ViewData["ActivityGroups"] = viewModel;
+        }
+
+        private void PopulateAssignedOrganizationalRolesData(Activity activity)
+        {
+            var allOrganizationalRoles = _context.OrganizationalRoles;
+            var organizationalRoles = activity.ActivityInOrganizationalRoles == null ?
+                new HashSet<int>() :
+                new HashSet<int>(activity.ActivityInOrganizationalRoles.Select(c => c.OrganizationalRoleId));
+            var viewModel = new List<AssignedOrganizationalRoles>();
+            foreach (var group in allOrganizationalRoles)
+            {
+                viewModel.Add(new AssignedOrganizationalRoles
+                {
+                    OrganizationalRolesId = group.OrganizationalRoleId,
+                    Name = group.Name,
+                    Assigned = organizationalRoles.Contains(group.OrganizationalRoleId)
+                });
+            }
+            ViewData["OrganizationalRoles"] = viewModel;
         }
 
         private void UpdateActivityGroups(string[] selectedGroups, Activity activityToUpdate)
@@ -247,6 +288,42 @@ namespace STRACT.web.Controllers.HumanResources
                     if (activityGroups.Contains(group.ActivityGroupId))
                     {
                         ActivityInGroup groupToRemove = activityToUpdate.ActivityInGroups.FirstOrDefault(a => a.ActivityGroupId == group.ActivityGroupId);
+                        _context.Remove(groupToRemove);
+                    }
+                }
+            }
+        }
+
+        private void UpdateOrganizationalRoles(string[] selectedRoles, Activity activityToUpdate)
+        {
+            if (selectedRoles == null)
+            {
+                activityToUpdate.ActivityInOrganizationalRoles = new List<ActivityInOrganizationalRole>();
+                return;
+            }
+
+            var selectedGroupsHashSet = new HashSet<string>(selectedRoles);
+            var activityOrgRoles = activityToUpdate.ActivityInOrganizationalRoles == null ?
+                new HashSet<int>() :
+                new HashSet<int>(activityToUpdate.ActivityInOrganizationalRoles.Select(c => c.OrganizationalRoleId));
+            foreach (var group in _context.OrganizationalRoles)
+            {
+                if (selectedGroupsHashSet.Contains(group.OrganizationalRoleId.ToString()))
+                {
+                    if (!activityOrgRoles.Contains(group.OrganizationalRoleId))
+                    {
+                        if (activityToUpdate.ActivityInOrganizationalRoles == null)
+                        {
+                            activityToUpdate.ActivityInOrganizationalRoles = new List<ActivityInOrganizationalRole>();
+                        }
+                        activityToUpdate.ActivityInOrganizationalRoles.Add(new ActivityInOrganizationalRole { ActivityId = activityToUpdate.ActivityId, OrganizationalRoleId = group.OrganizationalRoleId });
+                    }
+                }
+                else
+                {
+                    if (activityOrgRoles.Contains(group.OrganizationalRoleId))
+                    {
+                        ActivityInOrganizationalRole groupToRemove = activityToUpdate.ActivityInOrganizationalRoles.FirstOrDefault(a => a.OrganizationalRoleId == group.OrganizationalRoleId);
                         _context.Remove(groupToRemove);
                     }
                 }

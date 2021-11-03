@@ -12,7 +12,7 @@ namespace STRACT.Entities.HumanResources
         public int FunctionalRoleId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public ICollection<Activity> Activities { get; set; }
+        public ICollection<ActivityInFunctionalRoles> ActivityInFunctionalRoles { get; set; }
         public ICollection<ProjectMember> Projects { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using STRACT.Entities.HumanResources;
 
 namespace STRACT.web.Controllers.HumanResources
 {
+    [Authorize(Policy = "Permissions.SkillInActivities.View")]
     public class SkillInActivitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -52,6 +54,7 @@ namespace STRACT.web.Controllers.HumanResources
         }
 
         // GET: SkillInActivities/Create
+        [Authorize(Policy = "Permissions.SkillInActivities.Create")]
         public IActionResult Create()
         {
             PopulateActivityDropDownList();
@@ -78,6 +81,7 @@ namespace STRACT.web.Controllers.HumanResources
         }
 
         // GET: SkillInActivities/Edit/5
+        [Authorize(Policy = "Permissions.SkillInActivities.Edit")]
         public async Task<IActionResult> Edit(int? skillId, int? activityId)
         {
             if (skillId == null || activityId == null)
@@ -138,9 +142,10 @@ namespace STRACT.web.Controllers.HumanResources
         }
 
         // GET: SkillInActivities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        [Authorize(Policy = "Permissions.SkillInActivities.Delete")]
+        public async Task<IActionResult> Delete(int? skillId, int? activityId)
         {
-            if (id == null)
+            if (skillId == null || activityId == null)
             {
                 return NotFound();
             }
@@ -149,7 +154,8 @@ namespace STRACT.web.Controllers.HumanResources
                 .Include(s => s.Activity)
                 .Include(s => s.Skill)
                     .ThenInclude(sg => sg.SkillGroup)
-                .FirstOrDefaultAsync(m => m.SkillId == id);
+                .Where(m => m.ActivityId == activityId)
+                .FirstOrDefaultAsync(m => m.SkillId == skillId);
             if (skillInActivity == null)
             {
                 return NotFound();
@@ -161,9 +167,11 @@ namespace STRACT.web.Controllers.HumanResources
         // POST: SkillInActivities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? skillId, int? activityId)
         {
-            var skillInActivity = await _context.SkillInActivity.FindAsync(id);
+            var skillInActivity = await _context.SkillInActivity
+                .Where(m => m.SkillId == skillId)
+                .FirstOrDefaultAsync(m => m.ActivityId == activityId);
             _context.SkillInActivity.Remove(skillInActivity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

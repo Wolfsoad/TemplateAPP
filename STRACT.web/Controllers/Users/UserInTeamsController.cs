@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data.Identity;
 using STRACT.Entities.Users;
+using STRACT.Identity.Entities;
 
 namespace STRACT.web.Controllers.Users
 {
+    [Authorize(Policy = "Permissions.UserInTeams.View")]
     public class UserInTeamsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public UserInTeamsController(ApplicationDbContext context)
         {
             _context = context;
+
         }
 
         // GET: UserInTeams
@@ -49,6 +55,7 @@ namespace STRACT.web.Controllers.Users
         }
 
         // GET: UserInTeams/Create
+        [Authorize(Policy = "Permissions.UserInTeams.Create")]
         public IActionResult Create()
         {
             PopulateApplicationUserDropDownList();
@@ -75,6 +82,7 @@ namespace STRACT.web.Controllers.Users
         }
 
         // GET: UserInTeams/Edit/5
+        [Authorize(Policy = "Permissions.UserInTeams.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -130,6 +138,7 @@ namespace STRACT.web.Controllers.Users
         }
 
         // GET: UserInTeams/Delete/5
+        [Authorize(Policy = "Permissions.UserInTeams.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

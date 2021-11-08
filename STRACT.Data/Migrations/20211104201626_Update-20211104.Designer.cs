@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STRACT.Data.Identity;
 
 namespace STRACT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211104201626_Update-20211104")]
+    partial class Update20211104
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -670,7 +672,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationItems");
+                    b.ToTable("Declarations");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationRevision", b =>
@@ -698,7 +700,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationRevisions");
+                    b.ToTable("DeclarationRevision");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationSignature", b =>
@@ -719,7 +721,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationSignatures");
+                    b.ToTable("DeclarationSignature");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Financial.Currency", b =>
@@ -1619,24 +1621,6 @@ namespace STRACT.Data.Migrations
                     b.ToTable("UserInTeam");
                 });
 
-            modelBuilder.Entity("STRACT.Entities.Users.UserSkillsEvaluation", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillScore")
-                        .HasColumnType("int");
-
-                    b.HasKey("UserId", "SkillId");
-
-                    b.HasIndex("SkillId");
-
-                    b.ToTable("UserSkillsEvaluations");
-                });
-
             modelBuilder.Entity("STRACT.Identity.General.Audit", b =>
                 {
                     b.Property<int>("Id")
@@ -2419,25 +2403,6 @@ namespace STRACT.Data.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("OrganizationalRole");
-                });
-
-            modelBuilder.Entity("STRACT.Entities.Users.UserSkillsEvaluation", b =>
-                {
-                    b.HasOne("STRACT.Entities.HumanResources.Skill", "Skill")
-                        .WithMany()
-                        .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Skill");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("STRACT.Identity.Entities.ApplicationUser", b =>

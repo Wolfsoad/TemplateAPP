@@ -83,6 +83,35 @@
 
                 </div>
             </div>
+            <h5>Functional Roles</h5>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                cnt = 0;
+                                List<STRACT.web.Models.HumanResources.AssignedFunctionalRoles> functionalRoles = ViewBag.FunctionalRoles;
+                                foreach (var group in functionalRoles)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input  type="checkbox"
+                                            name="selectedFRoles"
+                                            value="@group.FunctionalRolesId"
+                                            @(Html.Raw(group.Assigned ? "checked=\"checked\"" : ""))/>
+                                            @group.FunctionalRolesId @: @group.Name
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+
+                </div>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>

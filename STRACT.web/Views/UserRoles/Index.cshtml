@@ -28,18 +28,22 @@
                 <td>@user.Email</td>
                 <td>@string.Join(" , ", user.Roles.ToList())</td>
                 <td>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             @_loc.GetLocalizedHtmlString("Action")
                         </button>
-                        <div class="dropdown-menu shadow animated--grow-in">
-                            <a style='margin-right:16px' asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId" class="dropdown-item">
-                                <i class="fas fa-exchange-alt"></i> @_loc.GetLocalizedHtmlString("Change User Roles")
-                            </a>
-                            <a style='margin-right:16px' asp-controller="RoleManager" asp-action="Index" class="dropdown-item">
-                                <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Roles")
-                            </a>
-                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a style='margin-right:16px' asp-controller="UserRoles" asp-action="Manage" asp-route-userId="@user.UserId" class="dropdown-item">
+                                    <i class="fas fa-exchange-alt"></i> @_loc.GetLocalizedHtmlString("Change User Roles")
+                                </a>
+                            </li>
+                            <li>
+                                <a style='margin-right:16px' asp-controller="RoleManager" asp-action="Index" class="dropdown-item">
+                                    <i class="fas fa-wrench"></i> @_loc.GetLocalizedHtmlString("Manage Roles")
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </td>
             </tr>

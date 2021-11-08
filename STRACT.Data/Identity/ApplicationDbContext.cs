@@ -45,7 +45,12 @@ namespace STRACT.Data.Identity
         public DbSet<OrganizationalRole> OrganizationalRoles { get; set; }
         public DbSet<FunctionalRole> FunctionalRoles { get; set; }
         public DbSet<SkillInActivity> SkillInActivity { get; set; }
+        public DbSet<UserHoliday> UserHolidays { get; set; }
         public DbSet<UserInTeam> UserInTeam { get; set; }
+        public DbSet<UserSkillsEvaluation> UserSkillsEvaluations { get; set; }
+        public DbSet<DeclarationItem> DeclarationItems { get; set; }
+        public DbSet<DeclarationRevision> DeclarationRevisions { get; set; }
+        public DbSet<DeclarationSignature> DeclarationSignatures { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -93,6 +98,9 @@ namespace STRACT.Data.Identity
 
             #region Declarations DB Configuration
             builder.Entity<DeclarationSignature>().HasKey(m => new { m.DeclarationItemId, m.SignatureId });
+            builder.Entity<DeclarationItem>(entity => entity.ToTable("DeclarationItems"));
+            builder.Entity<DeclarationRevision>(entity => entity.ToTable("DeclarationRevisions"));
+            builder.Entity<DeclarationSignature>(entity => entity.ToTable("DeclarationSignatures"));
             #endregion
 
             #region HumanResources DB Configuration
@@ -109,6 +117,7 @@ namespace STRACT.Data.Identity
             builder.Entity<OrganizationalRole>(entity => entity.ToTable("OrganizationalRoles"));
             builder.Entity<FunctionalRole>(entity => entity.ToTable("FuntionalRoles"));
             builder.Entity<SkillInActivity>(entity => entity.ToTable("SkillInActivity"));
+            builder.Entity<UserHoliday>(entity => entity.ToTable("UserHolidays"));
             #endregion
 
             #region Kanban DB Configuration
@@ -135,6 +144,8 @@ namespace STRACT.Data.Identity
             #endregion
 
             #region Users DB Configuration
+            builder.Entity<UserSkillsEvaluation>(entity => entity.ToTable("UserSkillsEvaluations"));
+            builder.Entity<UserSkillsEvaluation>().HasKey(m => new {m.UserId, m.SkillId});
             builder.Entity<UserInTeam>().HasKey(m => m.UserInTeamId);
             builder.Entity<UserInTeam>().HasOne(m => m.ApplicationUser)
                 .WithOne();

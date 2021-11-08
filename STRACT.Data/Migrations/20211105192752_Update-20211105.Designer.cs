@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using STRACT.Data.Identity;
 
 namespace STRACT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211105192752_Update-20211105")]
+    partial class Update20211105
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -670,7 +672,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationItems");
+                    b.ToTable("Declarations");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationRevision", b =>
@@ -698,7 +700,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationRevisions");
+                    b.ToTable("DeclarationRevision");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationSignature", b =>
@@ -719,7 +721,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationSignatures");
+                    b.ToTable("DeclarationSignature");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Financial.Currency", b =>

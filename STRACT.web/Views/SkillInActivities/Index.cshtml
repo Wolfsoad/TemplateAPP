@@ -39,7 +39,7 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId, activityId = item.ActivityId}) |
                 @Html.ActionLink("Details", "Details", new { skillId = item.SkillId, activityId = item.ActivityId }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId, activityId = item.ActivityId })
             </td>
         </tr>
 }

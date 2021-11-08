@@ -1,0 +1,46 @@
+﻿@model STRACT.Entities.Declaration.DeclarationRevision
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DeclarationRevision</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RevisionDescription" class="control-label"></label>
+                <input asp-for="RevisionDescription" class="form-control" />
+                <span asp-validation-for="RevisionDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RevisionDate" class="control-label"></label>
+                <input asp-for="RevisionDate" type="date" class="form-control" />
+                <span asp-validation-for="RevisionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select name="selectedUser" asp-for="UserId" class ="form-control" asp-items="ViewBag.UserInTeamId"></select>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="DeclarationItemId" class="control-label"></label>
+                <select name="selectedDeclarationId" asp-for="DeclarationItemId" class ="form-control" asp-items="ViewBag.DeclarationItemId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -115,6 +115,33 @@
 
     </table>
 }
+@if (Model.FunctionalRoles != null)
+{
+    <h5>Functional Roles that contain selected Activity</h5>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+
+        @foreach (var item in Model.FunctionalRoles)
+        {
+            <tr>
+                <td>
+                    @item.FunctionalRoleId
+                </td>
+                <td>
+                     @item.Name
+                </td>
+                <td>
+                    @item.Description
+                </td>
+            </tr>
+        }
+
+    </table>
+}
 @if (Model.SkillInActivities != null)
 {
     <h5>Skills associated</h5>

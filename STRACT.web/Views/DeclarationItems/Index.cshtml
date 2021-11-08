@@ -1,0 +1,89 @@
+﻿@model IEnumerable<STRACT.Entities.Declaration.DeclarationItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DeclarationItemId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Motive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                Signed?
+            </th>
+            <th>
+                Revision
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeclarationItemId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Motive)
+            </td>
+            <td>
+                @item.DateCreated.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.ApplicationUser.UserName)
+            </td>
+            <td>
+                @item.IsSigned
+            </td>
+            <td>
+                @item.RevisionCount
+            </td>
+            <td>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a style='margin-right:16px' asp-controller="DeclarationRevisions" asp-action="Index" asp-route-selectedDeclarationId="@item.DeclarationItemId" class="dropdown-item">
+                                <i class="fas fa-wrench"></i> Revisions
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Edit" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Edit</a>
+                        </li>
+                        <li>
+                            <a asp-action="Details" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Details</a>
+                        </li>
+                        <li>
+                            <a asp-action="Delete" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Delete</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

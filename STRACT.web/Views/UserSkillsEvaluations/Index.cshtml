@@ -1,0 +1,47 @@
+﻿@model IEnumerable<STRACT.Entities.Users.UserSkillsEvaluation>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillScore)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.User.ApplicationUser.UserName <span> | </span> @item.User.ApplicationUser.Email
+            </td>
+            <td>
+                @item.Skill.SkillGroup.Name <span> | </span> @item.Skill.Name
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillScore)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit",  new { skillId = item.SkillId, userId = item.UserId}) |
+                @Html.ActionLink("Details", "Details", new { skillId = item.SkillId, userId = item.UserId}) |
+                @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId, userId = item.UserId})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

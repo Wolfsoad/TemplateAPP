@@ -73,6 +73,10 @@ namespace STRACT.web.Controllers
             allPermissions.GetPermissions(typeof(Permissions.Skills), roleId);
             allPermissions.GetPermissions(typeof(Permissions.FunctionalRoles), roleId);
             allPermissions.GetPermissions(typeof(Permissions.OrganizationalRoles), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.UserInTeams), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.UserSkillsEvaluations), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.UserHolidays), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.SkillInActivities), roleId);
             return allPermissions;
         }
 

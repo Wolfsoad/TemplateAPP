@@ -15,6 +15,14 @@ namespace STRACT.Entities.Declaration
         public UserInTeam User { get; set; }
         public ICollection<DeclarationRevision> Revisions { get; set; }
         public ICollection<DeclarationSignature> Signatures { get; set; }
+        public bool IsSigned
+        {
+            get { return Signatures.Count > 0; }
+        }
+        public int RevisionCount
+        {
+            get { return Revisions.Count; }
+        }
     }
 
 }

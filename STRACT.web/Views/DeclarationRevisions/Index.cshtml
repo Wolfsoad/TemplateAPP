@@ -1,0 +1,51 @@
+﻿@model IEnumerable<STRACT.Entities.Declaration.DeclarationRevision>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Declaration Id: @ViewBag.SelectedDeclaration - Revisions</h2>
+
+<p>
+    <a asp-action="Create" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RevisionDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RevisionDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RevisionDescription)
+            </td>
+            <td>
+                @item.RevisionDate.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.User.ApplicationUser.UserName
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.DeclarationRevisionId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.DeclarationRevisionId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.DeclarationRevisionId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div>
+    <a asp-controller="DeclarationItems" asp-action="Index" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Back to List</a>
+</div>

@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DeclarationItemId)
+                ID
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -68,17 +68,28 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li>
                             <a style='margin-right:16px' asp-controller="DeclarationRevisions" asp-action="Index" asp-route-selectedDeclarationId="@item.DeclarationItemId" class="dropdown-item">
-                                <i class="fas fa-wrench"></i> Revisions
+                                <i class="fas fa-code-branch"></i> Revisions
                             </a>
                         </li>
                         <li>
-                            <a asp-action="Edit" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Edit</a>
+                            <a style='margin-right:16px' asp-controller="DeclarationSignatures" asp-action="Index" asp-route-selectedDeclarationId="@item.DeclarationItemId" class="dropdown-item">
+                                <i class="fas fa-signature"></i> Signatures
+                            </a>
                         </li>
                         <li>
-                            <a asp-action="Details" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Details</a>
+                            <a asp-action="Edit" asp-route-id="@item.DeclarationItemId" class="dropdown-item">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
                         </li>
                         <li>
-                            <a asp-action="Delete" asp-route-id="@item.DeclarationItemId" class="dropdown-item">Delete</a>
+                            <a asp-action="Details" asp-route-id="@item.DeclarationItemId" class="dropdown-item">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Delete" asp-route-id="@item.DeclarationItemId" class="dropdown-item">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
                         </li>
                     </ul>
                 </div>

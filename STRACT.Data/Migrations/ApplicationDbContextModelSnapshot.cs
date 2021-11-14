@@ -703,19 +703,23 @@ namespace STRACT.Data.Migrations
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationSignature", b =>
                 {
-                    b.Property<int?>("DeclarationItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SignatureId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateSigned")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DeclarationItemId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("DeclarationItemId", "SignatureId");
+                    b.HasKey("SignatureId");
+
+                    b.HasIndex("DeclarationItemId");
 
                     b.HasIndex("UserId");
 
@@ -1982,9 +1986,7 @@ namespace STRACT.Data.Migrations
                 {
                     b.HasOne("STRACT.Entities.Declaration.DeclarationItem", "Declaration")
                         .WithMany("Signatures")
-                        .HasForeignKey("DeclarationItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeclarationItemId");
 
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
                         .WithMany("DeclarationSignatures")

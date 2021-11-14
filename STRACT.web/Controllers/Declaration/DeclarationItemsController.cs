@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using STRACT.Identity.Entities;
 
 namespace STRACT.web.Controllers.Declaration
 {
+    [Authorize(Policy = "Permissions.DeclarationItems.View")]
     public class DeclarationItemsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,6 +46,7 @@ namespace STRACT.web.Controllers.Declaration
 
             var declarationItem = await _context.Declarations
                 .Include(d => d.User)
+                    .ThenInclude(a => a.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.DeclarationItemId == id);
             if (declarationItem == null)
             {
@@ -54,6 +57,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationItems/Create
+        [Authorize(Policy = "Permissions.DeclarationItems.Create")]
         public IActionResult Create()
         {
             PopulateUserInTeamDropDownList();
@@ -78,6 +82,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationItems/Edit/5
+        [Authorize(Policy = "Permissions.DeclarationItems.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -131,6 +136,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationItems/Delete/5
+        [Authorize(Policy = "Permissions.DeclarationItems.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -140,6 +146,7 @@ namespace STRACT.web.Controllers.Declaration
 
             var declarationItem = await _context.Declarations
                 .Include(d => d.User)
+                    .ThenInclude(a => a.ApplicationUser)
                 .FirstOrDefaultAsync(m => m.DeclarationItemId == id);
             if (declarationItem == null)
             {
@@ -168,12 +175,13 @@ namespace STRACT.web.Controllers.Declaration
         private void PopulateUserInTeamDropDownList(object selectedUserInTeam = null)
         {
             var userInTeamQuery = from sg in _context.UserInTeam
-                                          orderby sg.ApplicationUser.UserName
-                                          select new
-                                          {
-                                              UserInTeamId = sg.UserInTeamId,
-                                              Description = string.Format("{0} | {1}", sg.ApplicationUser.UserName, sg.ApplicationUser.Email)
-                                          };
+                                  where sg.Active
+                                  orderby sg.ApplicationUser.UserName
+                                  select new
+                                  {
+                                      UserInTeamId = sg.UserInTeamId,
+                                      Description = string.Format("{0} | {1}", sg.ApplicationUser.UserName, sg.ApplicationUser.Email)
+                                  };
 
             ViewBag.UserInTeamId = new SelectList(userInTeamQuery.AsTracking(), "UserInTeamId", "Description", selectedUserInTeam);
         }

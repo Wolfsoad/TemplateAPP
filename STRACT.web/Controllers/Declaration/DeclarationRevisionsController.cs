@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using STRACT.Entities.Declaration;
 
 namespace STRACT.web.Controllers.Declaration
 {
+    [Authorize(Policy = "Permissions.DeclarationRevisions.View")]
     public class DeclarationRevisionsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -54,6 +56,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationRevisions/Create
+        [Authorize(Policy = "Permissions.DeclarationRevisions.Create")]
         public IActionResult Create(int selectedDeclarationId)
         {
             ViewData["DeclarationItemId"] = new SelectList(_context.Declarations, "DeclarationItemId", "DeclarationItemId",_context.Declarations.FirstOrDefault(m => m.DeclarationItemId == selectedDeclarationId).DeclarationItemId);
@@ -84,6 +87,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationRevisions/Edit/5
+        [Authorize(Policy = "Permissions.DeclarationRevisions.Edit")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -140,6 +144,7 @@ namespace STRACT.web.Controllers.Declaration
         }
 
         // GET: DeclarationRevisions/Delete/5
+        [Authorize(Policy = "Permissions.DeclarationRevisions.Delete")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -178,6 +183,7 @@ namespace STRACT.web.Controllers.Declaration
         private void PopulateUserInTeamDropDownList(object selectedUserInTeam = null)
         {
             var userInTeamQuery = from sg in _context.UserInTeam
+                                  where sg.Active
                                   orderby sg.ApplicationUser.UserName
                                   select new
                                   {

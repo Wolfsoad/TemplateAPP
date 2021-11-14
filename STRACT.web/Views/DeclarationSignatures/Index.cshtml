@@ -4,19 +4,19 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Declaration Id: @ViewBag.SelectedDeclaration - Signatures</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DateSigned)
+                ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Declaration)
+                @Html.DisplayNameFor(model => model.DateSigned)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.User)
@@ -28,20 +28,24 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DateSigned)
+                @Html.DisplayFor(modelItem => item.SignatureId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Declaration.DeclarationItemId)
+                @item.DateSigned.ToString("dd/MM/yyyy")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserInTeamId)
+                @item.User.ApplicationUser.UserName
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Edit" asp-route-id="@item.SignatureId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SignatureId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SignatureId" asp-route-selectedDeclarationId="@ViewBag.SelectedDeclaration">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<div>
+    <a asp-controller="DeclarationItems" asp-action="Index">Back to List</a>
+</div>

@@ -97,7 +97,7 @@ namespace STRACT.Data.Identity
             #endregion
 
             #region Declarations DB Configuration
-            builder.Entity<DeclarationSignature>().HasKey(m => new { m.DeclarationItemId, m.SignatureId });
+            builder.Entity<DeclarationSignature>().HasKey(m => m.SignatureId);
             builder.Entity<DeclarationItem>(entity => entity.ToTable("DeclarationItems"));
             builder.Entity<DeclarationRevision>(entity => entity.ToTable("DeclarationRevisions"));
             builder.Entity<DeclarationSignature>(entity => entity.ToTable("DeclarationSignatures"));

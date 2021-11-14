@@ -195,6 +195,7 @@ namespace STRACT.web.Controllers.Users
         private void PopulateUserInTeamDropDownList(object selectedUser = null)
         {
             var userQuery = from sg in _context.UserInTeam
+                            where sg.Active
                              orderby sg.ApplicationUser.LastName
                              select new
                              {

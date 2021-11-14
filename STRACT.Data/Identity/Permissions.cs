@@ -159,4 +159,25 @@ public static class Permissions
         public const string Edit = "Permissions.SkillInActivities.Edit";
         public const string Delete = "Permissions.SkillInActivities.Delete";
     }
+    public static class DeclarationItems
+    {
+        public const string View = "Permissions.DeclarationItems.View";
+        public const string Create = "Permissions.DeclarationItems.Create";
+        public const string Edit = "Permissions.DeclarationItems.Edit";
+        public const string Delete = "Permissions.DeclarationItems.Delete";
+    }
+    public static class DeclarationRevisions
+    {
+        public const string View = "Permissions.DeclarationRevisions.View";
+        public const string Create = "Permissions.DeclarationRevisions.Create";
+        public const string Edit = "Permissions.DeclarationRevisions.Edit";
+        public const string Delete = "Permissions.DeclarationRevisions.Delete";
+    }
+    public static class DeclarationSignatures
+    {
+        public const string View = "Permissions.DeclarationSignatures.View";
+        public const string Create = "Permissions.DeclarationSignatures.Create";
+        public const string Edit = "Permissions.DeclarationSignatures.Edit";
+        public const string Delete = "Permissions.DeclarationSignatures.Delete";
+    }
 }

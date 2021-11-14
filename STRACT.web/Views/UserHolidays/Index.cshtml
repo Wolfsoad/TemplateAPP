@@ -25,10 +25,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.DataOfHoliday)
+                @item.DataOfHoliday.ToString("dd/MM/yyyy")
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserInTeamId)
+                @Html.DisplayFor(modelItem => item.User.ApplicationUser.UserName)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.UserHolidayId">Edit</a> |

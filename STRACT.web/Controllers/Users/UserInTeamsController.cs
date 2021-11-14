@@ -176,13 +176,17 @@ namespace STRACT.web.Controllers.Users
 
         private void PopulateApplicationUserDropDownList(object selectedApplicatinUser = null)
         {
+            var usersAlreadyInTeam = from user in _context.UserInTeam
+                                     select user.ApplicationUser.Id;
+
             var applicationUserQuery = from sg in _context.Users
-                                   orderby sg.UserName
-                                   select new 
-                                   {
-                                       ApplicationUserId = sg.Id,
-                                       Description = string.Format("{0} | {1}", sg.UserName, sg.Email)
-                                   };
+                                       where !usersAlreadyInTeam.Contains(sg.Id)
+                                       orderby sg.UserName
+                                       select new 
+                                       {
+                                           ApplicationUserId = sg.Id,
+                                           Description = string.Format("{0} | {1}", sg.UserName, sg.Email)
+                                       };
             ViewBag.ApplicationUserId = new SelectList(applicationUserQuery.AsTracking(), "ApplicationUserId", "Description", selectedApplicatinUser);
         }
 

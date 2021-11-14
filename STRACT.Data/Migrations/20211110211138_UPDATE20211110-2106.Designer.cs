@@ -10,8 +10,8 @@ using STRACT.Data.Identity;
 namespace STRACT.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211103200209_UPDATE-KEY")]
-    partial class UPDATEKEY
+    [Migration("20211110211138_UPDATE20211110-2106")]
+    partial class UPDATE202111102106
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,36 +35,6 @@ namespace STRACT.Data.Migrations
                     b.HasIndex("LinesOfProductsLineOfProductId");
 
                     b.ToTable("ActionItemLineOfProduct");
-                });
-
-            modelBuilder.Entity("ActivityFunctionalRole", b =>
-                {
-                    b.Property<int>("ActivitiesActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FunctionalRolesFunctionalRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActivitiesActivityId", "FunctionalRolesFunctionalRoleId");
-
-                    b.HasIndex("FunctionalRolesFunctionalRoleId");
-
-                    b.ToTable("ActivityFunctionalRole");
-                });
-
-            modelBuilder.Entity("ActivityOrganizationalRole", b =>
-                {
-                    b.Property<int>("ActivitiesActivityId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrganizationalRolesOrganizationalRoleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ActivitiesActivityId", "OrganizationalRolesOrganizationalRoleId");
-
-                    b.HasIndex("OrganizationalRolesOrganizationalRoleId");
-
-                    b.ToTable("ActivityOrganizationalRole");
                 });
 
             modelBuilder.Entity("ActivitySkill", b =>
@@ -702,7 +672,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Declarations");
+                    b.ToTable("DeclarationItems");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationRevision", b =>
@@ -730,28 +700,32 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationRevision");
+                    b.ToTable("DeclarationRevisions");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Declaration.DeclarationSignature", b =>
                 {
-                    b.Property<int?>("DeclarationItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SignatureId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateSigned")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DeclarationItemId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("DeclarationItemId", "SignatureId");
+                    b.HasKey("SignatureId");
+
+                    b.HasIndex("DeclarationItemId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DeclarationSignature");
+                    b.ToTable("DeclarationSignatures");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Financial.Currency", b =>
@@ -1036,6 +1010,21 @@ namespace STRACT.Data.Migrations
                     b.ToTable("ActivityGroups");
                 });
 
+            modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInFunctionalRoles", b =>
+                {
+                    b.Property<int>("FunctionalRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FunctionalRoleId", "ActivityId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("ActivityInFunctionalRoles");
+                });
+
             modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInGroup", b =>
                 {
                     b.Property<int>("ActivityGroupId")
@@ -1049,6 +1038,21 @@ namespace STRACT.Data.Migrations
                     b.HasIndex("ActivityId");
 
                     b.ToTable("ActivityInGroups");
+                });
+
+            modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInOrganizationalRole", b =>
+                {
+                    b.Property<int>("OrganizationalRoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ActivityId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrganizationalRoleId", "ActivityId");
+
+                    b.HasIndex("ActivityId");
+
+                    b.ToTable("ActivityInOrganizationalRole");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.Department", b =>
@@ -1181,7 +1185,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserInTeamId");
 
-                    b.ToTable("UserHoliday");
+                    b.ToTable("UserHolidays");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.KanbanBoard", b =>
@@ -1612,11 +1616,31 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("UserInTeamId");
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique()
+                        .HasFilter("[ApplicationUserId] IS NOT NULL");
 
                     b.HasIndex("OrganizationalRoleId");
 
                     b.ToTable("UserInTeam");
+                });
+
+            modelBuilder.Entity("STRACT.Entities.Users.UserSkillsEvaluation", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("UserSkillsEvaluations");
                 });
 
             modelBuilder.Entity("STRACT.Identity.General.Audit", b =>
@@ -1685,36 +1709,6 @@ namespace STRACT.Data.Migrations
                     b.HasOne("STRACT.Entities.General.LineOfProduct", null)
                         .WithMany()
                         .HasForeignKey("LinesOfProductsLineOfProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ActivityFunctionalRole", b =>
-                {
-                    b.HasOne("STRACT.Entities.HumanResources.Activity", null)
-                        .WithMany()
-                        .HasForeignKey("ActivitiesActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("STRACT.Entities.HumanResources.FunctionalRole", null)
-                        .WithMany()
-                        .HasForeignKey("FunctionalRolesFunctionalRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ActivityOrganizationalRole", b =>
-                {
-                    b.HasOne("STRACT.Entities.HumanResources.Activity", null)
-                        .WithMany()
-                        .HasForeignKey("ActivitiesActivityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("STRACT.Entities.HumanResources.OrganizationalRole", null)
-                        .WithMany()
-                        .HasForeignKey("OrganizationalRolesOrganizationalRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1994,9 +1988,7 @@ namespace STRACT.Data.Migrations
                 {
                     b.HasOne("STRACT.Entities.Declaration.DeclarationItem", "Declaration")
                         .WithMany("Signatures")
-                        .HasForeignKey("DeclarationItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeclarationItemId");
 
                     b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
                         .WithMany("DeclarationSignatures")
@@ -2079,6 +2071,25 @@ namespace STRACT.Data.Migrations
                     b.Navigation("UserInTeam");
                 });
 
+            modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInFunctionalRoles", b =>
+                {
+                    b.HasOne("STRACT.Entities.HumanResources.Activity", "Activity")
+                        .WithMany("ActivityInFunctionalRoles")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STRACT.Entities.HumanResources.FunctionalRole", "FunctionalRole")
+                        .WithMany("ActivityInFunctionalRoles")
+                        .HasForeignKey("FunctionalRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("FunctionalRole");
+                });
+
             modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInGroup", b =>
                 {
                     b.HasOne("STRACT.Entities.HumanResources.ActivityGroup", "ActivityGroup")
@@ -2096,6 +2107,25 @@ namespace STRACT.Data.Migrations
                     b.Navigation("Activity");
 
                     b.Navigation("ActivityGroup");
+                });
+
+            modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityInOrganizationalRole", b =>
+                {
+                    b.HasOne("STRACT.Entities.HumanResources.Activity", "Activity")
+                        .WithMany("ActivityInOrganizationalRoles")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STRACT.Entities.HumanResources.OrganizationalRole", "OrganizationalRole")
+                        .WithMany("ActivityInOrganizationalRoles")
+                        .HasForeignKey("OrganizationalRoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Activity");
+
+                    b.Navigation("OrganizationalRole");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.Skill", b =>
@@ -2381,8 +2411,8 @@ namespace STRACT.Data.Migrations
             modelBuilder.Entity("STRACT.Entities.Users.UserInTeam", b =>
                 {
                     b.HasOne("STRACT.Identity.Entities.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .WithOne()
+                        .HasForeignKey("STRACT.Entities.Users.UserInTeam", "ApplicationUserId");
 
                     b.HasOne("STRACT.Entities.HumanResources.OrganizationalRole", "OrganizationalRole")
                         .WithMany()
@@ -2393,6 +2423,25 @@ namespace STRACT.Data.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("OrganizationalRole");
+                });
+
+            modelBuilder.Entity("STRACT.Entities.Users.UserSkillsEvaluation", b =>
+                {
+                    b.HasOne("STRACT.Entities.HumanResources.Skill", "Skill")
+                        .WithMany()
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STRACT.Entities.Users.UserInTeam", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("STRACT.Identity.Entities.ApplicationUser", b =>
@@ -2509,7 +2558,11 @@ namespace STRACT.Data.Migrations
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.Activity", b =>
                 {
+                    b.Navigation("ActivityInFunctionalRoles");
+
                     b.Navigation("ActivityInGroups");
+
+                    b.Navigation("ActivityInOrganizationalRoles");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.ActivityGroup", b =>
@@ -2524,11 +2577,15 @@ namespace STRACT.Data.Migrations
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.FunctionalRole", b =>
                 {
+                    b.Navigation("ActivityInFunctionalRoles");
+
                     b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("STRACT.Entities.HumanResources.OrganizationalRole", b =>
                 {
+                    b.Navigation("ActivityInOrganizationalRoles");
+
                     b.Navigation("TaskItems");
                 });
 

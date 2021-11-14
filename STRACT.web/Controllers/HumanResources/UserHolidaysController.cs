@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +25,9 @@ namespace STRACT.web.Controllers.HumanResources
         // GET: UserHolidays
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.UserHolidays.Include(u => u.User);
+            var applicationDbContext = _context
+                .UserHolidays.Include(u => u.User)
+                    .ThenInclude(u => u.ApplicationUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -51,7 +54,7 @@ namespace STRACT.web.Controllers.HumanResources
         [Authorize(Policy = "Permissions.UserHolidays.Create")]
         public IActionResult Create()
         {
-            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId");
+            PopulateUserInTeamDropDownList();
             return View();
         }
 
@@ -68,7 +71,7 @@ namespace STRACT.web.Controllers.HumanResources
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", userHoliday.UserInTeamId);
+            PopulateUserInTeamDropDownList(userHoliday.UserHolidayId);
             return View(userHoliday);
         }
 
@@ -86,7 +89,7 @@ namespace STRACT.web.Controllers.HumanResources
             {
                 return NotFound();
             }
-            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", userHoliday.UserInTeamId);
+            PopulateUserInTeamDropDownList(userHoliday.UserHolidayId);
             return View(userHoliday);
         }
 
@@ -122,7 +125,7 @@ namespace STRACT.web.Controllers.HumanResources
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", userHoliday.UserInTeamId);
+            PopulateUserInTeamDropDownList(userHoliday.UserHolidayId);
             return View(userHoliday);
         }
 
@@ -157,9 +160,27 @@ namespace STRACT.web.Controllers.HumanResources
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Calendar()
+        {
+            return View();
+        }
         private bool UserHolidayExists(int id)
         {
             return _context.UserHolidays.Any(e => e.UserHolidayId == id);
+        }
+
+        private void PopulateUserInTeamDropDownList(object selectedUserInTeam = null)
+        {
+            var userInTeamQuery = from sg in _context.UserInTeam
+                                  where sg.Active
+                                  orderby sg.ApplicationUser.UserName
+                                  select new
+                                  {
+                                      UserInTeamId = sg.UserInTeamId,
+                                      Description = string.Format("{0} | {1}", sg.ApplicationUser.UserName, sg.ApplicationUser.Email)
+                                  };
+
+            ViewBag.UserInTeamId = new SelectList(userInTeamQuery.AsTracking(), "UserInTeamId", "Description", selectedUserInTeam);
         }
     }
 }

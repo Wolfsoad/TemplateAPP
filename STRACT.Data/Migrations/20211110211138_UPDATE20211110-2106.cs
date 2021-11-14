@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace STRACT.Data.Migrations
 {
-    public partial class CORRECTIONPRIMARYKEYS : Migration
+    public partial class UPDATE202111102106 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -222,7 +222,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FunctionalRole",
+                name: "FuntionalRoles",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -233,7 +233,7 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FunctionalRole", x => x.FunctionalRoleId);
+                    table.PrimaryKey("PK_FuntionalRoles", x => x.FunctionalRoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -282,7 +282,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "OrganizationalRole",
+                name: "OrganizationalRoles",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -293,7 +293,7 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrganizationalRole", x => x.OrganizationalRoleId);
+                    table.PrimaryKey("PK_OrganizationalRoles", x => x.OrganizationalRoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -386,7 +386,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActivityInGroup",
+                name: "ActivityInGroups",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -395,16 +395,16 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityInGroup", x => new { x.ActivityGroupId, x.ActivityId });
+                    table.PrimaryKey("PK_ActivityInGroups", x => new { x.ActivityGroupId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_ActivityInGroup_Activities_ActivityId",
+                        name: "FK_ActivityInGroups_Activities_ActivityId",
                         column: x => x.ActivityId,
                         principalSchema: "PDC",
                         principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityInGroup_ActivityGroups_ActivityGroupId",
+                        name: "FK_ActivityInGroups_ActivityGroups_ActivityGroupId",
                         column: x => x.ActivityGroupId,
                         principalSchema: "PDC",
                         principalTable: "ActivityGroups",
@@ -576,55 +576,55 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActivityFunctionalRole",
+                name: "ActivityInFunctionalRoles",
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivitiesActivityId = table.Column<int>(type: "int", nullable: false),
-                    FunctionalRolesFunctionalRoleId = table.Column<int>(type: "int", nullable: false)
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    FunctionalRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityFunctionalRole", x => new { x.ActivitiesActivityId, x.FunctionalRolesFunctionalRoleId });
+                    table.PrimaryKey("PK_ActivityInFunctionalRoles", x => new { x.FunctionalRoleId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_ActivityFunctionalRole_Activities_ActivitiesActivityId",
-                        column: x => x.ActivitiesActivityId,
+                        name: "FK_ActivityInFunctionalRoles_Activities_ActivityId",
+                        column: x => x.ActivityId,
                         principalSchema: "PDC",
                         principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityFunctionalRole_FunctionalRole_FunctionalRolesFunctionalRoleId",
-                        column: x => x.FunctionalRolesFunctionalRoleId,
+                        name: "FK_ActivityInFunctionalRoles_FuntionalRoles_FunctionalRoleId",
+                        column: x => x.FunctionalRoleId,
                         principalSchema: "PDC",
-                        principalTable: "FunctionalRole",
+                        principalTable: "FuntionalRoles",
                         principalColumn: "FunctionalRoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ActivityOrganizationalRole",
+                name: "ActivityInOrganizationalRole",
                 schema: "PDC",
                 columns: table => new
                 {
-                    ActivitiesActivityId = table.Column<int>(type: "int", nullable: false),
-                    OrganizationalRolesOrganizationalRoleId = table.Column<int>(type: "int", nullable: false)
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    OrganizationalRoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ActivityOrganizationalRole", x => new { x.ActivitiesActivityId, x.OrganizationalRolesOrganizationalRoleId });
+                    table.PrimaryKey("PK_ActivityInOrganizationalRole", x => new { x.OrganizationalRoleId, x.ActivityId });
                     table.ForeignKey(
-                        name: "FK_ActivityOrganizationalRole_Activities_ActivitiesActivityId",
-                        column: x => x.ActivitiesActivityId,
+                        name: "FK_ActivityInOrganizationalRole_Activities_ActivityId",
+                        column: x => x.ActivityId,
                         principalSchema: "PDC",
                         principalTable: "Activities",
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivityOrganizationalRole_OrganizationalRole_OrganizationalRolesOrganizationalRoleId",
-                        column: x => x.OrganizationalRolesOrganizationalRoleId,
+                        name: "FK_ActivityInOrganizationalRole_OrganizationalRoles_OrganizationalRoleId",
+                        column: x => x.OrganizationalRoleId,
                         principalSchema: "PDC",
-                        principalTable: "OrganizationalRole",
+                        principalTable: "OrganizationalRoles",
                         principalColumn: "OrganizationalRoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -713,7 +713,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Skill",
+                name: "Skills",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -725,9 +725,9 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skill", x => x.SkillId);
+                    table.PrimaryKey("PK_Skills", x => x.SkillId);
                     table.ForeignKey(
-                        name: "FK_Skill_SkillGroups_SkillGroupId",
+                        name: "FK_Skills_SkillGroups_SkillGroupId",
                         column: x => x.SkillGroupId,
                         principalSchema: "PDC",
                         principalTable: "SkillGroups",
@@ -744,24 +744,23 @@ namespace STRACT.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Active = table.Column<bool>(type: "bit", nullable: false),
                     OrganizationalRoleId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId = table.Column<int>(type: "int", nullable: false),
-                    ApplicationUserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserInTeam", x => x.UserInTeamId);
                     table.ForeignKey(
-                        name: "FK_UserInTeam_ApplicationUser_ApplicationUserId1",
-                        column: x => x.ApplicationUserId1,
+                        name: "FK_UserInTeam_ApplicationUser_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
                         principalSchema: "Identity",
                         principalTable: "ApplicationUser",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserInTeam_OrganizationalRole_OrganizationalRoleId",
+                        name: "FK_UserInTeam_OrganizationalRoles_OrganizationalRoleId",
                         column: x => x.OrganizationalRoleId,
                         principalSchema: "PDC",
-                        principalTable: "OrganizationalRole",
+                        principalTable: "OrganizationalRoles",
                         principalColumn: "OrganizationalRoleId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -811,10 +810,38 @@ namespace STRACT.Data.Migrations
                         principalColumn: "ActivityId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ActivitySkill_Skill_SkillsSkillId",
+                        name: "FK_ActivitySkill_Skills_SkillsSkillId",
                         column: x => x.SkillsSkillId,
                         principalSchema: "PDC",
-                        principalTable: "Skill",
+                        principalTable: "Skills",
+                        principalColumn: "SkillId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SkillInActivity",
+                schema: "PDC",
+                columns: table => new
+                {
+                    ActivityId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    RequestedScore = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillInActivity", x => new { x.SkillId, x.ActivityId });
+                    table.ForeignKey(
+                        name: "FK_SkillInActivity_Activities_ActivityId",
+                        column: x => x.ActivityId,
+                        principalSchema: "PDC",
+                        principalTable: "Activities",
+                        principalColumn: "ActivityId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SkillInActivity_Skills_SkillId",
+                        column: x => x.SkillId,
+                        principalSchema: "PDC",
+                        principalTable: "Skills",
                         principalColumn: "SkillId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -860,7 +887,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Declarations",
+                name: "DeclarationItems",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -873,9 +900,9 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Declarations", x => x.DeclarationItemId);
+                    table.PrimaryKey("PK_DeclarationItems", x => x.DeclarationItemId);
                     table.ForeignKey(
-                        name: "FK_Declarations_UserInTeam_UserId",
+                        name: "FK_DeclarationItems_UserInTeam_UserId",
                         column: x => x.UserId,
                         principalSchema: "PDC",
                         principalTable: "UserInTeam",
@@ -949,7 +976,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserHoliday",
+                name: "UserHolidays",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -960,10 +987,38 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserHoliday", x => x.UserHolidayId);
+                    table.PrimaryKey("PK_UserHolidays", x => x.UserHolidayId);
                     table.ForeignKey(
-                        name: "FK_UserHoliday_UserInTeam_UserInTeamId",
+                        name: "FK_UserHolidays_UserInTeam_UserInTeamId",
                         column: x => x.UserInTeamId,
+                        principalSchema: "PDC",
+                        principalTable: "UserInTeam",
+                        principalColumn: "UserInTeamId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserSkillsEvaluations",
+                schema: "PDC",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    SkillScore = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSkillsEvaluations", x => new { x.UserId, x.SkillId });
+                    table.ForeignKey(
+                        name: "FK_UserSkillsEvaluations_Skills_SkillId",
+                        column: x => x.SkillId,
+                        principalSchema: "PDC",
+                        principalTable: "Skills",
+                        principalColumn: "SkillId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserSkillsEvaluations_UserInTeam_UserId",
+                        column: x => x.UserId,
                         principalSchema: "PDC",
                         principalTable: "UserInTeam",
                         principalColumn: "UserInTeamId",
@@ -1037,10 +1092,10 @@ namespace STRACT.Data.Migrations
                         principalColumn: "DepartmentId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TaskItem_OrganizationalRole_OrganizationalRoleId",
+                        name: "FK_TaskItem_OrganizationalRoles_OrganizationalRoleId",
                         column: x => x.OrganizationalRoleId,
                         principalSchema: "PDC",
-                        principalTable: "OrganizationalRole",
+                        principalTable: "OrganizationalRoles",
                         principalColumn: "OrganizationalRoleId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -1067,7 +1122,7 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeclarationRevision",
+                name: "DeclarationRevisions",
                 schema: "PDC",
                 columns: table => new
                 {
@@ -1080,16 +1135,16 @@ namespace STRACT.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeclarationRevision", x => x.DeclarationRevisionId);
+                    table.PrimaryKey("PK_DeclarationRevisions", x => x.DeclarationRevisionId);
                     table.ForeignKey(
-                        name: "FK_DeclarationRevision_Declarations_DeclarationItemId",
+                        name: "FK_DeclarationRevisions_DeclarationItems_DeclarationItemId",
                         column: x => x.DeclarationItemId,
                         principalSchema: "PDC",
-                        principalTable: "Declarations",
+                        principalTable: "DeclarationItems",
                         principalColumn: "DeclarationItemId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DeclarationRevision_UserInTeam_UserId",
+                        name: "FK_DeclarationRevisions_UserInTeam_UserId",
                         column: x => x.UserId,
                         principalSchema: "PDC",
                         principalTable: "UserInTeam",
@@ -1098,27 +1153,28 @@ namespace STRACT.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeclarationSignature",
+                name: "DeclarationSignatures",
                 schema: "PDC",
                 columns: table => new
                 {
-                    SignatureId = table.Column<int>(type: "int", nullable: false),
-                    DeclarationItemId = table.Column<int>(type: "int", nullable: false),
+                    SignatureId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DateSigned = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeclarationItemId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeclarationSignature", x => new { x.DeclarationItemId, x.SignatureId });
+                    table.PrimaryKey("PK_DeclarationSignatures", x => x.SignatureId);
                     table.ForeignKey(
-                        name: "FK_DeclarationSignature_Declarations_DeclarationItemId",
+                        name: "FK_DeclarationSignatures_DeclarationItems_DeclarationItemId",
                         column: x => x.DeclarationItemId,
                         principalSchema: "PDC",
-                        principalTable: "Declarations",
+                        principalTable: "DeclarationItems",
                         principalColumn: "DeclarationItemId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_DeclarationSignature_UserInTeam_UserId",
+                        name: "FK_DeclarationSignatures_UserInTeam_UserId",
                         column: x => x.UserId,
                         principalSchema: "PDC",
                         principalTable: "UserInTeam",
@@ -1222,10 +1278,10 @@ namespace STRACT.Data.Migrations
                 {
                     table.PrimaryKey("PK_ProjectMember", x => new { x.ProjectItemId, x.UserId, x.FunctionalRoleId });
                     table.ForeignKey(
-                        name: "FK_ProjectMember_FunctionalRole_FunctionalRoleId",
+                        name: "FK_ProjectMember_FuntionalRoles_FunctionalRoleId",
                         column: x => x.FunctionalRoleId,
                         principalSchema: "PDC",
-                        principalTable: "FunctionalRole",
+                        principalTable: "FuntionalRoles",
                         principalColumn: "FunctionalRoleId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -1710,22 +1766,22 @@ namespace STRACT.Data.Migrations
                 column: "UserInTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityFunctionalRole_FunctionalRolesFunctionalRoleId",
+                name: "IX_ActivityInFunctionalRoles_ActivityId",
                 schema: "PDC",
-                table: "ActivityFunctionalRole",
-                column: "FunctionalRolesFunctionalRoleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ActivityInGroup_ActivityId",
-                schema: "PDC",
-                table: "ActivityInGroup",
+                table: "ActivityInFunctionalRoles",
                 column: "ActivityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ActivityOrganizationalRole_OrganizationalRolesOrganizationalRoleId",
+                name: "IX_ActivityInGroups_ActivityId",
                 schema: "PDC",
-                table: "ActivityOrganizationalRole",
-                column: "OrganizationalRolesOrganizationalRoleId");
+                table: "ActivityInGroups",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActivityInOrganizationalRole_ActivityId",
+                schema: "PDC",
+                table: "ActivityInOrganizationalRole",
+                column: "ActivityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActivitySkill_SkillsSkillId",
@@ -1838,27 +1894,33 @@ namespace STRACT.Data.Migrations
                 column: "StatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeclarationRevision_DeclarationItemId",
+                name: "IX_DeclarationItems_UserId",
                 schema: "PDC",
-                table: "DeclarationRevision",
+                table: "DeclarationItems",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DeclarationRevisions_DeclarationItemId",
+                schema: "PDC",
+                table: "DeclarationRevisions",
                 column: "DeclarationItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeclarationRevision_UserId",
+                name: "IX_DeclarationRevisions_UserId",
                 schema: "PDC",
-                table: "DeclarationRevision",
+                table: "DeclarationRevisions",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Declarations_UserId",
+                name: "IX_DeclarationSignatures_DeclarationItemId",
                 schema: "PDC",
-                table: "Declarations",
-                column: "UserId");
+                table: "DeclarationSignatures",
+                column: "DeclarationItemId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeclarationSignature_UserId",
+                name: "IX_DeclarationSignatures_UserId",
                 schema: "PDC",
-                table: "DeclarationSignature",
+                table: "DeclarationSignatures",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -1961,9 +2023,15 @@ namespace STRACT.Data.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skill_SkillGroupId",
+                name: "IX_SkillInActivity_ActivityId",
                 schema: "PDC",
-                table: "Skill",
+                table: "SkillInActivity",
+                column: "ActivityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Skills_SkillGroupId",
+                schema: "PDC",
+                table: "Skills",
                 column: "SkillGroupId");
 
             migrationBuilder.CreateIndex(
@@ -2064,16 +2132,18 @@ namespace STRACT.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserHoliday_UserInTeamId",
+                name: "IX_UserHolidays_UserInTeamId",
                 schema: "PDC",
-                table: "UserHoliday",
+                table: "UserHolidays",
                 column: "UserInTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserInTeam_ApplicationUserId1",
+                name: "IX_UserInTeam_ApplicationUserId",
                 schema: "PDC",
                 table: "UserInTeam",
-                column: "ApplicationUserId1");
+                column: "ApplicationUserId",
+                unique: true,
+                filter: "[ApplicationUserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserInTeam_OrganizationalRoleId",
@@ -2092,6 +2162,12 @@ namespace STRACT.Data.Migrations
                 schema: "Identity",
                 table: "UserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSkillsEvaluations_SkillId",
+                schema: "PDC",
+                table: "UserSkillsEvaluations",
+                column: "SkillId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -2101,15 +2177,15 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "ActivityFunctionalRole",
+                name: "ActivityInFunctionalRoles",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "ActivityInGroup",
+                name: "ActivityInGroups",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "ActivityOrganizationalRole",
+                name: "ActivityInOrganizationalRole",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2149,11 +2225,11 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "DeclarationRevision",
+                name: "DeclarationRevisions",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "DeclarationSignature",
+                name: "DeclarationSignatures",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2173,6 +2249,10 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
+                name: "SkillInActivity",
+                schema: "PDC");
+
+            migrationBuilder.DropTable(
                 name: "TaskInKanban",
                 schema: "PDC");
 
@@ -2189,7 +2269,7 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "UserHoliday",
+                name: "UserHolidays",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2201,19 +2281,15 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
+                name: "UserSkillsEvaluations",
+                schema: "PDC");
+
+            migrationBuilder.DropTable(
                 name: "UserTokens",
                 schema: "Identity");
 
             migrationBuilder.DropTable(
                 name: "ActivityGroups",
-                schema: "PDC");
-
-            migrationBuilder.DropTable(
-                name: "Activities",
-                schema: "PDC");
-
-            migrationBuilder.DropTable(
-                name: "Skill",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2241,7 +2317,7 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "Declarations",
+                name: "DeclarationItems",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2257,7 +2333,11 @@ namespace STRACT.Data.Migrations
                 schema: "PDC");
 
             migrationBuilder.DropTable(
-                name: "FunctionalRole",
+                name: "FuntionalRoles",
+                schema: "PDC");
+
+            migrationBuilder.DropTable(
+                name: "Activities",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2285,7 +2365,7 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "SkillGroups",
+                name: "Skills",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2314,6 +2394,10 @@ namespace STRACT.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Departments",
+                schema: "PDC");
+
+            migrationBuilder.DropTable(
+                name: "SkillGroups",
                 schema: "PDC");
 
             migrationBuilder.DropTable(
@@ -2349,7 +2433,7 @@ namespace STRACT.Data.Migrations
                 schema: "Identity");
 
             migrationBuilder.DropTable(
-                name: "OrganizationalRole",
+                name: "OrganizationalRoles",
                 schema: "PDC");
 
             migrationBuilder.DropTable(

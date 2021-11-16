@@ -1,0 +1,89 @@
+﻿@model STRACT.Entities.Certifications.Certificate
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Certificate</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Number" class="control-label"></label>
+                <input asp-for="Number" class="form-control" />
+                <span asp-validation-for="Number" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EmissionDate" class="control-label"></label>
+                <input asp-for="EmissionDate" type="date" class="form-control" />
+                <span asp-validation-for="EmissionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ValidUntil" class="control-label"></label>
+                <input asp-for="ValidUntil" type="date" class="form-control" />
+                <span asp-validation-for="ValidUntil" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificateUrl" class="control-label"></label>
+                <input asp-for="CertificateUrl" class="form-control" />
+                <span asp-validation-for="CertificateUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CertificationLineId" class="control-label"></label>
+                <select asp-for="CertificationLineId" class ="form-control" asp-items="ViewBag.CertificationLineId">
+                    <option value="">-- Select Certification --</option>
+                </select>
+            </div>
+            <h5>Product Lines</h5>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                List<STRACT.web.Models.Certifications.AssignedProductLine> certificateProductLines = ViewBag.LinesOfProducts;
+                                foreach (var productLine in certificateProductLines)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input  type="checkbox"
+                                            name="selectedLinesOfProducts"
+                                            value="@productLine.ProductLineId"
+                                            @(Html.Raw(productLine.Assigned ? "checked=\"checked\"" : ""))/>
+                                            @productLine.ProductLineId @: @productLine.Name
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

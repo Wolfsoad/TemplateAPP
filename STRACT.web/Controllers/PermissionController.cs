@@ -80,6 +80,7 @@ namespace STRACT.web.Controllers
             allPermissions.GetPermissions(typeof(Permissions.DeclarationItems), roleId);
             allPermissions.GetPermissions(typeof(Permissions.DeclarationRevisions), roleId);
             allPermissions.GetPermissions(typeof(Permissions.DeclarationSignatures), roleId);
+            allPermissions.GetPermissions(typeof(Permissions.CertificationLines), roleId);
             return allPermissions;
         }
 

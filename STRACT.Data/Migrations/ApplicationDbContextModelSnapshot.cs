@@ -17,7 +17,7 @@ namespace STRACT.Data.Migrations
             modelBuilder
                 .HasDefaultSchema("PDC")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.11")
+                .HasAnnotation("ProductVersion", "5.0.12")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("ActionItemLineOfProduct", b =>
@@ -279,7 +279,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Audit");
+                    b.ToTable("Audits");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Certifications.Certificate", b =>
@@ -311,7 +311,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("CertificationLineId");
 
-                    b.ToTable("Certificate");
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Certifications.CertificateProductLine", b =>
@@ -347,6 +347,21 @@ namespace STRACT.Data.Migrations
                     b.ToTable("CertificationInActionItems");
                 });
 
+            modelBuilder.Entity("STRACT.Entities.Certifications.CertificationInLocation", b =>
+                {
+                    b.Property<int>("CertificationLineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CertificationLineId", "LocationId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("CertificationInLocations");
+                });
+
             modelBuilder.Entity("STRACT.Entities.Certifications.CertificationLine", b =>
                 {
                     b.Property<int>("CertificationLineId")
@@ -369,11 +384,14 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("FolderPath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("CertificationLineId");
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("CertificationLine");
+                    b.ToTable("CertificationLines");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Certifications.ContactPerson", b =>
@@ -399,7 +417,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("EntityId");
 
-                    b.ToTable("ContactPerson");
+                    b.ToTable("ContactPeople");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Certifications.Entity", b =>
@@ -417,7 +435,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasKey("EntityId");
 
-                    b.ToTable("Entity");
+                    b.ToTable("Entities");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Chronogram.ChronogramLine", b =>
@@ -426,6 +444,9 @@ namespace STRACT.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ActionItemId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ChronogramRevisionId")
                         .HasColumnType("int");
@@ -452,6 +473,8 @@ namespace STRACT.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("ChronogramLineId");
+
+                    b.HasIndex("ActionItemId");
 
                     b.HasIndex("ChronogramRevisionId");
 
@@ -1201,7 +1224,7 @@ namespace STRACT.Data.Migrations
                     b.HasIndex("ProjectItemId")
                         .IsUnique();
 
-                    b.ToTable("KanbanBoard");
+                    b.ToTable("KanbanBoards");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.LocationInKanban", b =>
@@ -1269,7 +1292,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("KanbanBoardKanbanId");
 
-                    b.ToTable("Sprint");
+                    b.ToTable("Sprints");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.TaskInKanban", b =>
@@ -1300,7 +1323,7 @@ namespace STRACT.Data.Migrations
                     b.HasIndex("TaskItemId")
                         .IsUnique();
 
-                    b.ToTable("TaskInKanban");
+                    b.ToTable("TaskInKanbans");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.TaskItem", b =>
@@ -1310,10 +1333,10 @@ namespace STRACT.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuditId")
+                    b.Property<int?>("AuditId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DepartmentId")
+                    b.Property<int?>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Details")
@@ -1322,7 +1345,7 @@ namespace STRACT.Data.Migrations
                     b.Property<string>("FeatureActivity")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Hours")
+                    b.Property<double?>("Hours")
                         .HasColumnType("float");
 
                     b.Property<bool>("IsRepeatable")
@@ -1363,7 +1386,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("UserInTeamId");
 
-                    b.ToTable("TaskItem");
+                    b.ToTable("TaskItems");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Kanban.TaskType", b =>
@@ -1555,7 +1578,7 @@ namespace STRACT.Data.Migrations
 
                     b.HasIndex("CoordinatorUserInTeamId");
 
-                    b.ToTable("ProjectItem");
+                    b.ToTable("ProjectItems");
                 });
 
             modelBuilder.Entity("STRACT.Entities.Projects.ProjectMember", b =>
@@ -1608,6 +1631,9 @@ namespace STRACT.Data.Migrations
 
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrganizationalRoleId")
                         .HasColumnType("int");
@@ -1851,6 +1877,25 @@ namespace STRACT.Data.Migrations
                     b.Navigation("Certification");
                 });
 
+            modelBuilder.Entity("STRACT.Entities.Certifications.CertificationInLocation", b =>
+                {
+                    b.HasOne("STRACT.Entities.Certifications.CertificationLine", "CertificationLine")
+                        .WithMany("CertificationInLocations")
+                        .HasForeignKey("CertificationLineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("STRACT.Entities.General.Location", "Location")
+                        .WithMany("CertificationInLocations")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CertificationLine");
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("STRACT.Entities.Certifications.CertificationLine", b =>
                 {
                     b.HasOne("STRACT.Entities.Certifications.Entity", "Entity")
@@ -1875,6 +1920,12 @@ namespace STRACT.Data.Migrations
 
             modelBuilder.Entity("STRACT.Entities.Chronogram.ChronogramLine", b =>
                 {
+                    b.HasOne("STRACT.Entities.Projects.ActionItem", "ActionItem")
+                        .WithMany("ChronogramLines")
+                        .HasForeignKey("ActionItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("STRACT.Entities.Chronogram.ChronogramRevision", "ChronogramRevision")
                         .WithMany("ChronogramLines")
                         .HasForeignKey("ChronogramRevisionId")
@@ -1886,6 +1937,8 @@ namespace STRACT.Data.Migrations
                         .HasForeignKey("ChronogramTextId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ActionItem");
 
                     b.Navigation("ChronogramRevision");
 
@@ -2226,15 +2279,11 @@ namespace STRACT.Data.Migrations
                 {
                     b.HasOne("STRACT.Entities.Certifications.Audit", "Audit")
                         .WithMany("TaskItems")
-                        .HasForeignKey("AuditId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuditId");
 
                     b.HasOne("STRACT.Entities.HumanResources.Department", "RequestedBy")
                         .WithMany("TaskItems")
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentId");
 
                     b.HasOne("STRACT.Entities.HumanResources.OrganizationalRole", "OrganizationalRole")
                         .WithMany("TaskItems")
@@ -2467,6 +2516,8 @@ namespace STRACT.Data.Migrations
 
                     b.Navigation("Certificates");
 
+                    b.Navigation("CertificationInLocations");
+
                     b.Navigation("CertificationsInActionItens");
                 });
 
@@ -2545,6 +2596,8 @@ namespace STRACT.Data.Migrations
                     b.Navigation("Actions");
 
                     b.Navigation("Audits");
+
+                    b.Navigation("CertificationInLocations");
 
                     b.Navigation("FinancialLines");
                 });
@@ -2632,6 +2685,8 @@ namespace STRACT.Data.Migrations
             modelBuilder.Entity("STRACT.Entities.Projects.ActionItem", b =>
                 {
                     b.Navigation("CertificationInActionItems");
+
+                    b.Navigation("ChronogramLines");
 
                     b.Navigation("FinancialLines");
 

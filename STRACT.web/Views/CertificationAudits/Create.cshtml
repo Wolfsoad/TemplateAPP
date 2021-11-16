@@ -1,0 +1,59 @@
+﻿@model STRACT.Entities.Certifications.Audit
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Audit</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfAudit" class="control-label"></label>
+                <input asp-for="DateOfAudit" type="date" class="form-control" />
+                <span asp-validation-for="DateOfAudit" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Concluded" /> @Html.DisplayNameFor(model => model.Concluded)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserInTeamId">
+                    <option value="">-- Select User --</option>
+                </select>
+            </div>
+            <div class="form-group" hidden>
+                <label asp-for="CertificationLineId" class="control-label"></label>
+                <select name="selectedCertificationLineId" asp-for="CertificationLineId" class ="form-control" asp-items="ViewBag.CertificationLineId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocationId" class="control-label"></label>
+                <select asp-for="LocationId" class ="form-control" asp-items="ViewBag.LocationId">
+                    <option value="">-- Select Location --</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-selectedCertificationLineId="@ViewBag.SelectedCertificationLineId">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

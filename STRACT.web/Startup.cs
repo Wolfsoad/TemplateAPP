@@ -22,8 +22,10 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using STRACT.Data.Identity;
+using STRACT.Data.Validators;
 using ElectronNET.API;
 using ElectronNET.API.Entities;
+using FluentValidation.AspNetCore;
 
 namespace STRACT.web
 {
@@ -43,6 +45,12 @@ namespace STRACT.web
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddControllers()
+                .AddFluentValidation(options =>
+                {
+                    options.RegisterValidatorsFromAssemblyContaining<UsersSkillsEvaluationsValidator>();
+                });
 
             //var connection = Configuration["ConnectionSqlite:SqliteConnectionString"];
             //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(connection));

@@ -1,4 +1,5 @@
 ﻿using STRACT.Entities.Certifications;
+using STRACT.Entities.Chronogram;
 using STRACT.Entities.Financial;
 using STRACT.Entities.General;
 using STRACT.Entities.HumanResources;
@@ -29,6 +30,7 @@ namespace STRACT.Entities.Projects
         public ICollection<CertificationInActionItem> CertificationInActionItems { get; set; }
         public ICollection<ToDoTask> ToDoTasks { get; set; }
         public ICollection<FinancialLine> FinancialLines { get; set; }
+        public ICollection<ChronogramLine> ChronogramLines { get; set; }
 
         //Private properties
         private double _totalValueInBudget;

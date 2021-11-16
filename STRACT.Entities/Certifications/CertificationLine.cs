@@ -13,33 +13,83 @@ namespace STRACT.Entities.Certifications
         public bool FactoryAudit { get; set; }
         public string FolderPath { get; set; }
         public int AuditFrequency { get; set; }
+        public DateTime StartDate { get; set; }
         public int EntityId { get; set; }
         public Entity Entity { get; set; }
         public ICollection<Certificate> Certificates { get; set; }
         public ICollection<Audit> Audits { get; set; }
         public ICollection<CertificationInActionItem> CertificationsInActionItens { get; set; }
+        public ICollection<CertificationInLocation> CertificationInLocations { get; set; }
         //Private Properties
 
         //Public extra properties
+        public IDictionary<string,int> AuditsPerLocationCurrentYear
+        {
+            get { return GetAuditsByLocationPerYear(DateTime.Now.Year); }
+        }
 
         //Private Methods
 
         //Public Methods
         public IDictionary<string,int> GetAuditsByLocationPerYear(int year)
         {
-            DateTime datetime;
-            if (DateTime.TryParse(string.Format("1/1/{0}", year), out datetime))
+            if (DateTime.TryParse(string.Format("{0}/1/1", year), out DateTime datetime))
             {
-                var result = Audits.Where(a => a.Year == year)
-                    .Where(a => a.Concluded == true)
-                    .GroupBy(a => a.Location.Name)
-                    .ToDictionary(a => a.Key, g => g.Count());
+                var result = new Dictionary<string,int>();
+                var availableLocations = CertificationInLocations
+                             .Where(c => c.CertificationLineId == CertificationLineId)
+                             .Select(c => c.Location);
+                foreach (var loc in availableLocations)
+                {
+                    int auditsPerformed = Audits.Where(a => a.Year == year)
+                                   .Where(a => a.Concluded == true && loc.LocationId == a.Location.LocationId)
+                                   .Count();
+                    result.Add(loc.Name, auditsPerformed);              
+                }
                 return result;
             }
             else
             {
-                return new Dictionary<string,int>();
+                return new Dictionary<string, int>();
             }
+        }
+
+        public IDictionary<string,Dictionary<int,int>> GetNeededAuditsByLocationBetweenYears(int startYear, int endYear)
+        {
+            Dictionary<string, Dictionary<int,int>> result = new Dictionary<string, Dictionary<int,int>>();
+            if (DateTime.TryParse(string.Format("{0}/1/1", startYear), out DateTime startYearDate)
+                && DateTime.TryParse(string.Format("{0}/12/31", endYear), out DateTime endYearDate))
+            {
+                foreach (var location in CertificationInLocations)
+                {
+                    DateTime auditDate;
+                    Dictionary<int, int> yearResults = new Dictionary<int, int>();
+                    for (int i = startYear; i <= endYear; i++)
+                    {
+                        int auditPerYear = 0;
+                        auditDate = StartDate;
+                        do
+                        {
+                            if (auditDate.Year == i)
+                            {
+                                auditPerYear = ++auditPerYear;
+                            }
+                            auditDate = auditDate.AddMonths(AuditFrequency);
+
+                        } while (auditDate <= endYearDate);
+
+                        yearResults.Add(i, auditPerYear);
+                    }
+                    result.Add(location.Location.Name, yearResults);
+                }
+                
+            }
+            return result;
+        }
+
+        public int GetNeededAuditsCurrentYear(string location)
+        {
+            return GetNeededAuditsByLocationBetweenYears(DateTime.Now.Year, DateTime.Now.Year+1)[location][DateTime.Now.Year];
         }
     }
 }

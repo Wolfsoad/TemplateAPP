@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using FluentValidation;
 using STRACT.Identity.Entities;
 using STRACT.Entities.Declaration;
 using STRACT.Entities.HumanResources;
@@ -51,6 +52,18 @@ namespace STRACT.Data.Identity
         public DbSet<DeclarationItem> DeclarationItems { get; set; }
         public DbSet<DeclarationRevision> DeclarationRevisions { get; set; }
         public DbSet<DeclarationSignature> DeclarationSignatures { get; set; }
+        public DbSet<Audit> Audits { get; set; }
+        public DbSet<CertificationLine> CertificationLines { get; set; }
+        public DbSet<Entity> Entities { get; set; }
+        public DbSet<ContactPerson> ContactPeople { get; set; }
+        public DbSet<CertificationInLocation> CertificationInLocations { get; set; }
+        public DbSet<Certificate> Certificates { get; set; }
+        public DbSet<TaskItem> TaskItems { get; set; }
+        public DbSet<TaskInKanban> TaskInKanbans { get; set; }
+        public DbSet<Sprint> Sprints { get; set; }
+        public DbSet<KanbanBoard> KanbanBoards { get; set; }
+        public DbSet<ProjectItem> ProjectItems { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -90,6 +103,13 @@ namespace STRACT.Data.Identity
             #region Certifications DB Configuration
             builder.Entity<CertificateProductLine>().HasKey(m => new { m.CertificateId, m.ProductLineId });
             builder.Entity<CertificationInActionItem>().HasKey(m => new { m.ActionItemId, m.CertificationLineId });
+            builder.Entity<CertificationInLocation>().HasKey(m => new { m.CertificationLineId, m.LocationId });
+            builder.Entity<Audit>(entity => entity.ToTable("Audits"));
+            builder.Entity<CertificationLine>(entity => entity.ToTable("CertificationLines"));
+            builder.Entity<Entity>(entity => entity.ToTable("Entities"));
+            builder.Entity<ContactPerson>(entity => entity.ToTable("ContactPeople"));
+            builder.Entity<CertificationInLocation>(entity => entity.ToTable("CertificationInLocations"));
+            builder.Entity<Certificate>(entity => entity.ToTable("Certificates"));
             #endregion
 
             #region Commissions DB Configuration
@@ -126,6 +146,10 @@ namespace STRACT.Data.Identity
             builder.Entity<TaskInKanban>().HasOne(m => m.Sprint).WithMany().HasForeignKey(m => m.SprintId);
             builder.Entity<TaskType>(entity => entity.ToTable("TaskTypes"));
             builder.Entity<LocationInKanban>(entity => entity.ToTable("LocationInKanbans"));
+            builder.Entity<TaskItem>(entity => entity.ToTable("TaskItems"));
+            builder.Entity<TaskInKanban>(entity => entity.ToTable("TaskInKanbans"));
+            builder.Entity<Sprint>(entity => entity.ToTable("Sprints"));
+            builder.Entity<KanbanBoard>(entity => entity.ToTable("KanbanBoards"));
             #endregion
 
             #region Project DB Configuration
@@ -134,6 +158,7 @@ namespace STRACT.Data.Identity
             builder.Entity<ProjectMember>().HasKey(m => new { m.ProjectItemId, m.UserId, m.FunctionalRoleId });
             builder.Entity<TopicInProject>().HasKey(m => new { m.TopicId, m.ProjectItemId });
             builder.Entity<ActionGroup>(entity => entity.ToTable("ActionGroups"));
+            builder.Entity<ProjectItem>(entity => entity.ToTable("ProjectItems"));
             #endregion
 
             #region General DB Configuration

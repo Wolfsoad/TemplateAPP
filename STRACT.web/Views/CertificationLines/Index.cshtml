@@ -1,0 +1,119 @@
+﻿@model IEnumerable<STRACT.Entities.Certifications.CertificationLine>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                Auditable?
+            </th>
+            <th>
+                Audits Concluded
+                this year
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FolderPath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AuditFrequency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Entity)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @{
+                    if (item.FactoryAudit)
+                    {
+                        <span class="badge bg-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">No</span>
+                    }
+                }
+            </td>
+            <td>
+                @{
+                    if (item.FactoryAudit)
+                    {     
+                        @foreach (var location in item.AuditsPerLocationCurrentYear)
+                        {
+                            <div class="row">
+                                @location.Key <span>:&nbsp</span>@location.Value  <span>&nbsp(needed:&nbsp</span> @item.GetNeededAuditsCurrentYear(location.Key) <span>)</span>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FolderPath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuditFrequency)
+            </td>
+            <td>
+                @item.Entity.Name <span> (</span>@item.Entity.SupplierCode<span>)</span>
+            </td>
+            <td>
+                <div class="dropdown">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            Action
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            @{
+                                if (item.FactoryAudit)
+                                {
+                                    <li>
+                                        <a style='margin-right:16px' asp-controller="CertificationAudits" asp-action="Index" asp-route-selectedCertificationLineId="@item.CertificationLineId" class="dropdown-item">
+                                            <i class="fas fa-code-branch"></i> Audits
+                                        </a>
+                                    </li>
+                                }
+                            }
+                           
+                            <li>
+                                <a asp-action="Edit" asp-route-id="@item.CertificationLineId" class="dropdown-item">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Details" asp-route-id="@item.CertificationLineId" class="dropdown-item">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Delete" asp-route-id="@item.CertificationLineId" class="dropdown-item">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

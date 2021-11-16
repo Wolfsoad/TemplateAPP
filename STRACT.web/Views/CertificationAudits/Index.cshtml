@@ -1,0 +1,68 @@
+﻿@model IEnumerable<STRACT.Entities.Certifications.Audit>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Certification Line: @ViewBag.SelectedCertificationLineId - Audits</h2>
+
+<p>
+    <a asp-action="Create" asp-route-selectedCertificationLineId="@ViewBag.SelectedCertificationLineId">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfAudit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Concluded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CertificationLine)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+            <td>
+                @item.DateOfAudit.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Concluded)
+            </td>
+            <td>
+                @item.User.ApplicationUser.UserName
+            </td>
+            <td>
+                @item.CertificationLine.Description <span>(</span>@item.CertificationLine.Entity.Name<span>)</span>
+            </td>
+            <td>
+                @item.Location.Name
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.AuditId" asp-route-selectedCertificationLineId="@ViewBag.SelectedCertificationLineId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.AuditId" asp-route-selectedCertificationLineId="@ViewBag.SelectedCertificationLineId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.AuditId" asp-route-selectedCertificationLineId="@ViewBag.SelectedCertificationLineId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div>
+    <a asp-controller="CertificationLines" asp-action="Index">Back to List</a>
+</div>

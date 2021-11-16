@@ -1,0 +1,89 @@
+﻿@model STRACT.Entities.Certifications.CertificationLine
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Certification Line</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FactoryAudit" /> @Html.DisplayNameFor(model => model.FactoryAudit)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="FolderPath" class="control-label"></label>
+                <input asp-for="FolderPath" class="form-control" />
+                <span asp-validation-for="FolderPath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AuditFrequency" class="control-label"></label>
+                <input asp-for="AuditFrequency" class="form-control" />
+                <span asp-validation-for="AuditFrequency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" type="date" class="form-control" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EntityId" class="control-label"></label>
+                <select asp-for="EntityId" class ="form-control" asp-items="ViewBag.EntityId">
+                    <option value="">-- Select Entity --</option>
+                </select>
+            </div>
+            <h5>Locations</h5>
+            <hr />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                List<STRACT.web.Models.Certifications.AssignedLocation> certificationLinesLocations = ViewBag.Locations;
+                                foreach (var locations in certificationLinesLocations)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                        @:</tr><tr>
+                                    }
+                                    @:<td>
+                                    <input  type="checkbox"
+                                            name="selectedLocations"
+                                            value="@locations.LocationId"
+                                            @(Html.Raw(locations.Assigned ? "checked=\"checked\"" : ""))/>
+                                            @locations.LocationId @: @locations.Name
+                                    @:</td>
+                                }
+                                @:</tr>
+                            }
+                    </table>
+
+                </div>
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

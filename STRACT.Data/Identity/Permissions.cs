@@ -180,4 +180,11 @@ public static class Permissions
         public const string Edit = "Permissions.DeclarationSignatures.Edit";
         public const string Delete = "Permissions.DeclarationSignatures.Delete";
     }
+    public static class CertificationLines
+    {
+        public const string View = "Permissions.CertificationLines.View";
+        public const string Create = "Permissions.CertificationLines.Create";
+        public const string Edit = "Permissions.CertificationLines.Edit";
+        public const string Delete = "Permissions.CertificationLines.Delete";
+    }
 }

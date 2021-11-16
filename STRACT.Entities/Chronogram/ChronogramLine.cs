@@ -1,4 +1,5 @@
 ﻿using STRACT.Common;
+using STRACT.Entities.Projects;
 using STRACT.Entities.Users;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace STRACT.Entities.Chronogram
         public ChronogramText ChronogramText { get; set; }
         public int ChronogramRevisionId { get; set; }
         public ChronogramRevision ChronogramRevision { get; set; }
+        public int ActionItemId { get; set; }
+        public ActionItem ActionItem { get; set; }
 
         //Private properties
         private DateTime _plannedEnd;

@@ -68,7 +68,7 @@ namespace STRACT.web.Controllers.Users
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserInTeamId,Active,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
+        public async Task<IActionResult> Create([Bind("UserInTeamId,Active,Color,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,10 @@ namespace STRACT.web.Controllers.Users
                 return NotFound();
             }
 
-            var userInTeam = await _context.UserInTeam.FindAsync(id);
+            var userInTeam = await _context.UserInTeam
+                .Include(u => u.OrganizationalRole)
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefaultAsync(u => u.UserInTeamId == id);
             if (userInTeam == null)
             {
                 return NotFound();
@@ -105,7 +108,7 @@ namespace STRACT.web.Controllers.Users
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserInTeamId,Active,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
+        public async Task<IActionResult> Edit(int id, [Bind("UserInTeamId,Active,Color,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
         {
             if (id != userInTeam.UserInTeamId)
             {
@@ -176,7 +179,9 @@ namespace STRACT.web.Controllers.Users
 
         private void PopulateApplicationUserDropDownList(object selectedApplicatinUser = null)
         {
+            string actualUserId = selectedApplicatinUser != null ? selectedApplicatinUser.ToString() : string.Empty;
             var usersAlreadyInTeam = from user in _context.UserInTeam
+                                     where user.ApplicationUser.Id != actualUserId
                                      select user.ApplicationUser.Id;
 
             var applicationUserQuery = from sg in _context.Users

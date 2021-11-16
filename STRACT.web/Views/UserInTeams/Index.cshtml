@@ -37,9 +37,33 @@
                 @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.UserInTeamId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.UserInTeamId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.UserInTeamId">Delete</a>
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        Action
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a style='margin-right:16px' asp-controller="UserSkillsEvaluations" asp-action="Index" asp-route-userInTeamId="@item.UserInTeamId" class="dropdown-item">
+                                <i class="fas fa-book"></i> Evaluations
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Edit" asp-route-id="@item.UserInTeamId" class="dropdown-item">
+                                <i class="fas fa-edit"></i> Edit
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Details" asp-route-id="@item.UserInTeamId" class="dropdown-item">
+                                <i class="fas fa-info-circle"></i> Details
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Delete" asp-route-id="@item.UserInTeamId" class="dropdown-item">
+                                <i class="fas fa-trash"></i> Delete
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </td>
         </tr>
 }

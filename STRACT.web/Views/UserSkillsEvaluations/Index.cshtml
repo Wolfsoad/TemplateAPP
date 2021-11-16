@@ -4,16 +4,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Evaluating: @ViewBag.SelectedUserInTeamName </h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-userInTeamId="@ViewBag.SelectedUserInTeamId">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                Skill Group
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Skill)
@@ -28,10 +28,10 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @item.User.ApplicationUser.UserName <span> | </span> @item.User.ApplicationUser.Email
+                @item.Skill.SkillGroup.Name
             </td>
             <td>
-                @item.Skill.SkillGroup.Name <span> | </span> @item.Skill.Name
+                @item.Skill.Name
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SkillScore)

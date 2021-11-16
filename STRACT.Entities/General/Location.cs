@@ -18,5 +18,6 @@ namespace STRACT.Entities.General
         public ICollection<Audit> Audits { get; set; }
         public ICollection<LocationsForAction> Actions { get; set; }
         public ICollection<FinancialLine> FinancialLines { get; set; }
+        public ICollection<CertificationInLocation> CertificationInLocations { get; set; }
     }
 }

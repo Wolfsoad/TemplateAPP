@@ -1,0 +1,125 @@
+﻿@model STRACT.Entities.Kanban.TaskItem
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>TaskItem</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+                <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FeatureActivity" class="control-label"></label>
+                <input asp-for="FeatureActivity" class="form-control" />
+                <span asp-validation-for="FeatureActivity" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Reason" class="control-label"></label>
+                        <input asp-for="Reason" class="form-control" />
+                        <span asp-validation-for="Reason" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Details" class="control-label"></label>
+                        <input asp-for="Details" class="form-control" />
+                        <span asp-validation-for="Details" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Points" class="control-label"></label>
+                        <input asp-for="Points" class="form-control" />
+                        <span asp-validation-for="Points" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Hours" class="control-label"></label>
+                        <input asp-for="Hours" class="form-control" />
+                        <span asp-validation-for="Hours" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="IsRepeatable" /> @Html.DisplayNameFor(model => model.IsRepeatable)
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="UserInTeamId" class="control-label"></label>
+                        <select asp-for="UserInTeamId" class ="form-control" asp-items="ViewBag.UserInTeamId">
+                            <option value="">-- Select User --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="OrganizationRoleId" class="control-label"></label>
+                        <select asp-for="OrganizationRoleId" class="form-control" asp-items="ViewBag.OrganizationRoleId">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="TaskTypeId" class="control-label"></label>
+                        <select asp-for="TaskTypeId" class ="form-control" asp-items="ViewBag.TaskTypeId">
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="PriorityId" class="control-label"></label>
+                        <select asp-for="PriorityId" class ="form-control" asp-items="ViewBag.PriorityId">
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <h5>Additional Information</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="AuditId" class="control-label"></label>
+                        <select asp-for="AuditId" class ="form-control" asp-items="ViewBag.AuditId">
+                            <option value="">-- Select Audit --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="DepartmentId" class="control-label"></label>
+                        <select asp-for="DepartmentId" class ="form-control" asp-items="ViewBag.DepartmentId">
+                            <option value="">-- Select Department --</option>
+                        </select>
+                    </div>  
+                </div>
+            </div>           
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

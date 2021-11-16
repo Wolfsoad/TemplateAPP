@@ -15,10 +15,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Color)
             </th>
-            <th></th>
             <th></th>
         </tr>
     </thead>
@@ -28,11 +28,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
             <td style="background-color:@item.Color">
                    
+            </td> 
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.AlertTypeId">Edit</a> |

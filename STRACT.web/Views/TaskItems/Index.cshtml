@@ -1,0 +1,71 @@
+﻿@model IEnumerable<STRACT.Entities.Kanban.TaskItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FeatureActivity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsRepeatable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrganizationRoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Audit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestedBy)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeatureActivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsRepeatable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrganizationalRole.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskType.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Audit.AuditId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestedBy.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TaskItemId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TaskItemId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TaskItemId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

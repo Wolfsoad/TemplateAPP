@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using STRACT.Data.Identity;
+using STRACT.Data.Validators;
 using STRACT.Entities.Users;
 
 namespace STRACT.web.Controllers.Users
@@ -22,13 +23,18 @@ namespace STRACT.web.Controllers.Users
         }
 
         // GET: UserSkillsEvaluations
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int userInTeamId)
         {
             var applicationDbContext = _context.UserSkillsEvaluations
                 .Include(u => u.Skill)
                     .ThenInclude(s => s.SkillGroup)
                 .Include(u => u.User)
-                    .ThenInclude(u => u.ApplicationUser);
+                    .ThenInclude(u => u.ApplicationUser)
+                .Where(u => u.UserId == userInTeamId);
+            ViewBag.SelectedUserInTeamId = userInTeamId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userInTeamId).ApplicationUser.UserName;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -52,15 +58,24 @@ namespace STRACT.web.Controllers.Users
                 return NotFound();
             }
 
+            ViewBag.SelectedUserInTeamId = userId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userId).ApplicationUser.UserName;
+
             return View(userSkillsEvaluation);
         }
 
         // GET: UserSkillsEvaluations/Create
         [Authorize(Policy = "Permissions.UserSkillsEvaluations.Create")]
-        public IActionResult Create()
+        public IActionResult Create(int userInTeamId)
         {
-            PopulateSkillDropDownList();
-            PopulateUserInTeamDropDownList();
+            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", _context.UserInTeam.FirstOrDefault(m => m.UserInTeamId == userInTeamId).UserInTeamId);
+            PopulateSkillDropDownList(userInTeamId);
+            ViewBag.SelectedUserInTeamId = userInTeamId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userInTeamId).ApplicationUser.UserName;
             return View();
         }
 
@@ -69,16 +84,24 @@ namespace STRACT.web.Controllers.Users
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,SkillId,SkillScore")] UserSkillsEvaluation userSkillsEvaluation)
+        public async Task<IActionResult> Create([Bind("UserId,SkillId,SkillScore")] UserSkillsEvaluation userSkillsEvaluation, int userInTeamId)
         {
             if (ModelState.IsValid)
             {
+                if (userInTeamId != 0) { userSkillsEvaluation.UserId = userInTeamId; }
                 _context.Add(userSkillsEvaluation);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { userInTeamId });
             }
-            PopulateSkillDropDownList(userSkillsEvaluation.SkillId);
-            PopulateUserInTeamDropDownList(userSkillsEvaluation.UserId);
+            PopulateSkillDropDownList(userSkillsEvaluation.UserId, userSkillsEvaluation.SkillId);
+
+            //ViewBag itens
+            ViewBag.SelectedUserInTeamId = userInTeamId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userInTeamId).ApplicationUser.UserName;
+            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", _context.UserInTeam.FirstOrDefault(m => m.UserInTeamId == userInTeamId).UserInTeamId);
+
             return View(userSkillsEvaluation);
         }
 
@@ -98,8 +121,15 @@ namespace STRACT.web.Controllers.Users
             {
                 return NotFound();
             }
-            PopulateSkillDropDownList(userSkillsEvaluation.SkillId);
-            PopulateUserInTeamDropDownList(userSkillsEvaluation.UserId);
+            PopulateSkillDropDownList(userSkillsEvaluation.UserId, userSkillsEvaluation.SkillId);
+
+            //ViewBag itens
+            ViewBag.SelectedUserInTeamId = userId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userId).ApplicationUser.UserName;
+            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", _context.UserInTeam.FirstOrDefault(m => m.UserInTeamId == userId).UserInTeamId);
+
             return View(userSkillsEvaluation);
         }
 
@@ -133,10 +163,17 @@ namespace STRACT.web.Controllers.Users
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { userInTeamId = userId});
             }
-            PopulateSkillDropDownList(userSkillsEvaluation.SkillId);
-            PopulateUserInTeamDropDownList(userSkillsEvaluation.UserId);
+
+            //ViewBag itens
+            ViewBag.SelectedUserInTeamId = userId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userId).ApplicationUser.UserName;
+            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", _context.UserInTeam.FirstOrDefault(m => m.UserInTeamId == userId).UserInTeamId);
+
+            PopulateSkillDropDownList(userSkillsEvaluation.UserId, userSkillsEvaluation.SkillId);
             return View(userSkillsEvaluation);
         }
 
@@ -159,6 +196,13 @@ namespace STRACT.web.Controllers.Users
                 return NotFound();
             }
 
+            //ViewBag itens
+            ViewBag.SelectedUserInTeamId = userId;
+            ViewBag.SelectedUserInTeamName = _context.UserInTeam
+                .Include(u => u.ApplicationUser)
+                .FirstOrDefault(u => u.UserInTeamId == userId).ApplicationUser.UserName;
+            ViewData["UserInTeamId"] = new SelectList(_context.UserInTeam, "UserInTeamId", "UserInTeamId", _context.UserInTeam.FirstOrDefault(m => m.UserInTeamId == userId).UserInTeamId);
+
             return View(userSkillsEvaluation);
         }
 
@@ -172,7 +216,7 @@ namespace STRACT.web.Controllers.Users
                 .FirstOrDefaultAsync(m => m.UserId == userId);
             _context.UserSkillsEvaluations.Remove(userSkillsEvaluation);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { userInTeamId = userId });
         }
 
         private bool UserSkillsEvaluationExists(int userId, int skillId)
@@ -180,9 +224,14 @@ namespace STRACT.web.Controllers.Users
             return _context.UserSkillsEvaluations.Where(e => e.SkillId == skillId).Any(e => e.UserId == userId);
         }
 
-        private void PopulateSkillDropDownList(object selectedSkill = null)
+        private void PopulateSkillDropDownList(int userInTeamId, object selectedSkill = null)
         {
+            string actualSkillId = selectedSkill != null ? selectedSkill.ToString() : string.Empty;
+            var skillsAlreadyClassified = from skillEvaluation in _context.UserSkillsEvaluations
+                                          where (skillEvaluation.UserId == userInTeamId && skillEvaluation.SkillId.ToString() != actualSkillId)
+                                          select skillEvaluation.SkillId;
             var skillQuery = from sg in _context.Skills
+                             where !skillsAlreadyClassified.Contains(sg.SkillId)
                              orderby sg.Name
                              select new
                              {
@@ -192,17 +241,5 @@ namespace STRACT.web.Controllers.Users
             ViewBag.SkillId = new SelectList(skillQuery.AsTracking(), "SkillId", "Description", selectedSkill);
         }
 
-        private void PopulateUserInTeamDropDownList(object selectedUser = null)
-        {
-            var userQuery = from sg in _context.UserInTeam
-                            where sg.Active
-                             orderby sg.ApplicationUser.LastName
-                             select new
-                             {
-                                 UserInTeamId = sg.UserInTeamId,
-                                 Description = string.Format("{0} | {1}", sg.ApplicationUser.UserName, sg.ApplicationUser.Email)
-                             };
-            ViewBag.UserInTeamId = new SelectList(userQuery.AsTracking(), "UserInTeamId", "Description", selectedUser);
-        }
     }
 }

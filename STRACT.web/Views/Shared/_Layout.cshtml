@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
     <link rel="stylesheet" href="~/css/site.css" />
+    
+    @*FullCalendar*@
+    <link rel="stylesheet" type="text/css" href="~/css/js-year-calendar.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap-datepicker.standalone.min.css" />
+
 </head>
 <body>
     <header>
@@ -103,9 +108,12 @@
             &copy; 2021 - STRACT.web - <a asp-area="" asp-controller="Home" asp-action="Privacy">@_loc.GetLocalizedHtmlString("Privacy")</a>
         </div>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js" onload="window.$ = window.jquery = module.exports;"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/js-year-calendar.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

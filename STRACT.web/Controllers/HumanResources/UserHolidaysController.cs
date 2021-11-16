@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using STRACT.Common;
 using STRACT.Data.Identity;
 using STRACT.Entities.HumanResources;
 
@@ -163,6 +164,33 @@ namespace STRACT.web.Controllers.HumanResources
         public IActionResult Calendar()
         {
             return View();
+        }
+
+        public JsonResult GetCalendarItems()
+        {
+            var items = (from e in _context
+                        .UserHolidays
+                        select new EventInCalendar
+                        {
+                            id = e.UserHolidayId,
+                            name = "Holidays of " + e.User.ApplicationUser.UserName,
+                            startDate = e.DataOfHoliday,
+                            endDate = e.DataOfHoliday,
+                            color = e.User.Color
+                        }).Distinct().ToList();
+
+            // Get holidays between dates
+            var holidays = (from e in DateTimeExtension.GetNationalHolidaysBetweenDates(new DateTime(2021, 1, 1), new DateTime(2021, 12, 31))
+                            select new EventInCalendar
+                            {
+                                name = e.Key,
+                                startDate = e.Value,
+                                endDate = e.Value,
+                                color = "#a80600"
+                            }).Distinct();
+
+            var total = items.Concat(holidays);
+            return Json(total);
         }
         private bool UserHolidayExists(int id)
         {

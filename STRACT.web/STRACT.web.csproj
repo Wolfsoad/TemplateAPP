@@ -4,6 +4,20 @@
     <UserSecretsId>aspnet-STRACT.web-813B75C9-8FA9-477E-A482-76CDF3201FFC</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.bundle.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.bundle.js.map" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.bundle.min.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.bundle.min.js.map" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.esm.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.esm.js.map" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.esm.min.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.esm.min.js.map" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.js.map" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.min.js" />
+    <Content Remove="C:\Users\pmram\.nuget\packages\bootstrap\5.1.2\contentFiles\any\any\wwwroot\js\bootstrap.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="PDC.db-wal" />
   </ItemGroup>
   <ItemGroup>

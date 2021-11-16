@@ -19,6 +19,11 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="Color" class="control-label"></label>
+                <input asp-for="Color" type="color" class="form-control form-control-color" />
+                <span asp-validation-for="Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="OrganizationalRole" class="control-label"></label>
                 <select asp-for="OrganizationalRoleId" class ="form-control" asp-items="ViewBag.OrganizationalRoleId"></select>
                 <span asp-validation-for="OrganizationalRoleId" class="text-danger"></span>

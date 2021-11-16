@@ -68,7 +68,7 @@ namespace STRACT.web.Controllers.Users
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserInTeamId,Active,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
+        public async Task<IActionResult> Create([Bind("UserInTeamId,Active,Color,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace STRACT.web.Controllers.Users
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("UserInTeamId,Active,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
+        public async Task<IActionResult> Edit(int id, [Bind("UserInTeamId,Active,Color,OrganizationalRoleId,ApplicationUserId")] UserInTeam userInTeam)
         {
             if (id != userInTeam.UserInTeamId)
             {

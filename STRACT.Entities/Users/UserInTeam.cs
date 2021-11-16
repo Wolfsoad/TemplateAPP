@@ -19,6 +19,7 @@ namespace STRACT.Entities.Users
     {
         public int UserInTeamId { get; set; }
         public bool Active { get; set; }
+        public string Color { get; set; }
         public int OrganizationalRoleId { get; set; }
         public OrganizationalRole OrganizationalRole { get; set; }
         public ICollection<DeclarationItem> Declarations { get; set; }
